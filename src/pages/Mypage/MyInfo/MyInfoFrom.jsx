@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const MyInfoFrom = () => {
-  return (
-    <div>MyInfoFrom</div>
-  )
-}
+  return <div>MyInfoFrom</div>;
+};
 
-export default MyInfoFrom
+export default MyInfoFrom;
