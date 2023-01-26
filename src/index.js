@@ -12,6 +12,7 @@ import MyReview from 'pages/Mypage/MyReview/MyReview';
 import MyLike from 'pages/Mypage/MyLike/MyLike';
 import MyInfo from 'pages/Mypage/MyInfo/MyInfo';
 import MyInfoFrom from 'pages/Mypage/MyInfo/MyInfoFrom';
+import Main from 'pages/Main/Main';
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
       {
         index: true,
         path: '/',
-        // element: <Main />,
+        element: <Main />,
       },
       {
         path: '/login',
