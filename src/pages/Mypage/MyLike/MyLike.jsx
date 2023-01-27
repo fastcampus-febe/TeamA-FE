@@ -1,19 +1,14 @@
 import LikeList from 'components/Mypage/LikeList/LikeList';
 import React from 'react';
-import styled from 'styled-components';
+import { PageContent, Title } from '../MyPageStyle';
 
 const MyLike = () => {
   return (
-    <LikePage>
-      <LikeList />
-    </LikePage>
+    <PageContent>
+      <Title>위시리스트</Title>
+      {/* <LikeList /> */}
+    </PageContent>
   );
 };
-
-const LikePage = styled.div`
-  background-color: #fff;
-  border-radius: 10px;
-  height: 100%;
-`;
 
 export default MyLike;
