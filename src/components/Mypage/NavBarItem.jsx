@@ -26,7 +26,6 @@ const NavBarItem = ({ icon, page, title }) => {
 };
 
 const ActiveLi = styled.li`
-  background-color: rgb(250, 250, 250);
   color: #ff385c;
   font-weight: 600;
 `;

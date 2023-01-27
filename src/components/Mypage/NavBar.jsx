@@ -24,19 +24,17 @@ const NavBar = () => {
 };
 
 const MyPage = styled.div`
-  width: 15%;
   display: flex;
   flex-direction: column;
   z-index: 100;
   background-color: #fff;
   border-radius: 10px;
-  margin: 10px;
 `;
 
 const MyPageNav = styled.nav`
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid #f5f5f5;
   img {
     width: 90px;
     margin: 30px auto 15px;
@@ -49,6 +47,7 @@ const MyPageNav = styled.nav`
   }
   ul {
     padding-left: 0;
+    list-style: none;
     a {
       padding: 1rem;
       display: flex;
@@ -61,6 +60,7 @@ const MyPageNav = styled.nav`
       }
       &:hover {
         /* color: #ff385c; */
+        background-color: rgb(250, 250, 250);
         font-weight: 600;
       }
     }
