@@ -76,7 +76,6 @@ const Menu = styled.div`
 
 const ChildContainer = styled.div`
   width: 100vw;
-  padding: 0 5rem;
-  margin-top: 5rem;
+  /* padding: 0 5rem; */
   box-sizing: border-box;
 `;

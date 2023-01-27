@@ -17,7 +17,7 @@ const Router = () => {
           <Route path="/" element={<Main />} />
           <Route path="/board" element={<Board />} />
           {/* <ProtectedRoute> */}
-          <Route path="/mypage/" element={<Mypage />}>
+          <Route path="/mypage" element={<Mypage />}>
             <Route path="/mypage/review" element={<MyReview />} />
             <Route path="/mypage/like" element={<MyLike />} />
             <Route path="/mypage/info" element={<MyInfo />}>
