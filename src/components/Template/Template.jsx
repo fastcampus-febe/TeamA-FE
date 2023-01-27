@@ -43,6 +43,6 @@ const StyledHeaderContainer = styled.div`
 
 const StyledChildContainer = styled.div`
   width: 100vw;
-  padding: 0 5rem;
+  /* padding: 0 5rem; */
   box-sizing: border-box;
 `;

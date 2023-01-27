@@ -6,16 +6,31 @@ import styled from 'styled-components';
 const Mypage = () => {
   return (
     <MyPage>
-      Mypage
-      <NavBar />
-      <Outlet />
+      <nav>
+        <NavBar />
+      </nav>
+      <main>
+        <Outlet />
+      </main>
     </MyPage>
   );
 };
 
 const MyPage = styled.div`
-  background-color: #e0e0e0;
-  height: 500px;
+  background-color: #f5f5f5;
+  padding: 40px 10rem 0;
+  justify-content: center;
+  display: grid;
+  grid-template-columns: 22% 70%;
+  grid-template-areas: 'nav main';
+  nav {
+    grid-area: nav;
+    padding: 10px;
+  }
+  main {
+    grid-area: main;
+    padding: 10px;
+  }
 `;
 
 export default Mypage;
