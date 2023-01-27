@@ -37,13 +37,15 @@ const MyPageNav = styled.nav`
   border-bottom: 1px solid #f5f5f5;
   img {
     width: 90px;
-    margin: 30px auto 15px;
+    margin: 30px auto 20px;
     border-radius: 50%;
     border: 1px solid #fff;
     box-shadow: 0px 0px 10px #e0e0e0;
   }
   h3 {
     margin: 0 auto 20px;
+    font-size: 20px;
+    font-weight: 600;
   }
   ul {
     padding-left: 0;
