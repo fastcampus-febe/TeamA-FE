@@ -49,6 +49,7 @@ const MyPageNav = styled.nav`
   }
   ul {
     padding-left: 0;
+    list-style: none;
     a {
       padding: 1rem;
       display: flex;
@@ -61,6 +62,7 @@ const MyPageNav = styled.nav`
       }
       &:hover {
         /* color: #ff385c; */
+        background-color: rgb(250, 250, 250);
         font-weight: 600;
       }
     }
