@@ -1,11 +1,13 @@
-import { Outlet } from 'react-router-dom';
+import Router from 'routes/Router';
+import { ThemeProvider } from 'styled-components';
+import { theme } from 'utils/theme';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <Outlet />
-    </div>
+    <ThemeProvider theme={theme}>
+      <Router />
+    </ThemeProvider>
   );
 }
 
