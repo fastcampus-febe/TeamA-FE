@@ -9,26 +9,29 @@ import MyInfoFrom from 'pages/Mypage/MyInfo/MyInfoFrom';
 import Main from 'pages/Main/Main';
 import NotFound from 'pages/NotFound/NotFound';
 import Board from 'pages/Board/Board';
+import Template from 'components/Template/Template';
 
 const Router = () => {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/board" element={<Board />} />
-        {/* <ProtectedRoute> */}
-        <Route path="/mypage/" element={<Mypage />}>
-          <Route path="/mypage/review" element={<MyReview />} />
-          <Route path="/mypage/like" element={<MyLike />} />
-          <Route path="/mypage/info" element={<MyInfo />}>
-            <Route path="/mypage/info/modify" element={<MyInfoFrom />} />
+      <Template>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/board" element={<Board />} />
+          {/* <ProtectedRoute> */}
+          <Route path="/mypage/" element={<Mypage />}>
+            <Route path="/mypage/review" element={<MyReview />} />
+            <Route path="/mypage/like" element={<MyLike />} />
+            <Route path="/mypage/info" element={<MyInfo />}>
+              <Route path="/mypage/info/modify" element={<MyInfoFrom />} />
+            </Route>
           </Route>
-        </Route>
-        {/* </ProtectedRoute> */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+          {/* </ProtectedRoute> */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Template>
     </BrowserRouter>
   );
 };
