@@ -14,6 +14,8 @@ const paddings = {
 
 const fonts = {
   size: {
+    mini: '0.8rem',
+    xsm: '1rem',
     sm: '1.4rem',
     base: '1.6rem',
     lg: '2rem',

@@ -1,7 +1,17 @@
+import Modal from 'components/Modal/Modal';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 function Template({ children }) {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalType, setModalType] = useState('');
+
+  const handleClick = (modalType) => {
+    setModalOpen(true);
+    setModalType(modalType);
+  };
+
   return (
     <TemplateContainer>
       <HeaderContainer>
@@ -13,11 +23,15 @@ function Template({ children }) {
           <button>Search</button>
         </div>
         <Menu>
+          <button onClick={() => handleClick('Signup')}>Signup</button>
+          <button onClick={() => handleClick('Login')}>Login</button>
+          <button>Logout</button>
           <Link to="/board">Board</Link>
           <Link to="/mypage">Mypage</Link>
         </Menu>
       </HeaderContainer>
       <ChildContainer>{children}</ChildContainer>
+      {modalOpen ? <Modal setModalOpen={setModalOpen} modalType={modalType} /> : null}
     </TemplateContainer>
   );
 }
