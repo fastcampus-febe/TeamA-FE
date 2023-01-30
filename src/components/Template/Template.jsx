@@ -2,6 +2,8 @@ import Modal from 'components/Modal/Modal';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
+import { BsPerson, BsChatSquareText } from 'react-icons/bs';
+import Button from 'components/common/Button';
 
 function Template({ children }) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -16,18 +18,36 @@ function Template({ children }) {
     <TemplateContainer>
       <HeaderContainer>
         <Logo>
-          <Link to="/">Travel</Link>
+          <Link to="/">
+            <LogoImg src="/logo.png" />
+          </Link>
         </Logo>
         <div>
           <input type="text" />
           <button>Search</button>
         </div>
         <Menu>
-          <button onClick={() => handleClick('Signup')}>Signup</button>
-          <button onClick={() => handleClick('Login')}>Login</button>
-          <button>Logout</button>
-          <Link to="/board">Board</Link>
-          <Link to="/mypage">Mypage</Link>
+          <Button
+            text={'Signup'}
+            onClick={() => handleClick('Signup')}
+            height={'24px'}
+            fontSize={18}
+            color={'#FF385C'}
+          />
+          <Button
+            text={'Login'}
+            onClick={() => handleClick('Login')}
+            height={'24px'}
+            fontSize={18}
+            color={'#FF385C'}
+          />
+          <Button text={'Logout'} height={'24px'} fontSize={18} color={'#FF385C'} />
+          <Link to="/board">
+            <BsChatSquareText size={22} color={'black'} />
+          </Link>
+          <Link to="/mypage">
+            <BsPerson size={26} color={'black'} />
+          </Link>
         </Menu>
       </HeaderContainer>
       <ChildContainer>{children}</ChildContainer>
@@ -49,9 +69,10 @@ const HeaderContainer = styled.div`
   align-items: center;
   padding: 0 5rem;
   box-sizing: border-box;
-  z-index: 1;
+  z-index: 10;
   width: 100%;
   height: 5rem;
+  background-color: ${({ theme }) => theme.colors.white};
   box-shadow: rgb(0 0 0 / 8%) 0 1px 0;
   position: fixed;
   top: 0;
@@ -69,9 +90,14 @@ const Logo = styled.div`
   }
 `;
 
+const LogoImg = styled.img`
+  width: 120px;
+`;
+
 const Menu = styled.div`
   display: flex;
   gap: 1rem;
+  align-items: center;
 `;
 
 const ChildContainer = styled.div`
