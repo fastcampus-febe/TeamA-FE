@@ -40,7 +40,6 @@ const NumBtn = styled.button`
   width: 30px;
   height: 30px;
   justify-content: center;
-  color: #ff385c;
   border-radius: 50%;
   ${(props) =>
     props.current &&
