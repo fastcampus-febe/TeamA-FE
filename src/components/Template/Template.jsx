@@ -14,7 +14,7 @@ function Template({ children }) {
         </div>
         <Menu>
           <Link to="/board">Board</Link>
-          <Link to="/mypage">Mypage</Link>
+          <Link to="/mypage/like">Mypage</Link>
         </Menu>
       </HeaderContainer>
       <ChildContainer>{children}</ChildContainer>
