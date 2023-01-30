@@ -26,7 +26,7 @@ const MyLike = () => {
 
   return (
     <PageContent>
-      <Title>위시리스트(데이터는 임시로 적용)</Title>
+      <Title>위시리스트(데이터는 임시로 적용) - 관광지 이름 링크 지정하기</Title>
       <LikeContent>
         {like.length > 0 ? (
           like.slice(offset, offset + limit).map((item) => {
@@ -36,7 +36,7 @@ const MyLike = () => {
           <p>조회 내역이 없습니다.</p>
         )}
       </LikeContent>
-      <PageDisplay pageDisplay>
+      <PageDisplay pageDisplay={pageDisplay}>
         {like ? (
           <Pagination total={like.length} limit={limit} page={page} setPage={setPage} />
         ) : null}
