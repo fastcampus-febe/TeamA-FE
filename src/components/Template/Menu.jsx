@@ -30,9 +30,10 @@ const Menu = ({ setMenuOpen, setModalOpen, setModalType }) => {
 export default Menu;
 
 const MenuContainer = styled.div`
-  position: absolute;
-  top: 5rem;
+  position: fixed;
+  top: 4rem;
   right: 5rem;
+  z-index: 15;
   padding: 1.4rem;
   background-color: ${({ theme }) => theme.colors.white};
   width: 160px;
