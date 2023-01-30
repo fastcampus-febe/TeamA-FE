@@ -22,7 +22,7 @@ const Menu = ({ setMenuOpen, setModalOpen, setModalType }) => {
       </button>
       <button text={'Logout'}>Logout</button>
       <Link to="/board">Board</Link>
-      <Link to="/mypage">MyPage</Link>
+      <Link to="/mypage/like">MyPage</Link>
     </MenuContainer>
   );
 };
