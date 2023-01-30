@@ -1,6 +1,4 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import Login from 'pages/Login/Login';
-import Signup from 'pages/Signup/Signup';
 import Mypage from 'pages/Mypage/Mypage';
 import MyReview from 'pages/Mypage/MyReview/MyReview';
 import MyLike from 'pages/Mypage/MyLike/MyLike';
@@ -17,8 +15,6 @@ const Router = () => {
       <Template>
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
           <Route path="/board" element={<Board />} />
           {/* <ProtectedRoute> */}
           <Route path="/mypage/" element={<Mypage />}>
