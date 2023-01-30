@@ -18,19 +18,17 @@ const Mypage = () => {
 
 const MyPage = styled.div`
   background-color: #f5f5f5;
-  padding: 40px 10rem 0;
+  padding: 40px 10rem 20px;
   justify-content: center;
-  height: 100vh;
   display: grid;
   grid-template-columns: 22% 70%;
   grid-template-areas: 'nav main';
   nav {
     grid-area: nav;
-    padding: 10px;
   }
   main {
     grid-area: main;
-    padding: 10px;
+    padding: 0 10px;
   }
 `;
 
