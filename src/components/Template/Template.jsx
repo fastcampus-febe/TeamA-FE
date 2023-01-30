@@ -2,16 +2,17 @@ import Modal from 'components/Modal/Modal';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import { BsPerson, BsChatSquareText } from 'react-icons/bs';
-import Button from 'components/common/Button';
+import { BsPerson } from 'react-icons/bs';
+import { GiHamburgerMenu } from 'react-icons/gi';
+import Menu from './Menu';
 
 function Template({ children }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState('');
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const handleClick = (modalType) => {
-    setModalOpen(true);
-    setModalType(modalType);
+  const handleMenuClick = () => {
+    setMenuOpen(true);
   };
 
   return (
@@ -26,32 +27,16 @@ function Template({ children }) {
           <input type="text" />
           <button>Search</button>
         </div>
-        <Menu>
-          <Button
-            text={'Signup'}
-            onClick={() => handleClick('Signup')}
-            height={'24px'}
-            fontSize={18}
-            color={'#FF385C'}
-          />
-          <Button
-            text={'Login'}
-            onClick={() => handleClick('Login')}
-            height={'24px'}
-            fontSize={18}
-            color={'#FF385C'}
-          />
-          <Button text={'Logout'} height={'24px'} fontSize={18} color={'#FF385C'} />
-          <Link to="/board">
-            <BsChatSquareText size={22} color={'black'} />
-          </Link>
-          <Link to="/mypage">
-            <BsPerson size={26} color={'black'} />
-          </Link>
-        </Menu>
+        <Navbar onClick={handleMenuClick}>
+          <GiHamburgerMenu size={16} color={'black'} />
+          <BsPerson size={26} color={'black'} />
+        </Navbar>
       </HeaderContainer>
       <ChildContainer>{children}</ChildContainer>
       {modalOpen ? <Modal setModalOpen={setModalOpen} modalType={modalType} /> : null}
+      {menuOpen ? (
+        <Menu setMenuOpen={setMenuOpen} setModalOpen={setModalOpen} setModalType={setModalType} />
+      ) : null}
     </TemplateContainer>
   );
 }
@@ -94,10 +79,19 @@ const LogoImg = styled.img`
   width: 120px;
 `;
 
-const Menu = styled.div`
+const Navbar = styled.button`
   display: flex;
   gap: 1rem;
   align-items: center;
+  cursor: pointer;
+  background-color: ${({ theme }) => theme.colors.white};
+  border: 1px solid #dddddd;
+  border-radius: 21px;
+  padding: 5px 10px 5px 12px;
+  transition: box-shadow 0.2s ease;
+  &:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+  }
 `;
 
 const ChildContainer = styled.div`
