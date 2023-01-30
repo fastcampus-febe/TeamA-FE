@@ -1,6 +1,6 @@
 import useOnClickOutside from 'hooks/useOnClickOutside';
 import React, { useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Menu = ({ setMenuOpen, setModalOpen, setModalType }) => {
@@ -25,28 +25,37 @@ const Menu = ({ setMenuOpen, setModalOpen, setModalType }) => {
 
   return (
     <MenuContainer ref={ref}>
-      <button onClick={() => handleClickModal('Signup')}>Signup</button>
-      <button onClick={() => handleClickModal('Login')}>Login</button>
-      <button onClick={() => logout()}>Logout</button>
-      <button onClick={() => handleClickMenu('/board')}>Board</button>
-      <button onClick={() => handleClickMenu('/mypage/like')}>MyPage</button>
+      <li onClick={() => handleClickModal('Signup')}>Signup</li>
+      <li onClick={() => handleClickModal('Login')}>Login</li>
+      <li onClick={() => logout()}>Logout</li>
+      <li onClick={() => handleClickMenu('/board')}>Board</li>
+      <li onClick={() => handleClickMenu('/mypage/like')}>MyPage</li>
     </MenuContainer>
   );
 };
 
 export default Menu;
 
-const MenuContainer = styled.div`
+const MenuContainer = styled.ul`
   position: fixed;
   top: 4rem;
   right: 5rem;
   z-index: 15;
-  padding: 1.4rem;
+  padding: 0.8rem 0;
   background-color: ${({ theme }) => theme.colors.white};
-  width: 160px;
+  width: 180px;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
   border-radius: 21px;
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
+  li {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    height: 2.6rem;
+    padding: 0 1rem;
+    &:hover {
+      background-color: rgb(247, 247, 247);
+    }
+  }
 `;
