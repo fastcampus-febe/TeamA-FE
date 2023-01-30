@@ -35,6 +35,7 @@ const MyPageNav = styled.nav`
   display: flex;
   flex-direction: column;
   border-bottom: 1px solid #f5f5f5;
+  padding: 10px;
   img {
     width: 90px;
     margin: 30px auto 20px;

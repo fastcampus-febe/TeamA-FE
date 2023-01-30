@@ -60,6 +60,7 @@ const HeaderContainer = styled.div`
   box-shadow: rgb(0 0 0 / 8%) 0 1px 0;
   position: fixed;
   top: 0;
+  background-color: #fff;
 `;
 
 const Logo = styled.div`

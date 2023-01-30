@@ -29,7 +29,7 @@ const Menu = ({ setMenuOpen, setModalOpen, setModalType }) => {
       <button onClick={() => handleClickModal('Login')}>Login</button>
       <button onClick={() => logout()}>Logout</button>
       <button onClick={() => handleClickMenu('/board')}>Board</button>
-      <button onClick={() => handleClickMenu('/mypage')}>MyPage</button>
+      <button onClick={() => handleClickMenu('/mypage/like')}>MyPage</button>
     </MenuContainer>
   );
 };
@@ -37,9 +37,10 @@ const Menu = ({ setMenuOpen, setModalOpen, setModalType }) => {
 export default Menu;
 
 const MenuContainer = styled.div`
-  position: absolute;
-  top: 5rem;
+  position: fixed;
+  top: 4rem;
   right: 5rem;
+  z-index: 15;
   padding: 1.4rem;
   background-color: ${({ theme }) => theme.colors.white};
   width: 160px;

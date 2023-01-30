@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const PageContent = styled.div`
   background-color: #fff;
   border-radius: 10px;
-  padding: 30px;
+  padding: 25px;
 `;
 
 export const Title = styled.h2`
@@ -13,7 +13,7 @@ export const Title = styled.h2`
   font-size: 25px;
   line-height: 1.3;
   font-weight: 700;
-  margin-bottom: 25px;
+  margin-bottom: 30px;
   padding-left: 12px;
   &::before {
     content: '';
