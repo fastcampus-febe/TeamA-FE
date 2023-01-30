@@ -2,7 +2,6 @@ import Modal from 'components/Modal/Modal';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import { BsPerson } from 'react-icons/bs';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import Menu from './Menu';
 
@@ -29,7 +28,7 @@ function Template({ children }) {
         </div>
         <Navbar onClick={handleMenuClick}>
           <GiHamburgerMenu size={16} color={'black'} />
-          <BsPerson size={26} color={'black'} />
+          <Avatar src="/images/avatar.png" />
         </Navbar>
       </HeaderContainer>
       <ChildContainer>{children}</ChildContainer>
@@ -88,16 +87,21 @@ const Navbar = styled.button`
   background-color: ${({ theme }) => theme.colors.white};
   border: 1px solid #dddddd;
   border-radius: 21px;
-  padding: 5px 10px 5px 12px;
+  padding: 6px 6px 6px 10px;
   transition: box-shadow 0.2s ease;
   &:hover {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
   }
 `;
 
+const Avatar = styled.img`
+  width: 28px;
+  border-radius: 50%;
+  border: 1px solid #dddddd;
+`;
+
 const ChildContainer = styled.div`
   width: 100vw;
-  /* padding: 0 5rem; */
   margin-top: 5rem;
   box-sizing: border-box;
 `;

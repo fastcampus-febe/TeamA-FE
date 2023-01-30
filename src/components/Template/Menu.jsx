@@ -1,28 +1,35 @@
 import useOnClickOutside from 'hooks/useOnClickOutside';
 import React, { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Menu = ({ setMenuOpen, setModalOpen, setModalType }) => {
+  const navigate = useNavigate();
   const ref = useRef(null);
   useOnClickOutside(ref, () => setMenuOpen(false));
 
-  const handleClick = (modalType) => {
+  const handleClickModal = (modalType) => {
     setModalOpen(true);
     setModalType(modalType);
+    setMenuOpen(false);
+  };
+
+  const handleClickMenu = (path) => {
+    navigate(path);
+    setMenuOpen(false);
+  };
+
+  const logout = () => {
+    //
   };
 
   return (
     <MenuContainer ref={ref}>
-      <button text={'Signup'} onClick={() => handleClick('Signup')}>
-        Signup
-      </button>
-      <button text={'Login'} onClick={() => handleClick('Login')}>
-        Login
-      </button>
-      <button text={'Logout'}>Logout</button>
-      <Link to="/board">Board</Link>
-      <Link to="/mypage/like">MyPage</Link>
+      <button onClick={() => handleClickModal('Signup')}>Signup</button>
+      <button onClick={() => handleClickModal('Login')}>Login</button>
+      <button onClick={() => logout()}>Logout</button>
+      <button onClick={() => handleClickMenu('/board')}>Board</button>
+      <button onClick={() => handleClickMenu('/mypage/like')}>MyPage</button>
     </MenuContainer>
   );
 };
