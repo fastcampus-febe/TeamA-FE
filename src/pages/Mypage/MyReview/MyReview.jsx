@@ -4,6 +4,7 @@ import reviewData from 'data/MyReviewData.json';
 import styled from 'styled-components';
 import ReviewList from 'components/Mypage/ReviewList/ReviewList';
 import Pagination from 'components/common/Pagination';
+import { TbClipboardX } from 'react-icons/tb';
 
 const MyReview = () => {
   const [review, setReview] = useState([]);
@@ -16,14 +17,13 @@ const MyReview = () => {
     async function getReviewData() {
       try {
         setReview(reviewData.items);
+        setPageDisplay(false);
       } catch (error) {
         console.log(error);
       }
     }
     getReviewData();
   }, []);
-
-  console.log(review);
 
   return (
     <PageContent>
@@ -34,11 +34,14 @@ const MyReview = () => {
             return <ReviewList data={item} key={item.place_id} />;
           })
         ) : (
-          <p>조회 내역이 없습니다.</p>
+          <ReviewNoneContent>
+            <TbClipboardX size="45" />
+            <p>조회 내역이 없습니다.</p>
+          </ReviewNoneContent>
         )}
       </ReviewContent>
       <PageDisplay pageDisplay={pageDisplay}>
-        {review ? (
+        {review.length > 0 ? (
           <Pagination total={review.length} limit={limit} page={page} setPage={setPage} />
         ) : null}
       </PageDisplay>
@@ -46,7 +49,24 @@ const MyReview = () => {
   );
 };
 
-const ReviewContent = styled.ul``;
+const ReviewContent = styled.ul`
+  list-style: none;
+`;
+
+const ReviewNoneContent = styled.div`
+  text-align: center;
+  margin: 120px 0;
+  color: #202020;
+  font-weight: 700;
+  svg {
+    color: #333;
+    opacity: 0.5;
+    margin-bottom: 10px;
+  }
+  p {
+    font-size: 20px;
+  }
+`;
 
 const PageDisplay = styled.div`
   margin-top: 20px;
