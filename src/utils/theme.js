@@ -30,7 +30,7 @@ const fonts = {
 };
 
 const colors = {
-  primary: '#FF385C',
+  primary: '#ff385C',
   secondary: '#FF385C',
   hover: '#FF385C',
   background: '#FFFFFF',
