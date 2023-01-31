@@ -4,6 +4,7 @@ import { PageContent, Title } from '../MyPageStyle';
 import likeData from 'data/MyLikeData.json';
 import styled from 'styled-components';
 import Pagination from 'components/common/Pagination';
+import { TbClipboardX } from 'react-icons/tb';
 
 const MyLike = () => {
   const [like, setLike] = useState([]);
@@ -33,11 +34,14 @@ const MyLike = () => {
             return <LikeList data={item} key={item.id} />;
           })
         ) : (
-          <p>조회 내역이 없습니다.</p>
+          <LikeNoneContent>
+            <TbClipboardX size="45" />
+            <p>조회 내역이 없습니다.</p>
+          </LikeNoneContent>
         )}
       </LikeContent>
       <PageDisplay pageDisplay={pageDisplay}>
-        {like ? (
+        {like.length > 0 ? (
           <Pagination total={like.length} limit={limit} page={page} setPage={setPage} />
         ) : null}
       </PageDisplay>
@@ -49,6 +53,22 @@ const LikeContent = styled.ul`
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
+  list-style: none;
+`;
+
+const LikeNoneContent = styled.div`
+  text-align: center;
+  margin: 120px 0;
+  color: #202020;
+  font-weight: 700;
+  svg {
+    color: #333;
+    opacity: 0.5;
+    margin-bottom: 10px;
+  }
+  p {
+    font-size: 20px;
+  }
 `;
 
 const PageDisplay = styled.div`
