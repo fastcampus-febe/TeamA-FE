@@ -21,7 +21,7 @@ const MyPage = styled.div`
   padding: 40px 10rem 20px;
   justify-content: center;
   display: grid;
-  grid-template-columns: 17% 60%;
+  grid-template-columns: 20% 70%;
   grid-template-areas: 'nav main';
   nav {
     grid-area: nav;

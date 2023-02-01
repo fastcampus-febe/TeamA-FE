@@ -8,22 +8,22 @@ export const PageContent = styled.div`
 
 export const Title = styled.h2`
   position: relative;
-  padding-bottom: 20px;
   border-bottom: 1px dashed #dadada;
-  font-size: 25px;
+  font-size: 23px;
   line-height: 1.3;
   font-weight: 700;
   margin-bottom: 30px;
-  padding-left: 12px;
+  padding: 10px 50px 15px 20px;
   &::before {
     content: '';
     width: 4px;
     height: 23px;
     border-radius: 6px;
     background-color: #ff385c;
+    margin-left: 10px;
     position: absolute;
     left: 0;
-    top: 27%;
+    top: 40%;
     transform: translateY(-50%);
   }
 `;

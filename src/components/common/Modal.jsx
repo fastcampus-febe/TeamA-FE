@@ -1,7 +1,7 @@
 import React from 'react';
 import { RiFileList2Line } from 'react-icons/ri';
 import { confirmAlert } from 'react-confirm-alert';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const Modal = ({ modalText }) => {
   confirmAlert({
@@ -21,14 +21,21 @@ const Modal = ({ modalText }) => {
   });
 };
 
-const ModalOkCancel = (message, orderFunction) => {
+const ModalOkCancel = (message, secondMsg, orderFunction) => {
   confirmAlert({
     customUI: ({ onClose }) => {
       return (
         <ModalBack>
           <ModalContent>
             <RiFileList2Line size="30" title="list" />
-            <ModalText>{message}</ModalText>
+            {secondMsg ? (
+              <>
+                <ModalText>{secondMsg}</ModalText>
+                <ModalText>{message}</ModalText>
+              </>
+            ) : (
+              <ModalText>{message}</ModalText>
+            )}
             <BtnWrap>
               <Button
                 onClick={() => {
@@ -38,7 +45,9 @@ const ModalOkCancel = (message, orderFunction) => {
               >
                 확인
               </Button>
-              <Button onClick={onClose}>취소</Button>
+              <Button cancel={true} onClick={onClose}>
+                취소
+              </Button>
             </BtnWrap>
           </ModalContent>
         </ModalBack>
@@ -58,7 +67,7 @@ const ModalBack = styled.div`
 `;
 
 const ModalContent = styled.div`
-  width: 300px;
+  width: 350px;
   height: 200px;
   background-color: #fff;
   position: fixed;
@@ -73,10 +82,12 @@ const ModalContent = styled.div`
   justify-content: center;
   box-sizing: border-box;
   border-radius: 10px;
+  padding: 0 20px;
   z-index: 100;
   svg {
     width: 100%;
-    margin-top: 40px;
+    margin-top: 30px;
+    margin-bottom: 10px;
     box-sizing: border-box;
   }
 `;
@@ -98,13 +109,21 @@ const BtnWrap = styled.div`
 
 const Button = styled.button`
   border-radius: 0.6rem;
-  background-color: #ff385c;
-  border: 1px solid #ff385c;
-  color: #fff;
+  ${(props) =>
+    props.cancel
+      ? css`
+          background-color: rgba(255, 56, 92, 0.2);
+          color: #ff385c;
+        `
+      : css`
+          background-color: #ff385c;
+          color: #fff;
+        `}
   width: 100%;
   height: 3rem;
   font-size: 1rem;
   font-weight: 700;
+  border: none;
 `;
 
 export { Modal, ModalOkCancel };

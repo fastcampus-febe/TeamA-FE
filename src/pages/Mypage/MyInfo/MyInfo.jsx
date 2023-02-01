@@ -1,13 +1,23 @@
 import React from 'react';
-import { PageContent, Title } from '../MyPageStyle';
+import styled from 'styled-components';
+import InfoProfile from './InfoProfile/InfoProfile';
+import PasswordChange from './PasswordChange/PasswordChange';
+import Withdrawal from './Withdrawal/Withdrawal';
 
 const MyInfo = () => {
   return (
-    <PageContent>
-      <Title>내 정보</Title>
-      {/* <LikeList /> */}
-    </PageContent>
+    <MyInfoContent>
+      <InfoProfile />
+      <PasswordChange />
+      <Withdrawal />
+    </MyInfoContent>
   );
 };
+
+const MyInfoContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
 
 export default MyInfo;
