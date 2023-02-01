@@ -33,7 +33,7 @@ const LikeList = ({ data }) => {
         <FaHeart
           size="20"
           onClick={() => {
-            ModalOkCancel('찜을 해제하시겠습니까?', LikeCancel);
+            ModalOkCancel('찜을 해제하시겠습니까?', null, LikeCancel);
           }}
         />
       </TextContent>
