@@ -40,19 +40,19 @@ const PasswordChange = () => {
         <ChangePW>
           <li>
             <InputForm>
-              <label for="oldPW">현재 비밀번호</label>
+              <label htmlFor="oldPW">현재 비밀번호</label>
               <input type="password" id="oldPW" placeholder="현재 비밀번호를 입력해주세요"></input>
             </InputForm>
           </li>
           <li>
             <InputForm>
-              <label for="newPW">신규 비밀번호</label>
+              <label htmlFor="newPW">신규 비밀번호</label>
               <input type="password" id="newPW" placeholder="새 비밀번호를 입력해주세요"></input>
             </InputForm>
           </li>
           <li>
             <InputForm>
-              <label for="compPW">비밀번호 확인</label>
+              <label htmlFor="compPW">비밀번호 확인</label>
               <input
                 type="password"
                 id="compPW"
@@ -109,6 +109,7 @@ const InputForm = styled.div`
     font-size: 17px;
     font-weight: 600;
     line-height: 40px;
+    cursor: pointer;
   }
   input {
     width: 40%;
