@@ -1,4 +1,4 @@
-import { PageContent, Title } from 'pages/Mypage/MyPageStyle';
+import { PageContent, SvgPosition, Title } from 'pages/Mypage/MyPageStyle';
 import React, { useState } from 'react';
 import { RiArrowDownSLine } from 'react-icons/ri';
 import { CgDanger } from 'react-icons/cg';
@@ -62,21 +62,8 @@ const Withdrawal = () => {
   );
 };
 
-const SvgPosition = styled.span`
-  position: absolute;
-  top: 5px;
-  right: 10px;
-  ${(props) =>
-    props.$display
-      ? css`
-          transform: translateY(-30%) rotateX(180deg);
-        `
-      : css`
-          transform: translateY(0%) rotateX(0deg);
-        `}
-`;
-
 const WithdrawalContent = styled.div`
+  margin-left: 7px;
   ${(props) =>
     props.$display
       ? css`
@@ -87,7 +74,7 @@ const WithdrawalContent = styled.div`
         `}
   button {
     float: right;
-    margin-right: 10px;
+    margin-right: 20px;
   }
 `;
 
