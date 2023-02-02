@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const PageContent = styled.div`
   background-color: #fff;
@@ -26,4 +26,18 @@ export const Title = styled.h2`
     top: 40%;
     transform: translateY(-50%);
   }
+`;
+
+export const SvgPosition = styled.span`
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  ${(props) =>
+    props.$display
+      ? css`
+          transform: translateY(-30%) rotateX(180deg);
+        `
+      : css`
+          transform: translateY(0%) rotateX(0deg);
+        `}
 `;
