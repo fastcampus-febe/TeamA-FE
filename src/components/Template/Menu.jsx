@@ -25,11 +25,11 @@ const Menu = ({ setMenuOpen, setModalOpen, setModalType }) => {
 
   return (
     <MenuContainer ref={ref}>
-      <li onClick={() => handleClickModal('Signup')}>Signup</li>
-      <li onClick={() => handleClickModal('Login')}>Login</li>
-      <li onClick={() => logout()}>Logout</li>
-      <li onClick={() => handleClickMenu('/board')}>Board</li>
-      <li onClick={() => handleClickMenu('/mypage/like')}>MyPage</li>
+      <li onClick={() => handleClickModal('Signup')}>회원가입</li>
+      <li onClick={() => handleClickModal('Login')}>로그인</li>
+      {/* <li onClick={() => logout()}>로그아웃</li> */}
+      <li onClick={() => handleClickMenu('/board')}>자유게시판</li>
+      <li onClick={() => handleClickMenu('/mypage/like')}>마이페이지</li>
     </MenuContainer>
   );
 };
@@ -48,6 +48,7 @@ const MenuContainer = styled.ul`
   flex-direction: column;
   border-radius: 21px;
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
+  font-size: 15px;
   li {
     display: flex;
     align-items: center;
@@ -55,7 +56,7 @@ const MenuContainer = styled.ul`
     height: 2.6rem;
     padding: 0 1rem;
     &:hover {
-      background-color: rgb(247, 247, 247);
+      background-color: ${({ theme }) => theme.colors.shadow};
     }
   }
 `;

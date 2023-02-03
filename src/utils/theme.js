@@ -32,12 +32,14 @@ const fonts = {
 const colors = {
   primary: '#ff385C',
   secondary: '#FF385C',
-  hover: '#FF385C',
+  shadow: '#F7F7F7',
   background: '#FFFFFF',
   red: '#ff4d4d',
   yellow: '#ffff4d',
   blue: '#0099ff',
   white: '#FFFFFF',
+  gradient:
+    'linear-gradient(to right,rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%,rgb(215, 4, 102) 100%) !important',
 };
 
 export const theme = {
