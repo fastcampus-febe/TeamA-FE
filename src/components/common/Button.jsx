@@ -12,10 +12,7 @@ const Button = ({ text, width, height, onClick, fontSize, color }) => {
 const StyledButton = styled.button`
   width: ${({ width }) => (width ? width : 'auto')};
   height: ${({ height }) => (height ? height : '3rem')};
-  background: ${({ color }) =>
-    color
-      ? color
-      : 'linear-gradient(to right,rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%,rgb(215, 4, 102) 100%) !important'};
+  background: ${({ color, theme }) => (color ? color : theme.colors.gradient)};
   background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.white};
   font-size: ${({ fontSize, theme }) => (fontSize ? fontSize : theme.fonts.size.xsm)};
