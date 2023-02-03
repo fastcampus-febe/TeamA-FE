@@ -8,6 +8,12 @@ const GlobalStyle = createGlobalStyle`
       text-decoration: none;
     }
 
+    input[type='checkbox']{
+      width: 16px;
+      height: 16px; 
+      cursor: pointer;
+    }
+
     ${({ theme }) => {
       return css`
         body {
