@@ -32,7 +32,7 @@ const fonts = {
 const colors = {
   primary: '#FF385C',
   secondary: '#FF385C',
-  hover: '#FF385C',
+  hover: '#F7F7F7',
   background: '#FFFFFF',
   red: '#ff4d4d',
   yellow: '#ffff4d',
