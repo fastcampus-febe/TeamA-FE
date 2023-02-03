@@ -1,5 +1,5 @@
-import { axiosInstance } from '@/api/core';
-import { PATH } from '../constants/PATH';
+import { axiosInstance } from './core';
+import { PATH } from '../constants/path';
 
 export const postUserSignUp = async (data) => {
   try {
