@@ -55,7 +55,7 @@ const MenuContainer = styled.ul`
     height: 2.6rem;
     padding: 0 1rem;
     &:hover {
-      background-color: rgb(247, 247, 247);
+      background-color: ${({ theme }) => theme.colors.hover};
     }
   }
 `;
