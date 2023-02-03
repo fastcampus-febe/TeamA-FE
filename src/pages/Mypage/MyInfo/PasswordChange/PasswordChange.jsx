@@ -10,17 +10,45 @@ const PasswordChange = () => {
   const [modal, setModal] = useState(false);
   const [modalText, setModalText] = useState('');
 
+  const [password, setPassword] = useState({
+    oldPW: '',
+    newPW: '',
+    compPW: '',
+  });
+
+  const { oldPW, newPW, compPW } = password;
+
+  function changePW(e) {
+    const { id, value } = e.target;
+    setPassword({
+      ...password,
+      [id]: value,
+    });
+  }
+
+  function onReset(e) {
+    setPassword({
+      oldPW: '',
+      newPW: '',
+      compPW: '',
+    });
+  }
+
   function ChangePassword() {
     try {
       // 비밀번호 변경
+      console.log(password);
     } catch (error) {
       setModal(true);
       setModalText('오류가 발생하였습니다.');
+      onReset();
     } finally {
       setModal(true);
       setModalText('비밀번호가 변경되었습니다.');
+      onReset();
     }
   }
+
   return (
     <PageContent>
       {modal ? <Modal modalText={modalText} /> : null}
@@ -40,22 +68,36 @@ const PasswordChange = () => {
         <ChangePW>
           <li>
             <InputForm>
-              <label for="oldPW">현재 비밀번호</label>
-              <input type="password" id="oldPW" placeholder="현재 비밀번호를 입력해주세요"></input>
+              <label htmlFor="oldPW">현재 비밀번호</label>
+              <input
+                type="password"
+                id="oldPW"
+                value={oldPW}
+                onChange={changePW}
+                placeholder="현재 비밀번호를 입력해주세요"
+              ></input>
             </InputForm>
           </li>
           <li>
             <InputForm>
-              <label for="newPW">신규 비밀번호</label>
-              <input type="password" id="newPW" placeholder="새 비밀번호를 입력해주세요"></input>
+              <label htmlFor="newPW">신규 비밀번호</label>
+              <input
+                type="password"
+                id="newPW"
+                value={newPW}
+                onChange={changePW}
+                placeholder="새 비밀번호를 입력해주세요"
+              ></input>
             </InputForm>
           </li>
           <li>
             <InputForm>
-              <label for="compPW">비밀번호 확인</label>
+              <label htmlFor="compPW">비밀번호 확인</label>
               <input
                 type="password"
                 id="compPW"
+                value={compPW}
+                onChange={changePW}
                 placeholder="새 비밀번호를 다시 입력해주세요"
               ></input>
             </InputForm>
@@ -109,6 +151,7 @@ const InputForm = styled.div`
     font-size: 17px;
     font-weight: 600;
     line-height: 40px;
+    cursor: pointer;
   }
   input {
     width: 40%;
@@ -127,6 +170,9 @@ const InputForm = styled.div`
     &:focus {
       border: 1px solid #ff385c;
       outline: 0;
+    }
+    div {
+      display: none;
     }
   }
 `;
