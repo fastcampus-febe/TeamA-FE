@@ -1,4 +1,4 @@
-import Modal from 'components/Modal/Modal';
+import SignModal from 'components/SignModal/SignModal';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
@@ -32,7 +32,7 @@ function Template({ children }) {
         </Navbar>
       </HeaderContainer>
       <ChildContainer>{children}</ChildContainer>
-      {modalOpen ? <Modal setModalOpen={setModalOpen} modalType={modalType} /> : null}
+      {modalOpen ? <SignModal setModalOpen={setModalOpen} modalType={modalType} /> : null}
       {menuOpen ? (
         <Menu setMenuOpen={setMenuOpen} setModalOpen={setModalOpen} setModalType={setModalType} />
       ) : null}
