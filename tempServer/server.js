@@ -29,7 +29,11 @@ app.post('/login', (req, res, next) => {
   if (id !== tempUser.id || password !== tempUser.password) {
     res.status(401).send();
   }
-  res.json({ message: 'success' });
+  res.json({
+    message: 'success',
+    accessToken:
+      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJleGFtcGxlQGdtYWlsLmNvbSIsImlhdCI6MTY3NDMyODMzOCwiZXhwIjoxNjc0MzMwMTM4LCJpZCI6ImFzZGYiLCJuaWNrbmFtZSI6ImJvdXJib24iLCJyb2xlIjoiUk9MRV9VU0VSIn0.ePPbCBVHWmNzFPBXnN35r6RqzlU1JtCBxjCxzGnssHA',
+  });
 });
 
 // let orderHistory = [];
