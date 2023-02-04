@@ -1,4 +1,4 @@
-import { authState } from 'App';
+import { authState } from 'atoms/auth';
 import useOnClickOutside from 'hooks/useOnClickOutside';
 import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
