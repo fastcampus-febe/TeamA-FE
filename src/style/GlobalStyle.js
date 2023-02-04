@@ -18,6 +18,10 @@ const GlobalStyle = createGlobalStyle`
       return css`
         body {
           background-color: theme.colors.white;
+          font-family: 'Cereal', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+          -webkit-font-smoothing: antialiased;
+          line-height: 23px;
+          overflow-x: hidden;
         }
       `;
     }}
