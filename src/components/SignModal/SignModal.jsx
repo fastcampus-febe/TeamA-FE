@@ -1,10 +1,13 @@
 import { postUserSignIn, postUserSignUp } from 'api/userSign';
+import { authState } from 'App';
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';
 import useOnClickOutside from 'hooks/useOnClickOutside';
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { setItem } from 'utils/storage';
 import { theme } from 'utils/theme';
 
 const MESSAGES = {
@@ -30,6 +33,7 @@ const SignModal = ({ setModalOpen, modalType }) => {
   const navigate = useNavigate();
   const ref = useRef(null);
   useOnClickOutside(ref, () => setModalOpen(false));
+  const [auth, setAuth] = useRecoilState(authState);
 
   const [userData, setUserData] = useState({
     id: '',
@@ -91,17 +95,11 @@ const SignModal = ({ setModalOpen, modalType }) => {
     if (!agree) return showMessage('agree', MESSAGES.AGREE_VALID_MSG);
 
     if (window.confirm('회원가입을 완료하시겠습니까?')) {
-      const requestBody = {
-        id,
-        nickname,
-        password,
-      };
-
+      const requestBody = { id, nickname, password };
       await postUserSignUp(requestBody);
 
       alert('회원가입이 완료 되었습니다.');
       setModalOpen(false);
-      navigate('/');
     }
   };
 
@@ -110,17 +108,17 @@ const SignModal = ({ setModalOpen, modalType }) => {
     if (!id) return showMessage('id', MESSAGES.ID_EMPTY_MSG);
     if (!password) return showMessage('password', MESSAGES.PASSWORD_EMPTY_MSG);
 
-    const requestBody = {
-      id,
-      password,
-    };
-
+    const requestBody = { id, password };
     const data = await postUserSignIn(requestBody);
-    if (data.isFailed) {
-      showMessage('password', data.errorMessage);
-      return;
-    }
-    // onLogin(data);
+    if (data.isFailed) return showMessage('password', data.errorMessage);
+
+    setItem('user', { id, password });
+    setItem('token', data.accessToken);
+    setAuth({
+      isLoggedIn: true,
+      loggedUser: { id, password },
+      userToken: data.accessToken,
+    });
 
     setModalOpen(false);
     navigate('/');
@@ -215,13 +213,7 @@ const SignModal = ({ setModalOpen, modalType }) => {
             <ContentWrap>
               <InputWrap>
                 <InputContainer>
-                  <Input
-                    type="text"
-                    name="id"
-                    placeholder="아이디"
-                    onChange={handleChangeValue}
-                    // onBlur={handleSignup}
-                  />
+                  <Input type="text" name="id" placeholder="아이디" onChange={handleChangeValue} />
                 </InputContainer>
                 <SpanText color={messagesColor.id}>{messages.id}</SpanText>
               </InputWrap>
@@ -232,7 +224,6 @@ const SignModal = ({ setModalOpen, modalType }) => {
                     name="password"
                     placeholder="비밀번호"
                     onChange={handleChangeValue}
-                    // onBlur={handleSignup}
                     onKeyDown={handleKeyDown}
                   />
                 </InputContainer>
