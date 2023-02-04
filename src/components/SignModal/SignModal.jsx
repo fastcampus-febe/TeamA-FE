@@ -1,4 +1,4 @@
-import { postUserSignUp } from 'api/userSign';
+import { postUserSignIn, postUserSignUp } from 'api/userSign';
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';
 import useOnClickOutside from 'hooks/useOnClickOutside';
@@ -32,7 +32,7 @@ const SignModal = ({ setModalOpen, modalType }) => {
   useOnClickOutside(ref, () => setModalOpen(false));
 
   const [userData, setUserData] = useState({
-    userId: '',
+    id: '',
     nickname: '',
     password: '',
     passwordCheck: '',
@@ -40,7 +40,7 @@ const SignModal = ({ setModalOpen, modalType }) => {
   });
 
   const [messages, setMessages] = useState({
-    userId: modalType === 'Signup' ? MESSAGES.ID_VALID_MSG : '',
+    id: modalType === 'Signup' ? MESSAGES.ID_VALID_MSG : '',
     nickname: MESSAGES.NICKNAME_VALID_MSG,
     password: modalType === 'Signup' ? MESSAGES.PASSWORD_VALID_MSG : '',
     passwordCheck: '',
@@ -48,7 +48,7 @@ const SignModal = ({ setModalOpen, modalType }) => {
   });
 
   const [messagesColor, setMessagesColor] = useState({
-    userId: '',
+    id: '',
     nickname: '',
     password: '',
     passwordCheck: '',
@@ -56,17 +56,29 @@ const SignModal = ({ setModalOpen, modalType }) => {
   });
 
   const handleChangeValue = (event) => {
-    const { name, value } = event.target;
+    const { name, value, checked } = event.target;
     setUserData({
       ...userData,
-      [name]: value,
+      [name]: value === 'on' ? checked : value,
     });
   };
 
+  const showMessage = (name, msg) => {
+    setMessages({
+      id: modalType === 'Signup' ? MESSAGES.ID_VALID_MSG : '',
+      nickname: MESSAGES.NICKNAME_VALID_MSG,
+      password: modalType === 'Signup' ? MESSAGES.PASSWORD_VALID_MSG : '',
+      passwordCheck: '',
+      agree: false,
+      [name]: msg,
+    });
+    setMessagesColor({ [name]: theme.colors.primary });
+  };
+
   const handleSignup = async () => {
-    const { userId, nickname, password, passwordCheck, agree } = userData;
-    if (!userId) return showMessage('userId', MESSAGES.ID_EMPTY_MSG);
-    if (!userId.match(REGEXP.ID_REGEXP)) return showMessage('userId', MESSAGES.ID_VALID_MSG);
+    const { id, nickname, password, passwordCheck, agree } = userData;
+    if (!id) return showMessage('id', MESSAGES.ID_EMPTY_MSG);
+    if (!id.match(REGEXP.ID_REGEXP)) return showMessage('id', MESSAGES.ID_VALID_MSG);
     if (!nickname) return showMessage('nickname', MESSAGES.NINKNAME_EMPTY_MSG);
     if (!nickname.match(REGEXP.NICKNAME_REGEXP))
       return showMessage('nickname', MESSAGES.NICKNAME_VALID_MSG);
@@ -80,7 +92,7 @@ const SignModal = ({ setModalOpen, modalType }) => {
 
     if (window.confirm('회원가입을 완료하시겠습니까?')) {
       const requestBody = {
-        userId,
+        id,
         nickname,
         password,
       };
@@ -93,27 +105,21 @@ const SignModal = ({ setModalOpen, modalType }) => {
     }
   };
 
-  const handleLogin = () => {
-    const { userId, password } = userData;
-    if (!userId) return showMessage('userId', MESSAGES.ID_EMPTY_MSG);
-    if (!userId.match(REGEXP.ID_REGEXP)) return showMessage('userId', MESSAGES.ID_VALID_MSG);
+  const handleLogin = async () => {
+    const { id, password } = userData;
+    if (!id) return showMessage('id', MESSAGES.ID_EMPTY_MSG);
     if (!password) return showMessage('password', MESSAGES.PASSWORD_EMPTY_MSG);
-    if (!password.match(REGEXP.PASSWORD_REGEXP))
-      return showMessage('password', MESSAGES.PASSWORD_VALID_MSG);
 
-    // const requestBody = {
-    //   userId,
-    //   password,
-    // };
+    const requestBody = {
+      id,
+      password,
+    };
 
-    // setIsLoading(true);
-    // const data = await postUserSignIn(requestBody);
-    // setIsLoading(false);
-
-    // if (data.isFailed) {
-    //   alert(data.errorMessage);
-    //   return;
-    // }
+    const data = await postUserSignIn(requestBody);
+    if (data.isFailed) {
+      showMessage('password', data.errorMessage);
+      return;
+    }
     // onLogin(data);
 
     setModalOpen(false);
@@ -122,18 +128,6 @@ const SignModal = ({ setModalOpen, modalType }) => {
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') handleLogin();
-  };
-
-  const showMessage = (name, msg) => {
-    setMessages({
-      userId: MESSAGES.ID_VALID_MSG,
-      nickname: MESSAGES.NICKNAME_VALID_MSG,
-      password: MESSAGES.PASSWORD_VALID_MSG,
-      passwordCheck: '',
-      agree: '',
-      [name]: msg,
-    });
-    setMessagesColor({ [name]: theme.colors.primary });
   };
 
   return (
@@ -147,12 +141,13 @@ const SignModal = ({ setModalOpen, modalType }) => {
                 <InputContainer>
                   <Input
                     type="text"
-                    name="userId"
+                    name="id"
                     placeholder="아이디"
                     onChange={handleChangeValue}
+                    onBlur={handleSignup}
                   />
                 </InputContainer>
-                <SpanText color={messagesColor.userId}>{messages.userId}</SpanText>
+                <SpanText color={messagesColor.id}>{messages.id}</SpanText>
               </InputWrap>
               <InputWrap>
                 <InputContainer>
@@ -161,6 +156,7 @@ const SignModal = ({ setModalOpen, modalType }) => {
                     name="nickname"
                     placeholder="닉네임"
                     onChange={handleChangeValue}
+                    onBlur={handleSignup}
                   />
                 </InputContainer>
                 <SpanText color={messagesColor.nickname}>{messages.nickname}</SpanText>
@@ -172,6 +168,7 @@ const SignModal = ({ setModalOpen, modalType }) => {
                     name="password"
                     placeholder="비밀번호"
                     onChange={handleChangeValue}
+                    onBlur={handleSignup}
                   />
                 </InputContainer>
                 <SpanText color={messagesColor.password}>{messages.password}</SpanText>
@@ -183,6 +180,7 @@ const SignModal = ({ setModalOpen, modalType }) => {
                     name="passwordCheck"
                     placeholder="비밀번호 확인"
                     onChange={handleChangeValue}
+                    onBlur={handleSignup}
                   />
                 </InputContainer>
                 <SpanText color={messagesColor.passwordCheck}>{messages.passwordCheck}</SpanText>
@@ -219,12 +217,13 @@ const SignModal = ({ setModalOpen, modalType }) => {
                 <InputContainer>
                   <Input
                     type="text"
-                    name="userId"
+                    name="id"
                     placeholder="아이디"
                     onChange={handleChangeValue}
+                    // onBlur={handleSignup}
                   />
                 </InputContainer>
-                <SpanText color={messagesColor.userId}>{messages.userId}</SpanText>
+                <SpanText color={messagesColor.id}>{messages.id}</SpanText>
               </InputWrap>
               <InputWrap>
                 <InputContainer>
@@ -233,6 +232,7 @@ const SignModal = ({ setModalOpen, modalType }) => {
                     name="password"
                     placeholder="비밀번호"
                     onChange={handleChangeValue}
+                    // onBlur={handleSignup}
                     onKeyDown={handleKeyDown}
                   />
                 </InputContainer>
@@ -294,7 +294,6 @@ const ModalContent = styled.div`
 const ContentWrap = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
   padding: 1.5rem 0;
   &:first-child {
     padding-top: 0;
@@ -307,6 +306,7 @@ const ContentWrap = styled.div`
 const CheckBoxWrap = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 1rem;
 `;
 
 const InputContainer = styled.div`
@@ -326,6 +326,10 @@ const InputWrap = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
+  margin-bottom: 1rem;
+  &:last-child {
+    margin-bottom: 0;
+  }
 `;
 
 const SpanText = styled.span`
