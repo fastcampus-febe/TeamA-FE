@@ -20,6 +20,9 @@ const StyledButton = styled.button`
   border-radius: 0.6rem;
   border: none;
   cursor: pointer;
+  &:hover {
+    background: ${({ color, theme }) => (color ? color : theme.colors.gradientDark)};
+  }
 `;
 
 export default Button;

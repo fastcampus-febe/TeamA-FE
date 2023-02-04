@@ -1,5 +1,5 @@
 import { postUserSignIn, postUserSignUp } from 'api/userSign';
-import { authState } from 'App';
+import { authState } from 'atoms/auth';
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';
 import useOnClickOutside from 'hooks/useOnClickOutside';
@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { setItem } from 'utils/storage';
-import { theme } from 'utils/theme';
+import { theme } from 'style/theme';
 
 const MESSAGES = {
   ID_VALID_MSG: '8~14자의 영문 소문자 및 숫자 조합만 사용 가능합니다.',

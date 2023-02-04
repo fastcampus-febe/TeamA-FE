@@ -25,7 +25,7 @@ const fonts = {
   weight: {
     light: 100,
     normal: 400,
-    bold: 700,
+    bold: 600,
   },
 };
 
@@ -38,7 +38,8 @@ const colors = {
   yellow: '#ffff4d',
   blue: '#0099ff',
   white: '#FFFFFF',
-  gradient:
+  gradient: '#ff385C',
+  gradientDark:
     'linear-gradient(to right,rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%,rgb(215, 4, 102) 100%) !important',
 };
 

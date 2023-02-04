@@ -47,6 +47,13 @@ const NumBtn = styled.button`
       background-color: #ff385c;
       color: #fff;
     `}
+  ${(props) =>
+    !props.current &&
+    `
+      &:hover {
+        background-color: #f0f0f0;
+      }
+    `}
 `;
 
 const ArrowBtn = styled.button`
