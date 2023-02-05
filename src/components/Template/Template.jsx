@@ -7,6 +7,9 @@ import Menu from './Menu';
 import { authState } from 'atoms/auth';
 import { useRecoilState } from 'recoil';
 import Avvvatars from 'avvvatars-react';
+import Button from 'components/common/Button';
+import Input from 'components/common/Input';
+import { BiSearch } from 'react-icons/bi';
 
 function Template({ children }) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -26,10 +29,26 @@ function Template({ children }) {
             <LogoImg src="/logo.png" />
           </Link>
         </Logo>
-        <div>
-          <input type="text" />
-          <button>Search</button>
-        </div>
+        <SearchWrap>
+          <Input
+            width="400px"
+            padding="10px 16px"
+            radius="50px"
+            borderColor="#dddddd"
+            lineHeight="1.2"
+            placeholder="지역명 / 관광지 이름으로 검색해 보세요."
+          />
+          <Button
+            width="30px"
+            height="30px"
+            position="absolute"
+            top="7px"
+            right="8px"
+            radius="20px"
+          >
+            <BiSearch />
+          </Button>
+        </SearchWrap>
         <Navbar onClick={handleMenuClick}>
           <GiHamburgerMenu size={16} color={'black'} />
           {auth.loggedUser.id ? (
@@ -85,6 +104,13 @@ const Logo = styled.div`
 
 const LogoImg = styled.img`
   width: 120px;
+`;
+
+const SearchWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 `;
 
 const Navbar = styled.button`
