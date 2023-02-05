@@ -4,11 +4,18 @@ import { FiHeart } from 'react-icons/fi';
 import styled from 'styled-components';
 import { formatDate } from 'utils/formats';
 import Avvvatars from 'avvvatars-react';
+import { useNavigate } from 'react-router-dom';
 
-const BoardItem = ({ data: { title, member_id, nickname, indate, comment_cnt, thumb } }) => {
+const BoardItem = ({ data: { id, title, member_id, nickname, indate, comment_cnt, thumb } }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/board/${id}`, { state: id });
+  };
+
   return (
     <BoardItemContainer>
-      <BoardTitle>{title}</BoardTitle>
+      <BoardTitle onClick={handleClick}>{title}</BoardTitle>
       <BoardInfoContainer>
         <UserInfo>
           <Avvvatars value={member_id} style="shape" />
