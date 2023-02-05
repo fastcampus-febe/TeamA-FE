@@ -1,4 +1,4 @@
-import { getBoardList } from 'api/board';
+import { getBoardList, getBoardListSearch, getBoardListSort } from 'api/board';
 import BoardItem from 'components/Board/BoardItem';
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';
@@ -6,6 +6,7 @@ import Pagination from 'components/common/Pagination';
 import React, { useEffect, useState } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import { TbClipboardX } from 'react-icons/tb';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { theme } from 'style/theme';
 import styled from 'styled-components';
 
@@ -15,6 +16,10 @@ const Board = () => {
   const [page, setPage] = useState(1);
   const limit = 10;
   const offset = (page - 1) * limit;
+  const [search, setSearch] = useState('');
+  const [searchOption, setSearchOption] = useState('');
+  const [sort, setSort] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getData() {
@@ -23,24 +28,46 @@ const Board = () => {
         // setBoard(data.board_data);
         setBoard(tempData);
       } catch (error) {
-        alert('게시글 목록을 조회하지 못했습니다.');
+        alert('게시물 목록을 조회하지 못했습니다.');
       } finally {
       }
     }
     getData();
   }, []);
 
+  const handleSort = async (e) => {
+    const type = e.target.value === '최근 순' ? 'recent' : 'like';
+    const data = await getBoardListSort(type);
+    setBoard(data.board_data);
+  };
+
+  const handleSearch = async () => {
+    const type = searchOption === '제목' ? 'title' : 'nickname';
+    const data = await getBoardListSearch(type, search);
+    setBoard(data.board_data);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') handleSearch();
+  };
+
   return (
     <BoardContainer>
       <BoardTitleContainer>
         <BoardTitle>Community</BoardTitle>
         <SearchWrap>
+          <SearchSelect onChange={(e) => setSearchOption(e.target.value)}>
+            <option>제목</option>
+            <option>닉네임</option>
+          </SearchSelect>
           <Input
-            width="200px"
-            padding="10px 16px"
+            width="220px"
+            padding="10px 16px 10px 94px"
             radius="20px"
             borderColor="#dddddd"
             lineHeight="1.2"
+            onChange={(e) => setSearch(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
           <Button
             width="40px"
@@ -52,16 +79,17 @@ const Board = () => {
             position="absolute"
             top="30px"
             right="5px"
+            onClick={handleSearch}
           >
             <BiSearch />
           </Button>
         </SearchWrap>
         <ButtonWrap>
-          <SortSelect>
-            <option>Recent</option>
-            <option>Like</option>
+          <SortSelect onChange={handleSort}>
+            <option>최근 순</option>
+            <option>좋아요 순</option>
           </SortSelect>
-          <Button text="등록" width="90px" height="46px" />
+          <Button text="등록" width="90px" height="46px" onClick={() => navigate('/board/add')} />
         </ButtonWrap>
       </BoardTitleContainer>
       <BoardWrap>
@@ -87,7 +115,7 @@ const Board = () => {
 
 const BoardContainer = styled.div`
   margin: 0 auto;
-  width: 760px;
+  width: 840px;
   display: flex;
   flex-direction: column;
   padding: 1rem 0 2rem 0;
@@ -127,6 +155,15 @@ const SearchWrap = styled.div`
   position: relative;
 `;
 
+const SearchSelect = styled.select`
+  border: none;
+  outline: none;
+  position: absolute;
+  top: 34px;
+  left: 16px;
+  width: 70px;
+`;
+
 const ButtonWrap = styled.div`
   display: flex;
   align-items: center;
@@ -136,10 +173,10 @@ const ButtonWrap = styled.div`
 const SortSelect = styled.select`
   padding: 0 1rem;
   cursor: pointer;
-  width: 100px;
+  width: 110px;
   height: 50px;
   border: 1px solid #dddddd;
-  border-radius: 10px;
+  border-radius: 30px;
   background-color: white;
   margin: auto 0;
   &:hover {

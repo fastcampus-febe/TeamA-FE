@@ -8,6 +8,8 @@ import Main from 'pages/Main/Main';
 import NotFound from 'pages/NotFound/NotFound';
 import Board from 'pages/Board/Board';
 import Template from 'components/Template/Template';
+import BoardDetail from 'pages/Board/BoardDetail';
+import BoardForm from 'pages/Board/BoardForm';
 
 const Router = () => {
   return (
@@ -16,6 +18,9 @@ const Router = () => {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/board" element={<Board />} />
+          <Route path="/board/:id" element={<BoardDetail />} />
+          <Route path="/board/add" element={<BoardForm />} />
+          <Route path="/board/modify" element={<BoardForm />} />
           {/* <ProtectedRoute> */}
           <Route path="/mypage" element={<Mypage />}>
             <Route path="/mypage/review" element={<MyReview />} />
