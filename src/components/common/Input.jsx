@@ -5,6 +5,7 @@ const Input = ({
   name,
   type,
   onChange,
+  onKeyDown,
   placeholder,
   onBlur,
   width,
@@ -21,6 +22,7 @@ const Input = ({
           type={type}
           onChange={onChange}
           onBlur={onBlur}
+          onKeyDown={onKeyDown}
           placeholder={placeholder}
         />
       ) : (
@@ -36,6 +38,7 @@ const Input = ({
             type={type}
             onChange={onChange}
             onBlur={onBlur}
+            onKeyDown={onKeyDown}
             placeholder={placeholder}
           />
         </InputContainer>
