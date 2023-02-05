@@ -109,8 +109,12 @@ const SignModal = ({ setModalOpen, modalType }) => {
     if (!password) return showMessage('password', MESSAGES.PASSWORD_EMPTY_MSG);
 
     const requestBody = { id, password };
-    const data = await postUserSignIn(requestBody);
-    if (data.isFailed) return showMessage('password', data.errorMessage);
+    // const data = await postUserSignIn(requestBody);
+    // if (data.isFailed) return showMessage('password', data.errorMessage);
+    const data = {
+      accessToken:
+        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJleGFtcGxlQGdtYWlsLmNvbSIsImlhdCI6MTY3NDMyODMzOCwiZXhwIjoxNjc0MzMwMTM4LCJpZCI6ImFzZGYiLCJuaWNrbmFtZSI6ImJvdXJib24iLCJyb2xlIjoiUk9MRV9VU0VSIn0.ePPbCBVHWmNzFPBXnN35r6RqzlU1JtCBxjCxzGnssHA',
+    };
 
     setItem('user', { id, password });
     setItem('token', data.accessToken);
@@ -219,6 +223,7 @@ const SignModal = ({ setModalOpen, modalType }) => {
               </InputWrap>
             </ContentWrap>
             <Bar />
+            <SearchText>아이디 / 비밀번호 찾기</SearchText>
             <ContentWrap>
               <Button text="로그인" onClick={handleLogin} />
             </ContentWrap>
@@ -302,6 +307,16 @@ const SpanText = styled.span`
   font-size: ${({ theme }) => theme.fonts.size.mini};
   line-height: 1.2rem;
   color: ${({ color }) => (color ? color : 'rgb(113, 113, 113)')};
+`;
+
+const SearchText = styled.span`
+  cursor: pointer;
+  font-size: 14px;
+  color: rgb(113, 113, 113);
+  margin-top: 1rem;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const Bar = styled.div`
