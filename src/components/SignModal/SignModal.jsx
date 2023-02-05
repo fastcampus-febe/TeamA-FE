@@ -136,51 +136,43 @@ const SignModal = ({ setModalOpen, modalType }) => {
           <ModalContent>
             <ContentWrap>
               <InputWrap>
-                <InputContainer>
-                  <Input
-                    type="text"
-                    name="id"
-                    placeholder="아이디"
-                    onChange={handleChangeValue}
-                    onBlur={handleSignup}
-                  />
-                </InputContainer>
+                <Input
+                  type="text"
+                  name="id"
+                  placeholder="아이디"
+                  onChange={handleChangeValue}
+                  onBlur={handleSignup}
+                />
                 <SpanText color={messagesColor.id}>{messages.id}</SpanText>
               </InputWrap>
               <InputWrap>
-                <InputContainer>
-                  <Input
-                    type="text"
-                    name="nickname"
-                    placeholder="닉네임"
-                    onChange={handleChangeValue}
-                    onBlur={handleSignup}
-                  />
-                </InputContainer>
+                <Input
+                  type="text"
+                  name="nickname"
+                  placeholder="닉네임"
+                  onChange={handleChangeValue}
+                  onBlur={handleSignup}
+                />
                 <SpanText color={messagesColor.nickname}>{messages.nickname}</SpanText>
               </InputWrap>
               <InputWrap>
-                <InputContainer>
-                  <Input
-                    type="password"
-                    name="password"
-                    placeholder="비밀번호"
-                    onChange={handleChangeValue}
-                    onBlur={handleSignup}
-                  />
-                </InputContainer>
+                <Input
+                  type="password"
+                  name="password"
+                  placeholder="비밀번호"
+                  onChange={handleChangeValue}
+                  onBlur={handleSignup}
+                />
                 <SpanText color={messagesColor.password}>{messages.password}</SpanText>
               </InputWrap>
               <InputWrap>
-                <InputContainer>
-                  <Input
-                    type="password"
-                    name="passwordCheck"
-                    placeholder="비밀번호 확인"
-                    onChange={handleChangeValue}
-                    onBlur={handleSignup}
-                  />
-                </InputContainer>
+                <Input
+                  type="password"
+                  name="passwordCheck"
+                  placeholder="비밀번호 확인"
+                  onChange={handleChangeValue}
+                  onBlur={handleSignup}
+                />
                 <SpanText color={messagesColor.passwordCheck}>{messages.passwordCheck}</SpanText>
               </InputWrap>
             </ContentWrap>
@@ -212,21 +204,17 @@ const SignModal = ({ setModalOpen, modalType }) => {
           <ModalContent>
             <ContentWrap>
               <InputWrap>
-                <InputContainer>
-                  <Input type="text" name="id" placeholder="아이디" onChange={handleChangeValue} />
-                </InputContainer>
+                <Input type="text" name="id" placeholder="아이디" onChange={handleChangeValue} />
                 <SpanText color={messagesColor.id}>{messages.id}</SpanText>
               </InputWrap>
               <InputWrap>
-                <InputContainer>
-                  <Input
-                    type="password"
-                    name="password"
-                    placeholder="비밀번호"
-                    onChange={handleChangeValue}
-                    onKeyDown={handleKeyDown}
-                  />
-                </InputContainer>
+                <Input
+                  type="password"
+                  name="password"
+                  placeholder="비밀번호"
+                  onChange={handleChangeValue}
+                  onKeyDown={handleKeyDown}
+                />
                 <SpanText color={messagesColor.password}>{messages.password}</SpanText>
               </InputWrap>
             </ContentWrap>
@@ -298,19 +286,6 @@ const CheckBoxWrap = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
-`;
-
-const InputContainer = styled.div`
-  border: 1px solid #b0b0b0;
-  border-radius: 0.4rem;
-  padding: 1rem;
-  & input {
-    border: none;
-    outline: none;
-    font-size: ${({ theme }) => theme.fonts.size.xsm};
-    line-height: 1.2rem;
-    width: 100%;
-  }
 `;
 
 const InputWrap = styled.div`
