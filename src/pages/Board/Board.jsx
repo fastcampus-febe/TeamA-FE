@@ -1,9 +1,12 @@
 import { getBoardList } from 'api/board';
 import BoardItem from 'components/Board/BoardItem';
 import Button from 'components/common/Button';
+import Input from 'components/common/Input';
 import Pagination from 'components/common/Pagination';
 import React, { useEffect, useState } from 'react';
+import { BiSearch } from 'react-icons/bi';
 import { TbClipboardX } from 'react-icons/tb';
+import { theme } from 'style/theme';
 import styled from 'styled-components';
 
 const Board = () => {
@@ -31,6 +34,28 @@ const Board = () => {
     <BoardContainer>
       <BoardTitleContainer>
         <BoardTitle>Community</BoardTitle>
+        <SearchWrap>
+          <Input
+            width="200px"
+            padding="10px 16px"
+            radius="20px"
+            borderColor="#dddddd"
+            lineHeight="1.2"
+          />
+          <Button
+            width="40px"
+            height="30px"
+            backgroundColor="white"
+            backgroundColorHover="white"
+            color="black"
+            colorHover={theme.colors.primary}
+            position="absolute"
+            top="30px"
+            right="5px"
+          >
+            <BiSearch />
+          </Button>
+        </SearchWrap>
         <ButtonWrap>
           <SortSelect>
             <option>Recent</option>
@@ -93,6 +118,13 @@ const BoardTitle = styled.h1`
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
   }
+`;
+
+const SearchWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 `;
 
 const ButtonWrap = styled.div`
