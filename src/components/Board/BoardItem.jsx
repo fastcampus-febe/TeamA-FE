@@ -3,13 +3,17 @@ import { FaRegCommentDots } from 'react-icons/fa';
 import { FiHeart } from 'react-icons/fi';
 import styled from 'styled-components';
 import { formatDate } from 'utils/formats';
+import Avvvatars from 'avvvatars-react';
 
 const BoardItem = ({ data: { title, member_id, nickname, indate, comment_cnt, thumb } }) => {
   return (
     <BoardItemContainer>
       <BoardTitle>{title}</BoardTitle>
       <BoardInfoContainer>
-        <Nickname>{nickname}</Nickname>
+        <UserInfo>
+          <Avvvatars value={member_id} style="shape" />
+          <Nickname>{nickname}</Nickname>
+        </UserInfo>
         <Info>
           <Text>{formatDate(indate)}</Text>
           <Text>
@@ -45,6 +49,12 @@ const BoardTitle = styled.h1`
 const BoardInfoContainer = styled.div`
   display: flex;
   justify-content: space-between;
+`;
+
+const UserInfo = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
 `;
 
 const Nickname = styled.span`
