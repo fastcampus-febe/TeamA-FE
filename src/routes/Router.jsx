@@ -11,6 +11,7 @@ import Template from 'components/Template/Template';
 import BoardDetail from 'pages/Board/BoardDetail';
 import BoardForm from 'pages/Board/BoardForm';
 import Search from 'pages/Search/Search';
+import Detail from 'pages/Detail/Detail';
 
 const Router = () => {
   return (
@@ -23,6 +24,7 @@ const Router = () => {
           <Route path="/board/add" element={<BoardForm />} />
           <Route path="/board/modify" element={<BoardForm />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/place/:id" element={<Detail />} />
           {/* <ProtectedRoute> */}
           <Route path="/mypage" element={<Mypage />}>
             <Route path="/mypage/review" element={<MyReview />} />
