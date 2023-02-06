@@ -15,53 +15,32 @@ const Input = ({
   borderColor,
 }) => {
   return (
-    <>
-      {type === 'checkbox' ? (
-        <StyledInput
-          name={name}
-          type={type}
-          onChange={onChange}
-          onBlur={onBlur}
-          onKeyDown={onKeyDown}
-          placeholder={placeholder}
-        />
-      ) : (
-        <InputContainer
-          padding={padding}
-          width={width}
-          height={height}
-          radius={radius}
-          borderColor={borderColor}
-        >
-          <StyledInput
-            name={name}
-            type={type}
-            onChange={onChange}
-            onBlur={onBlur}
-            onKeyDown={onKeyDown}
-            placeholder={placeholder}
-          />
-        </InputContainer>
-      )}
-    </>
+    <StyledInput
+      name={name}
+      type={type}
+      onChange={onChange}
+      onBlur={onBlur}
+      onKeyDown={onKeyDown}
+      placeholder={placeholder}
+      padding={padding}
+      width={width}
+      height={height}
+      radius={radius}
+      borderColor={borderColor}
+    />
   );
 };
 
-const InputContainer = styled.div`
+const StyledInput = styled.input`
   border: 1px solid ${({ borderColor }) => (borderColor ? borderColor : '#b0b0b0')};
   border-radius: ${({ radius }) => (radius ? radius : '0.4rem')};
   width: ${({ width }) => (width ? width : 'auto')};
   height: ${({ height }) => (height ? height : 'auto')};
   padding: ${({ padding }) => (padding ? padding : '1rem')};
-`;
-
-const StyledInput = styled.input`
-  border: none;
+  box-sizing: border-box;
   outline: none;
   font-size: ${({ theme }) => theme.fonts.size.xsm};
   line-height: 1.2rem;
-  width: 100%;
-  height: 100%;
   accent-color: ${({ theme }) => theme.colors.primary};
 `;
 

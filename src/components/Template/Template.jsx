@@ -31,8 +31,8 @@ function Template({ children }) {
         </Logo>
         <SearchWrap>
           <Input
-            width="400px"
-            padding="10px 16px"
+            width="440px"
+            padding="12px 16px"
             radius="50px"
             borderColor="#dddddd"
             lineHeight="1.2"
