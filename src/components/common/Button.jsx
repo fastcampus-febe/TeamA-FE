@@ -44,7 +44,6 @@ const Button = ({
 const StyledButton = styled.button`
   width: ${({ width }) => (width ? width : 'auto')};
   height: ${({ height }) => (height ? height : '3rem')};
-  background: ${({ color, theme }) => (color ? color : theme.colors.gradient)};
   background-color: ${({ backgroundColor, theme }) =>
     backgroundColor ? backgroundColor : theme.colors.primary};
   color: ${({ color, theme }) => (color ? color : theme.colors.white)};
@@ -60,8 +59,8 @@ const StyledButton = styled.button`
   bottom: ${({ bottom }) => (bottom ? bottom : '')};
   &:hover {
     background: ${({ backgroundColorHover, theme }) =>
-      backgroundColorHover ? backgroundColorHover : theme.colors.gradientDark};
-    color: ${({ colorHover, theme }) => (colorHover ? colorHover : theme.colors.gradientDark)};
+      backgroundColorHover ? backgroundColorHover : theme.colors.hover};
+    color: ${({ colorHover, theme }) => (colorHover ? colorHover : theme.colors.white)};
   }
 `;
 
