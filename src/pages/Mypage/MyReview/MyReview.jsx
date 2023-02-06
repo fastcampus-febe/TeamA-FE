@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import ReviewList from 'components/Mypage/ReviewList/ReviewList';
 import Pagination from 'components/common/Pagination';
 import { TbClipboardX } from 'react-icons/tb';
+import { getMyReview } from 'api/mypage';
 
 const MyReview = () => {
   const [review, setReview] = useState([]);
@@ -16,6 +17,8 @@ const MyReview = () => {
   useEffect(() => {
     async function getReviewData() {
       try {
+        // const data = await getMyReview();
+        // setReview(data);
         setReview(reviewData.items);
         setPageDisplay(false);
       } catch (error) {

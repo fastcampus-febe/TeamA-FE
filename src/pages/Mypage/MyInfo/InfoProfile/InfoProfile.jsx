@@ -1,8 +1,22 @@
+import { getMyInfo } from 'api/mypage';
 import { PageContent, Title } from 'pages/Mypage/MyPageStyle';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const InfoProfile = () => {
+  const [info, setInfo] = useState([]);
+
+  useEffect(() => {
+    async function getData() {
+      try {
+        // const data = await getMyInfo();
+        // setInfo(data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, []);
+
   return (
     <PageContent>
       <Title>내 정보</Title>

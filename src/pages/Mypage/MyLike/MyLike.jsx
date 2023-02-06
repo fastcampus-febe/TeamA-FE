@@ -5,6 +5,7 @@ import likeData from 'data/MyLikeData.json';
 import styled from 'styled-components';
 import Pagination from 'components/common/Pagination';
 import { TbClipboardX } from 'react-icons/tb';
+import { getMyLike } from 'api/mypage';
 
 const MyLike = () => {
   const [like, setLike] = useState([]);
@@ -16,6 +17,8 @@ const MyLike = () => {
   useEffect(() => {
     async function getLikeData() {
       try {
+        // const data = await getMyLike();
+        // setLike(data);
         setLike(likeData.items);
         setPageDisplay(false);
       } catch (error) {
