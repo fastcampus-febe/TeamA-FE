@@ -22,4 +22,10 @@ export const PATH = {
   COMMENT_INSERT: '/board/{boardId}/comment',
   COMMENT_UPDATE: '/board/{boardId}/comment/{commentId}',
   COMMENT_DELETE: '/board/{boardId}/comment/{commentId}',
+
+  // mypage
+  MYLIKE: '/mypage/favor/{userid}',
+  MYREVIEW: '/mypage/review/{userid}',
+  MYINFO: '/mypage/info/{userid}',
+  CHANGEPW: 'mypage/changePassword/{userid}',
 };
