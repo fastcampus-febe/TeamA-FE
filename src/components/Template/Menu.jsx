@@ -48,7 +48,7 @@ const Menu = ({ setMenuOpen, setModalOpen, setModalType }) => {
           <li onClick={() => handleClickModal('Login')}>로그인</li>
         </>
       )}
-      <li onClick={() => handleClickMenu('/board')}>자유게시판</li>
+      <li onClick={() => handleClickMenu('/board')}>커뮤니티</li>
       {auth.loggedUser.id && <li onClick={() => handleClickMenu('/mypage/like')}>마이페이지</li>}
     </MenuContainer>
   );
