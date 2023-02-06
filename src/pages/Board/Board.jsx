@@ -1,4 +1,5 @@
 import { getBoardList, getBoardListSearch, getBoardListSort } from 'api/board';
+import { authState } from 'atoms/auth';
 import BoardItem from 'components/Board/BoardItem';
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';
@@ -6,7 +7,8 @@ import Pagination from 'components/common/Pagination';
 import React, { useEffect, useState } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import { TbClipboardX } from 'react-icons/tb';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import { theme } from 'style/theme';
 import styled from 'styled-components';
 
@@ -19,6 +21,7 @@ const Board = () => {
   const [search, setSearch] = useState('');
   const [searchOption, setSearchOption] = useState('');
   const [sort, setSort] = useState('');
+  const [auth, setAuth] = useRecoilState(authState);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -61,7 +64,7 @@ const Board = () => {
             <option>닉네임</option>
           </SearchSelect>
           <Input
-            width="220px"
+            width="340px"
             padding="10px 16px 10px 94px"
             radius="20px"
             borderColor="#dddddd"
@@ -89,13 +92,15 @@ const Board = () => {
             <option>최근 순</option>
             <option>좋아요 순</option>
           </SortSelect>
-          <Button text="등록" width="90px" height="46px" onClick={() => navigate('/board/add')} />
+          {auth.loggedUser.id && (
+            <Button text="등록" width="90px" height="46px" onClick={() => navigate('/board/add')} />
+          )}
         </ButtonWrap>
       </BoardTitleContainer>
       <BoardWrap>
         {Array.isArray(board) ? (
           board.slice(offset, offset + limit).map((item) => {
-            return <BoardItem data={item} key={item.id} />;
+            return <BoardItem key={item.id} data={item} />;
           })
         ) : (
           <NoneBoard>
@@ -118,7 +123,7 @@ const BoardContainer = styled.div`
   width: 840px;
   display: flex;
   flex-direction: column;
-  padding: 1rem 0 2rem 0;
+  padding: 1.8rem 0 3rem 0;
 `;
 
 const BoardTitleContainer = styled.div`

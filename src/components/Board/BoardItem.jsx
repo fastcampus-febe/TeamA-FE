@@ -18,7 +18,7 @@ const BoardItem = ({ data: { id, title, member_id, nickname, indate, comment_cnt
       <BoardTitle onClick={handleClick}>{title}</BoardTitle>
       <BoardInfoContainer>
         <UserInfo>
-          <Avvvatars value={member_id} style="shape" />
+          <Avvvatars value={member_id} style="shape" size="24" />
           <Nickname>{nickname}</Nickname>
         </UserInfo>
         <Info>
