@@ -79,7 +79,9 @@ const SignModal = ({ setModalOpen, modalType }) => {
     setMessagesColor({ [name]: theme.colors.primary });
   };
 
-  const handleSignup = async () => {
+  const handleSignup = async (event) => {
+    event.preventDefault();
+
     const { id, nickname, password, passwordCheck, agree } = userData;
     if (!id) return showMessage('id', MESSAGES.ID_EMPTY_MSG);
     if (!id.match(REGEXP.ID_REGEXP)) return showMessage('id', MESSAGES.ID_VALID_MSG);
@@ -103,7 +105,9 @@ const SignModal = ({ setModalOpen, modalType }) => {
     }
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async (event) => {
+    event.preventDefault();
+
     const { id, password } = userData;
     if (!id) return showMessage('id', MESSAGES.ID_EMPTY_MSG);
     if (!password) return showMessage('password', MESSAGES.PASSWORD_EMPTY_MSG);
@@ -234,7 +238,7 @@ const SignModal = ({ setModalOpen, modalType }) => {
   );
 };
 
-const ModalContainer = styled.div`
+const ModalContainer = styled.form`
   position: fixed;
   top: 0;
   left: 0;
