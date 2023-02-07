@@ -45,7 +45,9 @@ const BoardDetail = () => {
       }
     }
   };
-  const handleUpdate = () => {};
+  const handleUpdate = () => {
+    navigate('/board/modify', { state: board });
+  };
 
   return (
     <DetailContainer>
@@ -125,7 +127,7 @@ const SubContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   & svg {
-    color: #ff385c;
+    color: ${({ theme }) => theme.colors.primary};
     cursor: pointer;
   }
 `;
