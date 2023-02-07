@@ -1,25 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FaHeart } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const SearchItem = ({ data }) => {
   const imgSrc = data.imgSrc;
 
   return (
     <SearchItemContainer>
-      <ImgContent>
-        <img src={imgSrc} alt="search img" />
-      </ImgContent>
-      <InfoContent>
-        <h3>{data.title}</h3>
-        <p>{data.adress}</p>
-        <FaHeart
-          size="20"
-          onClick={() => {
-            alert('찜');
-          }}
-        />
-      </InfoContent>
+      <Link to={'/place/' + data.id}>
+        <ImgContent>
+          <img src={imgSrc} alt="search img" />
+        </ImgContent>
+        <InfoContent>
+          <h3>{data.title}</h3>
+          <p>{data.adress}</p>
+          <FaHeart
+            size="20"
+            onClick={() => {
+              alert('찜');
+            }}
+          />
+        </InfoContent>
+      </Link>
     </SearchItemContainer>
   );
 };
@@ -48,6 +51,8 @@ const InfoContent = styled.div`
     font-size: 20px;
     line-height: 1.4;
     font-weight: 700;
+    text-decoration: none;
+    color: black;
   }
   p {
     color: #606060;
