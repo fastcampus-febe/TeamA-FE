@@ -54,7 +54,7 @@ const Comments = ({ setModalOpen }) => {
           <CommentWrap>
             <TextAreaWrap>
               <Avvvatars value={auth.loggedUser.id} style="shape" size="40" />
-              <TextArea height="50px" text={comment} setText={setComment} />
+              <TextArea height="50px" value={comment} setValue={setComment} />
             </TextAreaWrap>
             <ButtonWrap>
               <SpanText>{message}</SpanText>
@@ -71,7 +71,7 @@ const Comments = ({ setModalOpen }) => {
           <CommentWrap>
             <TextAreaWrap>
               <Avatar src="/images/avatar.png" />
-              <TextArea height="50px" disabled="true" placeholder="로그인 후 이용해 주세요." />
+              <TextArea height="50px" disabled={true} placeholder="로그인 후 이용해 주세요." />
             </TextAreaWrap>
             <ButtonWrap>
               <Button

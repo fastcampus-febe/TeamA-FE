@@ -32,7 +32,7 @@ const CommentItem = ({ data: { id, content, writer, member_id, createdDate, modi
   };
 
   const handleUpdate = async () => {
-    updateComment ? setMessage('') : setMessage('댓글 내용을 작성해 주세요.');
+    if (!updateComment) return setMessage('댓글 내용을 작성해 주세요.');
     try {
       const requestBody = { updateComment };
       // await updateComment(requestBody);
