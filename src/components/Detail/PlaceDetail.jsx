@@ -1,7 +1,13 @@
 import React from 'react';
 
-const Detail = () => {
-  return <div>detail</div>;
+const PlaceDetail = ({ data }) => {
+  return (
+    <>
+      <img src={data.imgSrc} alt="detail img" />
+      <h3>{data.title}</h3>
+      <p>{data.adress}</p>
+    </>
+  );
 };
 
-export default Detail;
+export default PlaceDetail;
