@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import CommentItem from './CommentItem';
@@ -7,11 +7,14 @@ import Button from 'components/common/Button';
 import TextArea from 'components/common/TextArea';
 import { authState } from 'atoms/auth';
 import { useRecoilState } from 'recoil';
+import { createComment } from 'api/comment';
 
 const Comments = ({ setModalOpen }) => {
   const [comments, setComments] = useState([]);
   let { state: id } = useLocation();
   const [auth, setAuth] = useRecoilState(authState);
+  const [comment, setComment] = useState('');
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     async function getData() {
@@ -27,6 +30,22 @@ const Comments = ({ setModalOpen }) => {
     getData();
   }, []);
 
+  const handleWrite = async () => {
+    comment ? setMessage('') : setMessage('댓글 내용을 작성해 주세요.');
+    try {
+      const requestBody = { comment };
+      await createComment(requestBody);
+
+      // const data = await getCommentList(id);
+      // setBoard(data.board_data);
+      setComments(tempData);
+      setComment('');
+    } catch (error) {
+      alert('댓글을 작성하지 못했습니다.');
+    } finally {
+    }
+  };
+
   return (
     <div>
       <CommentCnt>{tempData.length}개의 댓글</CommentCnt>
@@ -35,23 +54,31 @@ const Comments = ({ setModalOpen }) => {
           <CommentWrap>
             <TextAreaWrap>
               <Avvvatars value={auth.loggedUser.id} style="shape" size="40" />
-              <TextArea height="60px" />
+              <TextArea height="50px" text={comment} setText={setComment} />
             </TextAreaWrap>
             <ButtonWrap>
-              <Button text="댓글 쓰기" width="130px" height="40px" fontSize="15px" />
+              <SpanText>{message}</SpanText>
+              <Button
+                text="댓글 쓰기"
+                width="110px"
+                height="40px"
+                fontSize="14px"
+                onClick={handleWrite}
+              />
             </ButtonWrap>
           </CommentWrap>
         ) : (
           <CommentWrap>
             <TextAreaWrap>
               <Avatar src="/images/avatar.png" />
-              <TextArea height="60px" disabled="true" placeholder="로그인 후 이용해 주세요." />
+              <TextArea height="50px" disabled="true" placeholder="로그인 후 이용해 주세요." />
             </TextAreaWrap>
             <ButtonWrap>
               <Button
                 text="로그인"
-                width="130px"
+                width="120px"
                 height="40px"
+                fontSize="15px"
                 onClick={() => setModalOpen(true)}
               />
             </ButtonWrap>
@@ -75,8 +102,8 @@ const CommentCnt = styled.div`
 const CommentContainer = styled.div`
   border: 1px solid #dddddd;
   border-radius: 10px;
-  padding: 1.8rem 1.8rem 1.8rem 1.4rem;
-  margin-bottom: 3rem;
+  padding: 1.2rem;
+  margin-bottom: 2rem;
 `;
 
 const CommentWrap = styled.div`
@@ -95,12 +122,20 @@ const Avatar = styled.img`
 
 const TextAreaWrap = styled.div`
   display: flex;
-  gap: 1.4rem;
+  gap: 1.2rem;
 `;
 
 const ButtonWrap = styled.div`
   display: flex;
+  gap: 1rem;
+  align-items: center;
   justify-content: end;
+`;
+
+const SpanText = styled.span`
+  font-size: ${({ theme }) => theme.fonts.size.mini};
+  line-height: 1.2rem;
+  color: ${({ theme }) => theme.colors.primary};
 `;
 
 export default Comments;
@@ -111,6 +146,7 @@ const tempData = [
     content:
       '댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1',
     writer: '냠냠냠',
+    member_id: 'a24123aaa',
     board_id: 1,
     createdDate: '2023-02-03T01:55:27.081136',
     modifiedDate: '2023-02-03T01:57:02.293316',

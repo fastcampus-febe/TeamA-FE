@@ -179,7 +179,7 @@ const SortSelect = styled.select`
   padding: 0 1rem;
   cursor: pointer;
   width: 110px;
-  height: 50px;
+  height: 40px;
   border: 1px solid #dddddd;
   border-radius: 30px;
   background-color: white;
