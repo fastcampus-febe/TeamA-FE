@@ -4,45 +4,45 @@ import { getItem } from 'utils/storage';
 
 const token = getItem('token');
 
-export const getMyInfo = async () => {
+export const getMyInfo = async (id) => {
   try {
-    const response = await axiosInstance.get(PATH.MYINFO, token);
+    const response = await axiosInstance.get(PATH.MYINFO + id, token);
     return response;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const deleteMyInfo = async () => {
+export const deleteMyInfo = async (id) => {
   try {
-    const response = await axiosInstance.delete(PATH.MYINFO, token);
+    const response = await axiosInstance.delete(PATH.MYINFO + id, token);
     return response;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const postChangePW = async (data) => {
+export const postChangePW = async (id, data) => {
   try {
-    const response = await axiosInstance.post(PATH.CHANGEPW, data, token);
+    const response = await axiosInstance.post(PATH.CHANGEPW + id, data, token);
     return response;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const getMyLike = async () => {
+export const getMyLike = async (id) => {
   try {
-    const response = await axiosInstance.get(PATH.MYLIKE, token);
+    const response = await axiosInstance.get(PATH.MYLIKE + id, token);
     return response;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const getMyReview = async () => {
+export const getMyReview = async (id) => {
   try {
-    const response = await axiosInstance.get(PATH.MYREVIEW, token);
+    const response = await axiosInstance.get(PATH.MYREVIEW + id, token);
     return response;
   } catch (error) {
     console.error(error);

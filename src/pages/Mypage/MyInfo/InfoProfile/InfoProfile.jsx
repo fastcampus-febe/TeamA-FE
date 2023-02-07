@@ -2,19 +2,22 @@ import { getMyInfo } from 'api/mypage';
 import { PageContent, Title } from 'pages/Mypage/MyPageStyle';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { getItem } from 'utils/storage';
 
 const InfoProfile = () => {
   const [info, setInfo] = useState([]);
+  const userId = getItem('user').id;
 
   useEffect(() => {
     async function getData() {
       try {
-        // const data = await getMyInfo();
-        // setInfo(data);
+        const data = await getMyInfo(userId);
+        setInfo(data);
       } catch (error) {
         console.log(error);
       }
     }
+    // getData();
   }, []);
 
   return (
