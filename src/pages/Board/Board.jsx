@@ -56,7 +56,7 @@ const Board = () => {
 
   return (
     <BoardContainer>
-      <BoardTitleContainer>
+      <BoardHeader>
         <BoardTitle>Community</BoardTitle>
         <SearchWrap>
           <SearchSelect onChange={(e) => setSearchOption(e.target.value)}>
@@ -93,10 +93,17 @@ const Board = () => {
             <option>좋아요 순</option>
           </SortSelect>
           {auth.loggedUser.id && (
-            <Button text="등록" width="90px" height="46px" onClick={() => navigate('/board/add')} />
+            <Button
+              text="등록"
+              width="90px"
+              height="40px"
+              radius="50px"
+              fontSize="15px"
+              onClick={() => navigate('/board/add')}
+            />
           )}
         </ButtonWrap>
-      </BoardTitleContainer>
+      </BoardHeader>
       <BoardWrap>
         {Array.isArray(board) ? (
           board.slice(offset, offset + limit).map((item) => {
@@ -126,7 +133,7 @@ const BoardContainer = styled.div`
   padding: 1.8rem 0 3rem 0;
 `;
 
-const BoardTitleContainer = styled.div`
+const BoardHeader = styled.div`
   display: flex;
   justify-content: space-between;
   border-bottom: 1px dashed #dadada;
@@ -164,9 +171,10 @@ const SearchSelect = styled.select`
   border: none;
   outline: none;
   position: absolute;
-  top: 34px;
+  top: 35px;
   left: 16px;
   width: 70px;
+  cursor: pointer;
 `;
 
 const ButtonWrap = styled.div`
@@ -178,6 +186,7 @@ const ButtonWrap = styled.div`
 const SortSelect = styled.select`
   padding: 0 1rem;
   cursor: pointer;
+  outline: none;
   width: 110px;
   height: 40px;
   border: 1px solid #dddddd;

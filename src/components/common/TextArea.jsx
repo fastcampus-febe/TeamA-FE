@@ -1,15 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const TextArea = ({ width, height, placeholder, disabled, text, setText }) => {
+const TextArea = ({ width, height, placeholder, disabled, value, onChange }) => {
   return (
     <StyledTextArea
       width={width}
       height={height}
       placeholder={placeholder}
       disabled={disabled}
-      value={text}
-      onChange={(e) => setText(e.target.value)}
+      defaultValue={value}
+      onChange={onChange}
     />
   );
 };
@@ -29,4 +29,7 @@ const StyledTextArea = styled.textarea`
   font-family: 'Cereal', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 15px;
   line-height: 1.4;
+  &:focus {
+    border: 1px solid #7a7a7a;
+  }
 `;
