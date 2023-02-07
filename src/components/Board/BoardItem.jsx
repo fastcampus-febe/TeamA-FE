@@ -81,6 +81,19 @@ const Text = styled.span`
   display: flex;
   align-items: center;
   gap: 0.2rem;
+  position: relative;
+  &::after {
+    content: '';
+    position: relative;
+    top: 0;
+    left: 6px;
+    width: 2px;
+    height: 2px;
+    background-color: #888888;
+  }
+  &:last-child::after {
+    content: none;
+  }
 `;
 
 export default BoardItem;

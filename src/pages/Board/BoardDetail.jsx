@@ -95,6 +95,19 @@ const Text = styled.span`
   color: rgb(55, 65, 82);
   font-size: 14px;
   display: flex;
+  position: relative;
+  &::after {
+    content: '';
+    position: relative;
+    top: 10px;
+    left: 7px;
+    width: 2px;
+    height: 2px;
+    background-color: #888888;
+  }
+  &:last-child::after {
+    content: none;
+  }
 `;
 
 const InfoWrap = styled.div`
@@ -134,8 +147,22 @@ const TextButton = styled.button`
   background-color: transparent;
   outline: none;
   cursor: pointer;
+  color: #3e3e3e;
+  position: relative;
   &:hover {
     color: ${({ theme }) => theme.colors.primary};
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 40px;
+    height: 12px;
+    width: 1px;
+    background-color: #888888;
+  }
+  &:last-child::after {
+    content: none;
   }
 `;
 

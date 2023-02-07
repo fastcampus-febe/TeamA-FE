@@ -1,9 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const TextArea = ({ width, height, placeholder, disabled }) => {
+const TextArea = ({ width, height, placeholder, disabled, text, setText }) => {
   return (
-    <StyledTextArea width={width} height={height} placeholder={placeholder} disabled={disabled} />
+    <StyledTextArea
+      width={width}
+      height={height}
+      placeholder={placeholder}
+      disabled={disabled}
+      value={text}
+      onChange={(e) => setText(e.target.value)}
+    />
   );
 };
 

@@ -57,6 +57,9 @@ const StyledButton = styled.button`
   right: ${({ right }) => (right ? right : '')};
   left: ${({ left }) => (left ? left : '')};
   bottom: ${({ bottom }) => (bottom ? bottom : '')};
+  display: flex;
+  justify-content: center;
+  align-items: center;
   &:hover {
     background: ${({ backgroundColorHover, theme }) =>
       backgroundColorHover ? backgroundColorHover : theme.colors.hover};
