@@ -79,7 +79,9 @@ const SignModal = ({ setModalOpen, modalType }) => {
     setMessagesColor({ [name]: theme.colors.primary });
   };
 
-  const handleSignup = async () => {
+  const handleSignup = async (event) => {
+    event.preventDefault();
+
     const { id, nickname, password, passwordCheck, agree } = userData;
     if (!id) return showMessage('id', MESSAGES.ID_EMPTY_MSG);
     if (!id.match(REGEXP.ID_REGEXP)) return showMessage('id', MESSAGES.ID_VALID_MSG);
@@ -103,14 +105,20 @@ const SignModal = ({ setModalOpen, modalType }) => {
     }
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async (event) => {
+    event.preventDefault();
+
     const { id, password } = userData;
     if (!id) return showMessage('id', MESSAGES.ID_EMPTY_MSG);
     if (!password) return showMessage('password', MESSAGES.PASSWORD_EMPTY_MSG);
 
     const requestBody = { id, password };
-    const data = await postUserSignIn(requestBody);
-    if (data.isFailed) return showMessage('password', data.errorMessage);
+    // const data = await postUserSignIn(requestBody);
+    // if (data.isFailed) return showMessage('password', data.errorMessage);
+    const data = {
+      accessToken:
+        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJleGFtcGxlQGdtYWlsLmNvbSIsImlhdCI6MTY3NDMyODMzOCwiZXhwIjoxNjc0MzMwMTM4LCJpZCI6ImFzZGYiLCJuaWNrbmFtZSI6ImJvdXJib24iLCJyb2xlIjoiUk9MRV9VU0VSIn0.ePPbCBVHWmNzFPBXnN35r6RqzlU1JtCBxjCxzGnssHA',
+    };
 
     setItem('user', { id, password });
     setItem('token', data.accessToken);
@@ -136,51 +144,43 @@ const SignModal = ({ setModalOpen, modalType }) => {
           <ModalContent>
             <ContentWrap>
               <InputWrap>
-                <InputContainer>
-                  <Input
-                    type="text"
-                    name="id"
-                    placeholder="아이디"
-                    onChange={handleChangeValue}
-                    onBlur={handleSignup}
-                  />
-                </InputContainer>
+                <Input
+                  type="text"
+                  name="id"
+                  placeholder="아이디"
+                  onChange={handleChangeValue}
+                  onBlur={handleSignup}
+                />
                 <SpanText color={messagesColor.id}>{messages.id}</SpanText>
               </InputWrap>
               <InputWrap>
-                <InputContainer>
-                  <Input
-                    type="text"
-                    name="nickname"
-                    placeholder="닉네임"
-                    onChange={handleChangeValue}
-                    onBlur={handleSignup}
-                  />
-                </InputContainer>
+                <Input
+                  type="text"
+                  name="nickname"
+                  placeholder="닉네임"
+                  onChange={handleChangeValue}
+                  onBlur={handleSignup}
+                />
                 <SpanText color={messagesColor.nickname}>{messages.nickname}</SpanText>
               </InputWrap>
               <InputWrap>
-                <InputContainer>
-                  <Input
-                    type="password"
-                    name="password"
-                    placeholder="비밀번호"
-                    onChange={handleChangeValue}
-                    onBlur={handleSignup}
-                  />
-                </InputContainer>
+                <Input
+                  type="password"
+                  name="password"
+                  placeholder="비밀번호"
+                  onChange={handleChangeValue}
+                  onBlur={handleSignup}
+                />
                 <SpanText color={messagesColor.password}>{messages.password}</SpanText>
               </InputWrap>
               <InputWrap>
-                <InputContainer>
-                  <Input
-                    type="password"
-                    name="passwordCheck"
-                    placeholder="비밀번호 확인"
-                    onChange={handleChangeValue}
-                    onBlur={handleSignup}
-                  />
-                </InputContainer>
+                <Input
+                  type="password"
+                  name="passwordCheck"
+                  placeholder="비밀번호 확인"
+                  onChange={handleChangeValue}
+                  onBlur={handleSignup}
+                />
                 <SpanText color={messagesColor.passwordCheck}>{messages.passwordCheck}</SpanText>
               </InputWrap>
             </ContentWrap>
@@ -212,25 +212,22 @@ const SignModal = ({ setModalOpen, modalType }) => {
           <ModalContent>
             <ContentWrap>
               <InputWrap>
-                <InputContainer>
-                  <Input type="text" name="id" placeholder="아이디" onChange={handleChangeValue} />
-                </InputContainer>
+                <Input type="text" name="id" placeholder="아이디" onChange={handleChangeValue} />
                 <SpanText color={messagesColor.id}>{messages.id}</SpanText>
               </InputWrap>
               <InputWrap>
-                <InputContainer>
-                  <Input
-                    type="password"
-                    name="password"
-                    placeholder="비밀번호"
-                    onChange={handleChangeValue}
-                    onKeyDown={handleKeyDown}
-                  />
-                </InputContainer>
+                <Input
+                  type="password"
+                  name="password"
+                  placeholder="비밀번호"
+                  onChange={handleChangeValue}
+                  onKeyDown={handleKeyDown}
+                />
                 <SpanText color={messagesColor.password}>{messages.password}</SpanText>
               </InputWrap>
             </ContentWrap>
             <Bar />
+            <SearchText>아이디 / 비밀번호 찾기</SearchText>
             <ContentWrap>
               <Button text="로그인" onClick={handleLogin} />
             </ContentWrap>
@@ -241,7 +238,7 @@ const SignModal = ({ setModalOpen, modalType }) => {
   );
 };
 
-const ModalContainer = styled.div`
+const ModalContainer = styled.form`
   position: fixed;
   top: 0;
   left: 0;
@@ -300,19 +297,6 @@ const CheckBoxWrap = styled.div`
   margin-bottom: 1rem;
 `;
 
-const InputContainer = styled.div`
-  border: 1px solid #b0b0b0;
-  border-radius: 0.4rem;
-  padding: 1rem;
-  & input {
-    border: none;
-    outline: none;
-    font-size: ${({ theme }) => theme.fonts.size.xsm};
-    line-height: 1.2rem;
-    width: 100%;
-  }
-`;
-
 const InputWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -327,6 +311,16 @@ const SpanText = styled.span`
   font-size: ${({ theme }) => theme.fonts.size.mini};
   line-height: 1.2rem;
   color: ${({ color }) => (color ? color : 'rgb(113, 113, 113)')};
+`;
+
+const SearchText = styled.span`
+  cursor: pointer;
+  font-size: 14px;
+  color: rgb(113, 113, 113);
+  margin-top: 1rem;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const Bar = styled.div`

@@ -1,3 +1,4 @@
+import { postChangePW } from 'api/mypage';
 import Button from 'components/common/Button';
 import { Modal, ModalOkCancel } from 'components/common/Modal';
 import { PageContent, SvgPosition, Title } from 'pages/Mypage/MyPageStyle';
@@ -34,9 +35,10 @@ const PasswordChange = () => {
     });
   }
 
-  function ChangePassword() {
+  async function ChangePassword() {
     try {
       // 비밀번호 변경
+      // const data = await postChangePW();
       console.log(password);
     } catch (error) {
       setModal(true);

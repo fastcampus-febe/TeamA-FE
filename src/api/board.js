@@ -13,9 +13,29 @@ export const getBoardList = async () => {
   }
 };
 
-export const getBoardDetail = async (data) => {
+export const getBoardListSearch = async (type, data) => {
   try {
-    const response = await axiosInstance.get(PATH.LOGIN, data);
+    const path = type === 'title' ? PATH.BOARD_SEARCH_TITLE : PATH.BOARD_SEARCH_NICKNAME;
+    const response = await axiosInstance.get(path + '/' + data, token);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getBoardListSort = async (type) => {
+  try {
+    const path = type === 'recent' ? PATH.BOARD_ORDER_DATE : PATH.BOARD_ORDER_LIKE;
+    const response = await axiosInstance.get(path, token);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getBoardDetail = async (id) => {
+  try {
+    const response = await axiosInstance.get(PATH.BOARD_DETAIL + '/' + id);
     return response;
   } catch (error) {
     console.error(error);

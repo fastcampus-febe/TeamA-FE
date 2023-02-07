@@ -5,15 +5,17 @@ import { CgDanger } from 'react-icons/cg';
 import styled, { css } from 'styled-components';
 import Button from 'components/common/Button';
 import { Modal, ModalOkCancel } from 'components/common/Modal';
+import { deleteMyInfo } from 'api/mypage';
 
 const Withdrawal = () => {
   const [display, setDisplay] = useState(false);
   const [modal, setModal] = useState(false);
   const [modalText, setModalText] = useState('');
 
-  function MemberDelete() {
+  async function MemberDelete() {
     try {
       // 회원 탈퇴
+      // const data = await deleteMyInfo();
     } catch (error) {
       setModal(true);
       setModalText('오류가 발생하였습니다.');

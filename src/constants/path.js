@@ -6,7 +6,7 @@ export const PATH = {
 
   BOARD_LIST: '/board/list',
   BOARD_ORDER_DATE: '/boards?order=createdDate',
-  BOARD_ORDER_LIKE: '/boards/thumb',
+  BOARD_ORDER_LIKE: '/boards/order=thumb',
   BOARD_SEARCH_TITLE: '/board/list?searchKeyword=',
   BOARD_SEARCH_NICKNAME: '/board/list?writer=',
   BOARD_THUMB: '/board/thumb/{id}',
@@ -22,4 +22,10 @@ export const PATH = {
   COMMENT_INSERT: '/board/{boardId}/comment',
   COMMENT_UPDATE: '/board/{boardId}/comment/{commentId}',
   COMMENT_DELETE: '/board/{boardId}/comment/{commentId}',
+
+  // mypage
+  MYLIKE: '/mypage/favor/',
+  MYREVIEW: '/mypage/review/',
+  MYINFO: '/mypage/info/',
+  CHANGEPW: 'mypage/changePassword/',
 };

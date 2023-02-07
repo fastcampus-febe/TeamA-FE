@@ -3,13 +3,24 @@ import { FaRegCommentDots } from 'react-icons/fa';
 import { FiHeart } from 'react-icons/fi';
 import styled from 'styled-components';
 import { formatDate } from 'utils/formats';
+import Avvvatars from 'avvvatars-react';
+import { useNavigate } from 'react-router-dom';
 
-const BoardItem = ({ data: { title, member_id, nickname, indate, comment_cnt, thumb } }) => {
+const BoardItem = ({ data: { id, title, member_id, nickname, indate, comment_cnt, thumb } }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/board/${id}`, { state: id });
+  };
+
   return (
     <BoardItemContainer>
-      <BoardTitle>{title}</BoardTitle>
+      <BoardTitle onClick={handleClick}>{title}</BoardTitle>
       <BoardInfoContainer>
-        <Nickname>{nickname}</Nickname>
+        <UserInfo>
+          <Avvvatars value={member_id} style="shape" size="24" />
+          <Nickname>{nickname}</Nickname>
+        </UserInfo>
         <Info>
           <Text>{formatDate(indate)}</Text>
           <Text>
@@ -47,6 +58,12 @@ const BoardInfoContainer = styled.div`
   justify-content: space-between;
 `;
 
+const UserInfo = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+`;
+
 const Nickname = styled.span`
   font-weight: 500;
   color: #222222;
@@ -64,6 +81,19 @@ const Text = styled.span`
   display: flex;
   align-items: center;
   gap: 0.2rem;
+  position: relative;
+  &::after {
+    content: '';
+    position: relative;
+    top: 0;
+    left: 6px;
+    width: 2px;
+    height: 2px;
+    background-color: #888888;
+  }
+  &:last-child::after {
+    content: none;
+  }
 `;
 
 export default BoardItem;
