@@ -24,8 +24,8 @@ export const PATH = {
   COMMENT_DELETE: '/board/{boardId}/comment/{commentId}',
 
   // mypage
-  MYLIKE: '/mypage/favor/{userid}',
-  MYREVIEW: '/mypage/review/{userid}',
-  MYINFO: '/mypage/info/{userid}',
-  CHANGEPW: 'mypage/changePassword/{userid}',
+  MYLIKE: '/mypage/favor/',
+  MYREVIEW: '/mypage/review/',
+  MYINFO: '/mypage/info/',
+  CHANGEPW: 'mypage/changePassword/',
 };

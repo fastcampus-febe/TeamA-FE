@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { FaHeart } from 'react-icons/fa';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const SearchItem = ({ data }) => {
+  const [click, setClick] = useState(false);
   const imgSrc = data.imgSrc;
+
+  function likeClick() {
+    return (
+      <>
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+        <lottie-player
+          src="https://assets5.lottiefiles.com/private_files/lf30_2putscqk.json"
+          background="transparent"
+          speed="1"
+          controls
+        ></lottie-player>
+      </>
+    );
+  }
 
   return (
     <SearchItemContainer>
@@ -15,12 +30,28 @@ const SearchItem = ({ data }) => {
         <InfoContent>
           <h3>{data.title}</h3>
           <p>{data.adress}</p>
-          <FaHeart
-            size="20"
-            onClick={() => {
-              alert('찜');
+          <LikeDiv
+            onClick={(e) => {
+              e.preventDefault();
+              setClick(!click);
             }}
-          />
+          >
+            {click ? (
+              <FaHeart
+                size="20"
+                onClick={() => {
+                  likeClick();
+                }}
+              />
+            ) : (
+              <FaRegHeart
+                size="20"
+                onClick={() => {
+                  likeClick();
+                }}
+              />
+            )}
+          </LikeDiv>
         </InfoContent>
       </Link>
     </SearchItemContainer>
@@ -57,10 +88,15 @@ const InfoContent = styled.div`
   p {
     color: #606060;
   }
+`;
+
+const LikeDiv = styled.div`
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  top: 0;
+  right: 10px;
   svg {
-    position: absolute;
-    top: 0;
-    right: 10px;
     color: #ff385c;
     cursor: pointer;
   }
