@@ -15,7 +15,7 @@ const CommentItem = ({ data: { id, content, writer, member_id, createdDate, modi
   const [isModify, setIsModify] = useState(false);
   const [auth, setAuth] = useRecoilState(authState);
   const [comment, setComment] = useState(content);
-  const [updateComment, setUpdateComment] = useState();
+  const [updateComment, setUpdateComment] = useState(content);
   const [message, setMessage] = useState('');
 
   const handleDelete = async () => {
@@ -45,8 +45,12 @@ const CommentItem = ({ data: { id, content, writer, member_id, createdDate, modi
     }
   };
 
+  const handleCancel = () => {
+    setIsModify(false);
+    setUpdateComment(comment);
+  };
+
   useEffect(() => {
-    if (isModify) return setUpdateComment(comment);
     if (!isModify) return setMessage('');
   }, [isModify]);
 
@@ -57,7 +61,11 @@ const CommentItem = ({ data: { id, content, writer, member_id, createdDate, modi
           <CommentWrap>
             <TextAreaWrap>
               <Avvvatars value={member_id} style="shape" size="40" />
-              <TextArea height="50px" text={updateComment} setText={setUpdateComment} />
+              <TextArea
+                height="50px"
+                value={updateComment}
+                onChange={(e) => setUpdateComment(e.target.value)}
+              />
             </TextAreaWrap>
             <ButtonWrap>
               <SpanText>{message}</SpanText>
@@ -66,7 +74,7 @@ const CommentItem = ({ data: { id, content, writer, member_id, createdDate, modi
                 width="80px"
                 height="40px"
                 fontSize="14px"
-                onClick={() => setIsModify(false)}
+                onClick={handleCancel}
               />
               <Button
                 text="수정 완료"
