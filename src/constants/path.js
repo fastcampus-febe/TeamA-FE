@@ -10,7 +10,7 @@ export const PATH = {
   BOARD_ORDER_LIKE: '/boards/thumb',
   BOARD_SEARCH_TITLE: '/board/list?searchKeyword=',
   BOARD_SEARCH_NICKNAME: '/board/list?writer=',
-  BOARD_THUMB: '/board/thumb/{id}',
+  BOARD_THUMB: '/board/thumb/',
   BOARD_INSERT: '/board/insert',
   BOARD_UPDATE: '/board',
   BOARD_DELETE: '/board',
