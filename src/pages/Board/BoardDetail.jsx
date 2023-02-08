@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Avvvatars from 'avvvatars-react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { deleteBoard, getBoardDetail } from 'api/board';
+import { deleteBoard, getBoardDetail, thumbBoard } from 'api/board';
 import { FaHeart } from 'react-icons/fa';
 import { formatDate } from 'utils/formats';
 import Comments from 'components/Comment/Comments';
@@ -12,7 +12,7 @@ import SignModal from 'components/SignModal/SignModal';
 
 const BoardDetail = () => {
   const [board, setBoard] = useState({});
-  let { state: id } = useLocation();
+  const boardId = useLocation().pathname.split('/')[2];
   const [auth, setAuth] = useRecoilState(authState);
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
@@ -20,9 +20,8 @@ const BoardDetail = () => {
   useEffect(() => {
     async function getData() {
       try {
-        const data = await getBoardDetail(id);
+        const data = await getBoardDetail(boardId);
         setBoard(data);
-        // setLike(board.like);
       } catch (error) {
         alert('게시물 상세를 조회하지 못했습니다.');
       } finally {
@@ -31,11 +30,20 @@ const BoardDetail = () => {
     getData();
   }, []);
 
-  const handleThumb = () => {};
+  const handleThumb = async () => {
+    try {
+      await thumbBoard(boardId);
+      const data = await getBoardDetail(boardId);
+      setBoard(data);
+    } catch (error) {
+      alert('좋아요에 실패했습니다.');
+    }
+  };
+
   const handleDelete = async () => {
     if (window.confirm('게시물을 삭제하시겠습니까?')) {
       try {
-        await deleteBoard(id);
+        await deleteBoard(boardId);
         alert('삭제가 완료되었습니다.');
         navigate('/board');
       } catch (error) {
@@ -57,12 +65,12 @@ const BoardDetail = () => {
             <Text>{board.writer}</Text>
             <Text>{board.createdDate && formatDate(board.createdDate)}</Text>
           </InfoWrap>
-          {board.userId === auth.loggedUser.id && (
-            <>
-              <TextButton onClick={handleUpdate}>수정</TextButton>
-              <TextButton onClick={handleDelete}>삭제</TextButton>
-            </>
-          )}
+          {/* {board.userId === auth.loggedUser.id && ( */}
+          <>
+            <TextButton onClick={handleUpdate}>수정</TextButton>
+            <TextButton onClick={handleDelete}>삭제</TextButton>
+          </>
+          {/* )} */}
         </UserInfo>
         <ThumbWrap>
           <FaHeart size="26" onClick={handleThumb} />
@@ -71,7 +79,7 @@ const BoardDetail = () => {
       </SubContainer>
       <Title>{board.title}</Title>
       <Content>{board.content}</Content>
-      <Comments setModalOpen={setModalOpen} boardId={id} />
+      <Comments setModalOpen={setModalOpen} boardId={boardId} />
       {modalOpen ? <SignModal setModalOpen={setModalOpen} modalType={'Login'} /> : null}
     </DetailContainer>
   );
