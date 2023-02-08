@@ -18,6 +18,7 @@ const Button = ({
   left,
   bottom,
   radius,
+  disabled,
 }) => {
   return (
     <StyledButton
@@ -35,6 +36,7 @@ const Button = ({
       left={left}
       bottom={bottom}
       radius={radius}
+      disabled={disabled}
     >
       {children ? children : text}
     </StyledButton>
