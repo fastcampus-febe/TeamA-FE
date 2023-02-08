@@ -55,7 +55,7 @@ const PasswordChange = () => {
   async function ChangePassword() {
     try {
       // 비밀번호 변경
-      // const data = await postChangePW(userid, reqData);
+      await postChangePW(userId, reqData);
     } catch (error) {
       setModal(true);
       setModalText('오류가 발생하였습니다.');

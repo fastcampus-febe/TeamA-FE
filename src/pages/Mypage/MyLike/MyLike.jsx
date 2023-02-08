@@ -20,9 +20,9 @@ const MyLike = () => {
   useEffect(() => {
     async function getLikeData() {
       try {
-        // const data = await getMyLike(userId);
-        // setLike(data);
-        setLike(likeData.items);
+        const data = await getMyLike(userId);
+        setLike(data);
+        // setLike(likeData.items);
         setPageDisplay(false);
       } catch (error) {
         console.log(error);
@@ -37,7 +37,7 @@ const MyLike = () => {
       <LikeContent>
         {like.length > 0 ? (
           like.slice(offset, offset + limit).map((item) => {
-            return <LikeList data={item} key={item.id} />;
+            return <LikeList data={item} key={item.placeId} />;
           })
         ) : (
           <LikeNoneContent>

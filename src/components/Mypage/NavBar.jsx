@@ -1,16 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import NavBarItem from './NavBarItem';
 import { FaRegHeart } from 'react-icons/fa';
 import { MdOutlineRateReview } from 'react-icons/md';
 import { FiSettings } from 'react-icons/fi';
+import { getItem } from 'utils/storage';
+import { getMyInfo } from 'api/mypage';
 
 const NavBar = () => {
+  const [nickname, setNickname] = useState('');
+  const userId = getItem('user').id;
+
+  useEffect(() => {
+    async function getData() {
+      try {
+        const data = await getMyInfo(userId);
+        console.log(data);
+        setNickname(data.nickname);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getData();
+  }, []);
+
   return (
     <MyPage>
       <MyPageNav>
         <img src="/images/avatar.png" alt="회원 이미지" />
-        <h3>회원 닉네임</h3>
+        <h3>{nickname}</h3>
       </MyPageNav>
       <MyPageNav>
         <ul>
