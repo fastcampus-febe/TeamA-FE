@@ -37,7 +37,7 @@ const MyLike = () => {
       <LikeContent>
         {like.length > 0 ? (
           like.slice(offset, offset + limit).map((item) => {
-            return <LikeList i={i} data={item} key={item.id} />;
+            return <LikeList data={item} key={item.id} />;
           })
         ) : (
           <LikeNoneContent>
