@@ -10,14 +10,13 @@ const LikeList = ({ i, data }) => {
   const [modal, setModal] = useState(false);
   const [modalText, setModalText] = useState('');
 
-  const imgSrc = data.imgSrc;
+  const imgSrc = data.placeImg;
   const placeId = data.placeId;
-  const userId = getItem('user').id;
 
   async function LikeCancel() {
     try {
       // 찜 취소
-      // await postLikeCancel(userId);
+      await postLikeCancel(placeId);
     } catch (error) {
       setModal(true);
       setModalText('오류가 발생하였습니다.');
@@ -36,7 +35,7 @@ const LikeList = ({ i, data }) => {
         </ImgContent>
         <TextContent>
           <h3>{data.title}</h3>
-          <p>{data.adress}</p>
+          <p>{data.addr1}</p>
           <FaHeart
             size="20"
             onClick={(e) => {

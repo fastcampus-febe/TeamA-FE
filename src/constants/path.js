@@ -29,4 +29,5 @@ export const PATH = {
 
   // hone && search
   LIKE: '/favor/',
+  PLACEDETAIL: '/place/',
 };

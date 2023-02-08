@@ -1,22 +1,33 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { BiLike } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
+import { getPlaceDetail } from 'api/detail';
 
 const ReviewList = ({ data }) => {
-  const createdDate = data.indate.substr(0, 10);
-  const modifiedDate = data.indate.substr(0, 10);
-  // const createdDate = data.createDate.substr(0, 10);
-  // const modifiedDate = data.modifiedDate ? data.modifiedDate.substr(0, 10) : createdDate;
-  const placeId = data.placeId;
-  // const placeId = data.place_id;
+  const [placeTitle, setPlaceTitle] = useState('');
+  const createdDate = data.createdDate.slice(0, 10);
+  const modifiedDate = data.modifiedDate ? data.modifiedDate.slice(0, 10) : createdDate;
+  const placeId = data.place_id;
+
+  useEffect(() => {
+    async function getData() {
+      try {
+        const data = await getPlaceDetail(placeId);
+        setPlaceTitle(data.title);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getData();
+  }, []);
 
   return (
     <ReviewLi>
       <Link to={'/place/' + placeId}>
-        <h3>{data.place_title}</h3>
+        <h3>{placeTitle}</h3>
       </Link>
-      <p>{data.review}</p>
+      <p>{data.content}</p>
       <DateContent>
         {createdDate} | {modifiedDate}
       </DateContent>

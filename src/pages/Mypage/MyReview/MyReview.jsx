@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { PageContent, Title } from '../MyPageStyle';
-import reviewData from 'data/MyReviewData.json';
 import styled from 'styled-components';
 import ReviewList from 'components/Mypage/ReviewList/ReviewList';
 import Pagination from 'components/common/Pagination';
@@ -19,9 +18,8 @@ const MyReview = () => {
   useEffect(() => {
     async function getReviewData() {
       try {
-        // const data = await getMyReview(userId);
-        // setReview(data);
-        setReview(reviewData.items);
+        const data = await getMyReview(userId);
+        setReview(data);
         setPageDisplay(false);
       } catch (error) {
         console.log(error);

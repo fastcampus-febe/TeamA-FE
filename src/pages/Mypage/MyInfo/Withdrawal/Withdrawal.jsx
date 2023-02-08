@@ -17,7 +17,7 @@ const Withdrawal = () => {
   async function MemberDelete() {
     try {
       // 회원 탈퇴
-      // const data = await deleteMyInfo(userId);
+      await deleteMyInfo(userId);
     } catch (error) {
       setModal(true);
       setModalText('오류가 발생하였습니다.');

@@ -4,8 +4,6 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getItem } from 'utils/storage';
 
-import data from 'data/InfoProfile.json';
-
 const InfoProfile = () => {
   const [info, setInfo] = useState([]);
 
@@ -16,7 +14,7 @@ const InfoProfile = () => {
   useEffect(() => {
     async function getData() {
       try {
-        // const data = await getMyInfo(userId);
+        const data = await getMyInfo(userId);
         setInfo(data);
       } catch (error) {
         console.log(error);
