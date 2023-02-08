@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const TextArea = ({ width, height, placeholder, disabled, value, onChange }) => {
+const TextArea = ({ width, height, placeholder, disabled, defaultValue, value, onChange }) => {
   return (
     <StyledTextArea
       width={width}
       height={height}
       placeholder={placeholder}
       disabled={disabled}
+      defaultValue={defaultValue}
       value={value}
       onChange={onChange}
     />
