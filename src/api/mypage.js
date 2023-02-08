@@ -40,6 +40,15 @@ export const getMyLike = async (id) => {
   }
 };
 
+export const postLikeCancel = async (id) => {
+  try {
+    const response = await axiosInstance.post(PATH.LIKE + id, token);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const getMyReview = async (id) => {
   try {
     const response = await axiosInstance.get(PATH.MYREVIEW + id, token);

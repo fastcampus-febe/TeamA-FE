@@ -6,18 +6,21 @@ import styled from 'styled-components';
 import Pagination from 'components/common/Pagination';
 import { TbClipboardX } from 'react-icons/tb';
 import { getMyLike } from 'api/mypage';
+import { getItem } from 'utils/storage';
 
 const MyLike = () => {
   const [like, setLike] = useState([]);
   const [pageDisplay, setPageDisplay] = useState(true);
+  const [cancel, setCancel] = useState(false);
   const [page, setPage] = useState(1);
   const limit = 4;
   const offset = (page - 1) * limit;
 
+  const userId = getItem('user').id;
   useEffect(() => {
     async function getLikeData() {
       try {
-        // const data = await getMyLike();
+        // const data = await getMyLike(userId);
         // setLike(data);
         setLike(likeData.items);
         setPageDisplay(false);
@@ -33,8 +36,8 @@ const MyLike = () => {
       <Title>위시리스트(데이터는 임시로 적용) - 관광지 이름 링크 지정하기</Title>
       <LikeContent>
         {like.length > 0 ? (
-          like.slice(offset, offset + limit).map((item) => {
-            return <LikeList data={item} key={item.id} />;
+          like.slice(offset, offset + limit).map((item, i) => {
+            return <LikeList i={i} data={item} key={item.id} />;
           })
         ) : (
           <LikeNoneContent>

@@ -12,6 +12,9 @@ const PasswordChange = () => {
   const [modal, setModal] = useState(false);
   const [modalText, setModalText] = useState('');
   const [disabled, setDisabled] = useState(false);
+  const [regexp, setRegexp] = useState(false);
+
+  const passwordREGEXP = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/;
 
   const [password, setPassword] = useState({
     oldPW: '',
@@ -80,6 +83,7 @@ const PasswordChange = () => {
       </Title>
       <WithdrawalContent $display={display}>
         <p>회원님의 정보 보호를 위해 비밀번호를 정기적으로 변경해주세요.</p>
+        <p>8~20자의 영문 소문자 및 숫자 조합만 사용 가능합니다.</p>
         <ChangePW>
           <li>
             <InputForm>
@@ -102,8 +106,18 @@ const PasswordChange = () => {
                 value={newPW}
                 onChange={changePW}
                 placeholder="새 비밀번호를 입력해주세요"
+                onBlur={() => {
+                  if (!password.newPW.match(passwordREGEXP)) {
+                    setRegexp(true);
+                  }
+                }}
               ></input>
             </InputForm>
+            {regexp ? (
+              <>
+                <ErrorPW>8~20자의 영문 소문자 및 숫자 조합만 사용 가능합니다.</ErrorPW>
+              </>
+            ) : null}
           </li>
           <li>
             <InputForm>
@@ -153,7 +167,7 @@ const WithdrawalContent = styled.div`
   p {
     font-size: 17px;
     font-weight: 600;
-    margin-bottom: 25px;
+    line-height: 25px;
   }
   button {
     float: right;
@@ -162,6 +176,7 @@ const WithdrawalContent = styled.div`
 `;
 
 const ChangePW = styled.ul`
+  margin-top: 25px;
   li {
     margin-bottom: 25px;
   }

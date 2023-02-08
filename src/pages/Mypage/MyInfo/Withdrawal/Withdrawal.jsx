@@ -6,16 +6,18 @@ import styled, { css } from 'styled-components';
 import Button from 'components/common/Button';
 import { Modal, ModalOkCancel } from 'components/common/Modal';
 import { deleteMyInfo } from 'api/mypage';
+import { getItem } from 'utils/storage';
 
 const Withdrawal = () => {
   const [display, setDisplay] = useState(false);
   const [modal, setModal] = useState(false);
   const [modalText, setModalText] = useState('');
 
+  const userId = getItem('user').id;
   async function MemberDelete() {
     try {
       // 회원 탈퇴
-      // const data = await deleteMyInfo();
+      // const data = await deleteMyInfo(userId);
     } catch (error) {
       setModal(true);
       setModalText('오류가 발생하였습니다.');
@@ -26,7 +28,7 @@ const Withdrawal = () => {
   }
   return (
     <PageContent>
-      {modal ? <Modal modalText={modalText} /> : null}
+      {modal ? <Modal modalText={modalText} path="/" /> : null}
       <Title>
         회원 탈퇴{' '}
         <SvgPosition
@@ -85,7 +87,7 @@ const DangerTitle = styled.div`
   height: 23px;
   svg {
     position: absolute;
-    top: 0;
+    top: 5px;
     left: 0;
   }
   p {
