@@ -79,7 +79,7 @@ const BoardForm = () => {
           <Label>내용</Label>
           <TextArea
             height="360px"
-            value={type === 'add' ? '' : content}
+            defaultValue={type === 'add' ? '' : content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="여러분의 이야기를 들려주세요."
           />

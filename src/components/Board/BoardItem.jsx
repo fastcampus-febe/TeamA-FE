@@ -10,7 +10,7 @@ const BoardItem = ({ data: { id, title, userId, writer, createdDate, comment_cnt
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/board/${id}`, { state: id });
+    navigate(`/board/${id}`);
   };
 
   return (

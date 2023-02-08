@@ -42,6 +42,15 @@ export const getBoardDetail = async (id) => {
   }
 };
 
+export const thumbBoard = async (id) => {
+  try {
+    const response = await axiosInstance.post(PATH.BOARD_THUMB + id);
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const createBoard = async (data) => {
   try {
     const response = await axiosInstance.post(PATH.BOARD_INSERT, data);
