@@ -6,18 +6,21 @@ import styled from 'styled-components';
 import Pagination from 'components/common/Pagination';
 import { TbClipboardX } from 'react-icons/tb';
 import { getMyLike } from 'api/mypage';
+import { getItem } from 'utils/storage';
 
 const MyLike = () => {
   const [like, setLike] = useState([]);
   const [pageDisplay, setPageDisplay] = useState(true);
+  const [cancel, setCancel] = useState(false);
   const [page, setPage] = useState(1);
   const limit = 4;
   const offset = (page - 1) * limit;
 
+  const userId = getItem('user').id;
   useEffect(() => {
     async function getLikeData() {
       try {
-        // const data = await getMyLike();
+        // const data = await getMyLike(userId);
         // setLike(data);
         setLike(likeData.items);
         setPageDisplay(false);

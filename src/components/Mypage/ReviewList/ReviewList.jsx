@@ -1,19 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { BiLike } from 'react-icons/bi';
+import { Link } from 'react-router-dom';
 
 const ReviewList = ({ data }) => {
-  const indate = data.indate.substr(0, 10);
+  const createdDate = data.indate.substr(0, 10);
+  const modifiedDate = data.indate.substr(0, 10);
+  // const createdDate = data.createDate.substr(0, 10);
+  // const modifiedDate = data.modifiedDate ? data.modifiedDate.substr(0, 10) : createdDate;
+  const placeId = data.placeId;
+  // const placeId = data.place_id;
+
   return (
     <ReviewLi>
-      <h3>{data.place_title}</h3>
-      <GoodContent>
-        <BiLike size="17" />
-        <span>
-          {data.good} | {indate}
-        </span>
-      </GoodContent>
+      <Link to={'/place/' + placeId}>
+        <h3>{data.place_title}</h3>
+      </Link>
       <p>{data.review}</p>
+      <DateContent>
+        {createdDate} | {modifiedDate}
+      </DateContent>
     </ReviewLi>
   );
 };
@@ -22,36 +28,29 @@ const ReviewLi = styled.li`
   margin: 15px 5px;
   padding: 10px 5px 5px;
   border-bottom: 1px solid #eaeaea;
-  min-height: 110px;
+  min-height: 80px;
   h3 {
     margin-bottom: 5px;
     font-size: 18px;
     line-height: 1.4;
     font-weight: 600;
+    color: #333;
   }
   p {
     margin-top: 10px;
     color: #606060;
     font-size: 17px;
+    display: inline-block;
   }
 `;
 
-const GoodContent = styled.div`
+const DateContent = styled.div`
   position: relative;
-  display: table;
+  display: inline-block;
   height: 20px;
-  svg {
-    color: #ff385c;
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
-  span {
-    padding-left: 20px;
-    color: #606060;
-    display: table-cell;
-    vertical-align: middle;
-  }
+  float: right;
+  margin-top: 10px;
+  color: #717171;
 `;
 
 export default ReviewList;

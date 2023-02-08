@@ -6,6 +6,7 @@ import ReviewList from 'components/Mypage/ReviewList/ReviewList';
 import Pagination from 'components/common/Pagination';
 import { TbClipboardX } from 'react-icons/tb';
 import { getMyReview } from 'api/mypage';
+import { getItem } from 'utils/storage';
 
 const MyReview = () => {
   const [review, setReview] = useState([]);
@@ -14,10 +15,11 @@ const MyReview = () => {
   const limit = 4;
   const offset = (page - 1) * limit;
 
+  const userId = getItem('user').id;
   useEffect(() => {
     async function getReviewData() {
       try {
-        // const data = await getMyReview();
+        // const data = await getMyReview(userId);
         // setReview(data);
         setReview(reviewData.items);
         setPageDisplay(false);

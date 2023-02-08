@@ -3,7 +3,7 @@ import { RiFileList2Line } from 'react-icons/ri';
 import { confirmAlert } from 'react-confirm-alert';
 import styled, { css } from 'styled-components';
 
-const Modal = ({ setModal, modalText }) => {
+const Modal = ({ modalText, path }) => {
   confirmAlert({
     customUI: ({ onClose }) => {
       return (
@@ -14,8 +14,10 @@ const Modal = ({ setModal, modalText }) => {
             <BtnWrap>
               <Button
                 onClick={() => {
-                  setModal(false);
                   onClose();
+                  if (path) {
+                    window.location.replace(path);
+                  }
                 }}
               >
                 확인
@@ -28,7 +30,7 @@ const Modal = ({ setModal, modalText }) => {
   });
 };
 
-const ModalOkCancel = (message, secondMsg, orderFunction, setModal) => {
+const ModalOkCancel = (message, secondMsg, orderFunction) => {
   confirmAlert({
     customUI: ({ onClose }) => {
       return (
@@ -55,7 +57,6 @@ const ModalOkCancel = (message, secondMsg, orderFunction, setModal) => {
               <Button
                 cancel={true}
                 onClick={() => {
-                  setModal(false);
                   onClose();
                 }}
               >
