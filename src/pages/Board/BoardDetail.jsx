@@ -20,9 +20,8 @@ const BoardDetail = () => {
   useEffect(() => {
     async function getData() {
       try {
-        // const data = await getBoardDetail(id);
-        // setBoard(data.board_data);
-        setBoard(tempData);
+        const data = await getBoardDetail(id);
+        setBoard(data);
         // setLike(board.like);
       } catch (error) {
         alert('게시물 상세를 조회하지 못했습니다.');
@@ -53,15 +52,17 @@ const BoardDetail = () => {
     <DetailContainer>
       <SubContainer>
         <UserInfo>
-          <Avvvatars size={'50'} value={board.member_id} style="shape" />
+          <Avvvatars size={'50'} value={board.userId} style="shape" />
           <InfoWrap>
-            <Text>{board.nickname}</Text>
-            <Text>{board.indate && formatDate(board.indate)}</Text>
+            <Text>{board.writer}</Text>
+            <Text>{board.createdDate && formatDate(board.createdDate)}</Text>
           </InfoWrap>
-          {/* {tempData.member_id === auth.loggedUser.id && ( */}
-          <TextButton onClick={handleUpdate}>수정</TextButton>
-          <TextButton onClick={handleDelete}>삭제</TextButton>
-          {/* )} */}
+          {board.userId === auth.loggedUser.id && (
+            <>
+              <TextButton onClick={handleUpdate}>수정</TextButton>
+              <TextButton onClick={handleDelete}>삭제</TextButton>
+            </>
+          )}
         </UserInfo>
         <ThumbWrap>
           <FaHeart size="26" onClick={handleThumb} />
@@ -70,7 +71,7 @@ const BoardDetail = () => {
       </SubContainer>
       <Title>{board.title}</Title>
       <Content>{board.content}</Content>
-      <Comments setModalOpen={setModalOpen} />
+      <Comments setModalOpen={setModalOpen} boardId={id} />
       {modalOpen ? <SignModal setModalOpen={setModalOpen} modalType={'Login'} /> : null}
     </DetailContainer>
   );
@@ -167,14 +168,3 @@ const TextButton = styled.button`
     content: none;
   }
 `;
-
-const tempData = {
-  id: 1,
-  member_id: 'test1234',
-  nickname: '우주하마',
-  title: '내가 가본 관광지 TOP 5',
-  content: `1. 우리집 따듯하고 좋음 가스비가 걱정임 2. 마트 먹을거 많음 3. 강아지 있는 친구네집 4. 고양이 있는 친구네집 5. 음...또 어디있지 어쩌구 어쩌구 저쩌다 저쩌다 1. 우리집 따듯하고 좋음 가스비가 걱정임 2. 마트 먹을거 많음 3. 강아지 있는 친구네집 4. 고양이 있는 친구네집 5. 음...또 어디있지 어쩌구 어쩌구 저쩌다 저쩌다1. 우리집 따듯하고 좋음 가스비가 걱정임 2. 마트 먹을거 많음 3. 강아지 있는 친구네집 4. 고양이 있는 친구네집 5. 음...또 어디있지 어쩌구 어쩌구 저쩌다 저쩌다1. 우리집 따듯하고 좋음 가스비가 걱정임 2. 마트 먹을거 많음 3. 강아지 있는 친구네집 4. 고양이 있는 친구네집 5. 음...또 어디있지 어쩌구 어쩌구 저쩌다 저쩌다1. 우리집 따듯하고 좋음 가스비가 걱정임 2. 마트 먹을거 많음 3. 강아지 있는 친구네집 4. 고양이 있는 친구네집 5. 음...또 어디있지 어쩌구 어쩌구 저쩌다 저쩌다1. 우리집 따듯하고 좋음 가스비가 걱정임 2. 마트 먹을거 많음 3. 강아지 있는 친구네집 4. 고양이 있는 친구네집 5. 음...또 어디있지 어쩌구 어쩌구 저쩌다 저쩌다1. 우리집 따듯하고 좋음 가스비가 걱정임 2. 마트 먹을거 많음 3. 강아지 있는 친구네집 4. 고양이 있는 친구네집 5. 음...또 어디있지 어쩌구 어쩌구 저쩌다 저쩌다1. 우리집 따듯하고 좋음 가스비가 걱정임 2. 마트 먹을거 많음 3. 강아지 있는 친구네집 4. 고양이 있는 친구네집 5. 음...또 어디있지 어쩌구 어쩌구 저쩌다 저쩌다1. 우리집 따듯하고 좋음 가스비가 걱정임 2. 마트 먹을거 많음 3. 강아지 있는 친구네집 4. 고양이 있는 친구네집 5. 음...또 어디있지 어쩌구 어쩌구 저쩌다 저쩌다1. 우리집 따듯하고 좋음 가스비가 걱정임 2. 마트 먹을거 많음 3. 강아지 있는 친구네집 4. 고양이 있는 친구네집 5. 음...또 어디있지 어쩌구 어쩌구 저쩌다 저쩌다1. 우리집 따듯하고 좋음 가스비가 걱정임 2. 마트 먹을거 많음 3. 강아지 있는 친구네집 4. 고양이 있는 친구네집 5. 음...또 어디있지 어쩌구 어쩌구 저쩌다 저쩌다1. 우리집 따듯하고 좋음 가스비가 걱정임 2. 마트 먹을거 많음 3. 강아지 있는 친구네집 4. 고양이 있는 친구네집 5. 음...또 어디있지 어쩌구 어쩌구 저쩌다 저쩌다1. 우리집 따듯하고 좋음 가스비가 걱정임 2. 마트 먹을거 많음 3. 강아지 있는 친구네집 4. 고양이 있는 친구네집 5. 음...또 어디있지 어쩌구 어쩌구 저쩌다 저쩌다1. 우리집 따듯하고 좋음 가스비가 걱정임 2. 마트 먹을거 많음 3. 강아지 있는 친구네집 4. 고양이 있는 친구네집 5. 음...또 어디있지 어쩌구 어쩌구 저쩌다 저쩌다 ('ㅅ') ('ㅅ')  ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ')  ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') 야호야호야호`,
-  indate: '2023-01-20 12:22:33',
-  thumb: 3,
-  comment_cnt: 3,
-};

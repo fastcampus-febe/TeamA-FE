@@ -25,7 +25,7 @@ const BoardForm = () => {
     if (type === 'add') {
       if (window.confirm('게시물을 등록하시겠습니까?')) {
         try {
-          const requestBody = {};
+          const requestBody = { title, content };
           await createBoard(requestBody);
           alert('등록이 완료되었습니다.');
           navigate('/board');
@@ -37,10 +37,10 @@ const BoardForm = () => {
     } else {
       if (window.confirm('게시물을 수정하시겠습니까?')) {
         try {
-          const requestBody = {};
-          await updateBoard(requestBody);
+          const requestBody = { title, content };
+          await updateBoard(requestBody, data.id);
           alert('수정이 완료되었습니다.');
-          navigate(`/board/${data.id}`);
+          navigate(`/board/${data.id}`, { state: data.id });
         } catch (error) {
           alert('게시물을 수정하지 못했습니다.');
         } finally {
