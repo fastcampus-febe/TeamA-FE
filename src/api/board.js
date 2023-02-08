@@ -51,18 +51,18 @@ export const createBoard = async (data) => {
   }
 };
 
-export const updateBoard = async (data) => {
+export const updateBoard = async (data, id) => {
   try {
-    const response = await axiosInstance.patch(PATH.BOARD_UPDATE, data);
+    const response = await axiosInstance.patch(PATH.BOARD_UPDATE + '/' + id, data);
     return response;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const deleteBoard = async (data) => {
+export const deleteBoard = async (id) => {
   try {
-    const response = await axiosInstance.delete(PATH.BOARD_DELETE, data);
+    const response = await axiosInstance.delete(PATH.BOARD_DELETE + '/' + id);
     return response;
   } catch (error) {
     console.error(error);
