@@ -36,7 +36,7 @@ const MyLike = () => {
       <Title>위시리스트(데이터는 임시로 적용) - 관광지 이름 링크 지정하기</Title>
       <LikeContent>
         {like.length > 0 ? (
-          like.slice(offset, offset + limit).map((item, i) => {
+          like.slice(offset, offset + limit).map((item) => {
             return <LikeList i={i} data={item} key={item.id} />;
           })
         ) : (
