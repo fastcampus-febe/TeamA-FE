@@ -1,4 +1,4 @@
-import { postUserSignIn, postUserSignUp } from 'api/userSign';
+import { postSignIn, postSignUp } from 'api/sign';
 import { authState } from 'atoms/auth';
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';
@@ -63,7 +63,7 @@ const SignModal = ({ setModalOpen, modalType }) => {
     const { name, value, checked } = event.target;
     setUserData({
       ...userData,
-      [name]: value === 'on' ? checked : value,
+      [name]: name === 'agree' ? checked : value,
     });
   };
 
@@ -97,10 +97,10 @@ const SignModal = ({ setModalOpen, modalType }) => {
     if (!agree) return showMessage('agree', MESSAGES.AGREE_VALID_MSG);
 
     if (window.confirm('회원가입을 완료하시겠습니까?')) {
-      const requestBody = { id, nickname, password };
-      await postUserSignUp(requestBody);
+      const requestBody = { id, password, nickname };
+      await postSignUp(requestBody);
 
-      alert('회원가입이 완료 되었습니다.');
+      alert('회원가입이 완료되었습니다.');
       setModalOpen(false);
     }
   };
@@ -113,23 +113,19 @@ const SignModal = ({ setModalOpen, modalType }) => {
     if (!password) return showMessage('password', MESSAGES.PASSWORD_EMPTY_MSG);
 
     const requestBody = { id, password };
-    // const data = await postUserSignIn(requestBody);
-    // if (data.isFailed) return showMessage('password', data.errorMessage);
-    const data = {
-      accessToken:
-        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJleGFtcGxlQGdtYWlsLmNvbSIsImlhdCI6MTY3NDMyODMzOCwiZXhwIjoxNjc0MzMwMTM4LCJpZCI6ImFzZGYiLCJuaWNrbmFtZSI6ImJvdXJib24iLCJyb2xlIjoiUk9MRV9VU0VSIn0.ePPbCBVHWmNzFPBXnN35r6RqzlU1JtCBxjCxzGnssHA',
-    };
+    const data = await postSignIn(requestBody);
+    if (data.loginFail) return showMessage('password', MESSAGES.LOGIN_FAIL_MSG);
 
-    setItem('user', { id, password });
-    setItem('token', data.accessToken);
+    setItem('user', { id, password, nickname: data.nickname });
+    setItem('token', data.token);
     setAuth({
       isLoggedIn: true,
-      loggedUser: { id, password },
-      userToken: data.accessToken,
+      loggedUser: { id, password, nickname: data.nickname },
+      userToken: data.token,
     });
 
+    alert('로그인이 완료되었습니다.');
     setModalOpen(false);
-    navigate('/');
   };
 
   const handleKeyDown = (e) => {

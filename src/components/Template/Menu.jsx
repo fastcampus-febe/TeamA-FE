@@ -1,3 +1,4 @@
+import { postSignOut } from 'api/sign';
 import { authState } from 'atoms/auth';
 import useOnClickOutside from 'hooks/useOnClickOutside';
 import React, { useRef } from 'react';
@@ -24,15 +25,18 @@ const Menu = ({ setMenuOpen, setModalOpen, setModalType }) => {
     setMenuOpen(false);
   };
 
-  const logout = () => {
+  const logout = async () => {
     if (window.confirm('로그아웃 하시겠습니까?')) {
+      await postSignOut();
       removeItem('user');
       removeItem('token');
+
       setAuth({
         isLoggedIn: false,
         loggedUser: {},
         userToken: '',
       });
+
       alert('로그아웃이 완료되었습니다.');
       navigate('/');
     }

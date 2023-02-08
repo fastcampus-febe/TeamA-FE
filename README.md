@@ -1,6 +1,6 @@
 # ☀️ Travel 🌈 (Front-End)
 
-날씨 기반 관광지 추천 서비스입니다.
+날씨 기반 전국 관광지 검색 서비스입니다.
 
 - 배포 링크 : [Travel](https://travel-ateam.netlify.app/)
 - 참고 사이트 : [에어비앤비](https://www.airbnb.co.kr/)

@@ -8,7 +8,7 @@ const TextArea = ({ width, height, placeholder, disabled, value, onChange }) => 
       height={height}
       placeholder={placeholder}
       disabled={disabled}
-      defaultValue={value}
+      value={value}
       onChange={onChange}
     />
   );

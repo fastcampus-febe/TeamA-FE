@@ -27,9 +27,8 @@ const Board = () => {
   useEffect(() => {
     async function getData() {
       try {
-        // const data = await getBoardList();
-        // setBoard(data.board_data);
-        setBoard(tempData);
+        const data = await getBoardList();
+        setBoard(data);
       } catch (error) {
         alert('게시물 목록을 조회하지 못했습니다.');
       } finally {
@@ -41,13 +40,13 @@ const Board = () => {
   const handleSort = async (e) => {
     const type = e.target.value === '최근 순' ? 'recent' : 'like';
     const data = await getBoardListSort(type);
-    setBoard(data.board_data);
+    setBoard(data);
   };
 
   const handleSearch = async () => {
     const type = searchOption === '제목' ? 'title' : 'nickname';
     const data = await getBoardListSearch(type, search);
-    setBoard(data.board_data);
+    setBoard(data);
   };
 
   const handleKeyDown = (e) => {
