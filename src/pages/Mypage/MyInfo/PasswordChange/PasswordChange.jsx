@@ -5,11 +5,13 @@ import { PageContent, SvgPosition, Title } from 'pages/Mypage/MyPageStyle';
 import React, { useState } from 'react';
 import { RiArrowDownSLine } from 'react-icons/ri';
 import styled, { css } from 'styled-components';
+import { getItem } from 'utils/storage';
 
 const PasswordChange = () => {
   const [display, setDisplay] = useState(false);
   const [modal, setModal] = useState(false);
   const [modalText, setModalText] = useState('');
+  const [disabled, setDisabled] = useState(false);
 
   const [password, setPassword] = useState({
     oldPW: '',
@@ -35,11 +37,22 @@ const PasswordChange = () => {
     });
   }
 
+  function changeError() {
+    if (password.newPW !== password.compPW) {
+      setDisabled(true);
+    }
+  }
+
+  const userId = getItem('user').id;
+  const reqData = {
+    id: userId,
+    currentPwd: password.oldPW,
+    newPwd: password.newPW,
+  };
   async function ChangePassword() {
     try {
       // 비밀번호 변경
-      // const data = await postChangePW();
-      console.log(password);
+      // const data = await postChangePW(userid, reqData);
     } catch (error) {
       setModal(true);
       setModalText('오류가 발생하였습니다.');
@@ -53,7 +66,7 @@ const PasswordChange = () => {
 
   return (
     <PageContent>
-      {modal ? <Modal modalText={modalText} /> : null}
+      {modal ? <Modal setModal={setModal} modalText={modalText} /> : null}
       <Title>
         비밀번호 변경
         <SvgPosition
@@ -101,16 +114,25 @@ const PasswordChange = () => {
                 value={compPW}
                 onChange={changePW}
                 placeholder="새 비밀번호를 다시 입력해주세요"
+                onBlur={() => {
+                  changeError();
+                }}
               ></input>
             </InputForm>
+            {disabled ? (
+              <>
+                <ErrorPW>비밀번호를 다시 확인해주세요</ErrorPW>
+              </>
+            ) : null}
           </li>
         </ChangePW>
         <Button
           text="변경"
           width="100px"
           height="40px"
+          disabled={disabled}
           onClick={() => {
-            ModalOkCancel('비밀번호를 변경하시겠습니까?', null, ChangePassword);
+            ModalOkCancel('비밀번호를 변경하시겠습니까?', null, ChangePassword, setModal);
           }}
         />
       </WithdrawalContent>
@@ -177,6 +199,15 @@ const InputForm = styled.div`
       display: none;
     }
   }
+`;
+
+const ErrorPW = styled.span`
+  color: #ff385c;
+  font-weight: 400;
+  font-size: 15px;
+  margin-left: 130px;
+  margin-top: 5px;
+  display: block;
 `;
 
 export default PasswordChange;
