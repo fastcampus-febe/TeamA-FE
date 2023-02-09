@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import Menu from './Menu';
-import { authState } from 'atoms/auth';
+import { authState } from 'api/atoms/auth';
 import { useRecoilValue } from 'recoil';
 import Avvvatars from 'avvvatars-react';
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';
 import { BiSearch } from 'react-icons/bi';
 import Footer from './Footer';
-import { loadingState } from 'atoms/loading';
+import { loadingState } from 'api/atoms/loading';
 import Loading from 'components/common/Loading';
 import ScrollToTop from 'components/common/ScrollToTop';
 

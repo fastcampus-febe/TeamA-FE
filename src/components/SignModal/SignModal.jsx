@@ -1,5 +1,5 @@
 import { postSignIn, postSignUp } from 'api/sign';
-import { authState } from 'atoms/auth';
+import { authState } from 'api/atoms/auth';
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';
 import useOnClickOutside from 'hooks/useOnClickOutside';
@@ -8,7 +8,7 @@ import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { setItem } from 'utils/storage';
 import { theme } from 'style/theme';
-import { loadingState } from 'atoms/loading';
+import { loadingState } from 'api/atoms/loading';
 
 const MESSAGES = {
   ID_VALID_MSG: '8~14자의 영문 소문자 및 숫자 조합만 사용 가능합니다.',

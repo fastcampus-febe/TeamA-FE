@@ -1,11 +1,14 @@
+import { loadingState } from 'api/atoms/loading';
 import { getMyInfo } from 'api/mypage';
 import { PageContent, Title } from 'pages/Mypage/MyPageStyle';
 import React, { useEffect, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { getItem } from 'utils/storage';
 
 const InfoProfile = () => {
   const [info, setInfo] = useState([]);
+  const setLoading = useSetRecoilState(loadingState);
 
   const userId = getItem('user').id;
   const userPW = getItem('user').password;
@@ -14,10 +17,13 @@ const InfoProfile = () => {
   useEffect(() => {
     async function getData() {
       try {
+        setLoading(true);
         const data = await getMyInfo(userId);
         setInfo(data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     }
     getData();

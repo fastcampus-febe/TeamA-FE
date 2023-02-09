@@ -1,5 +1,5 @@
 import { createBoard, updateBoard } from 'api/board';
-import { loadingState } from 'atoms/loading';
+import { loadingState } from 'api/atoms/loading';
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';
 import TextArea from 'components/common/TextArea';

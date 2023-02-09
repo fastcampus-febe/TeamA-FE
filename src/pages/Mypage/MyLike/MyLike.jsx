@@ -7,6 +7,8 @@ import Pagination from 'components/common/Pagination';
 import { TbClipboardX } from 'react-icons/tb';
 import { getMyLike } from 'api/mypage';
 import { getItem } from 'utils/storage';
+import { useSetRecoilState } from 'recoil';
+import { loadingState } from 'api/atoms/loading';
 
 const MyLike = () => {
   const [like, setLike] = useState([]);
@@ -14,16 +16,20 @@ const MyLike = () => {
   const [page, setPage] = useState(1);
   const limit = 4;
   const offset = (page - 1) * limit;
+  const setLoading = useSetRecoilState(loadingState);
 
   const userId = getItem('user').id;
   useEffect(() => {
     async function getLikeData() {
       try {
+        setLoading(true);
         const data = await getMyLike(userId);
         setLike(data);
         setPageDisplay(false);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     }
     getLikeData();

@@ -1,6 +1,6 @@
 import { postSignOut } from 'api/sign';
-import { authState } from 'atoms/auth';
-import { loadingState } from 'atoms/loading';
+import { authState } from 'api/atoms/auth';
+import { loadingState } from 'api/atoms/loading';
 import useOnClickOutside from 'hooks/useOnClickOutside';
 import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
