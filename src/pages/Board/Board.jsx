@@ -1,5 +1,6 @@
 import { getBoardList, getBoardListSearch, getBoardListSort } from 'api/board';
 import { authState } from 'atoms/auth';
+import { loadingState } from 'atoms/loading';
 import BoardItem from 'components/Board/BoardItem';
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';
@@ -8,7 +9,7 @@ import React, { useEffect, useState } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import { TbClipboardX } from 'react-icons/tb';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { theme } from 'style/theme';
 import styled from 'styled-components';
 
@@ -20,18 +21,20 @@ const Board = () => {
   const offset = (page - 1) * limit;
   const [search, setSearch] = useState('');
   const [searchOption, setSearchOption] = useState('');
-  const [sort, setSort] = useState('');
-  const [auth, setAuth] = useRecoilState(authState);
+  const auth = useRecoilValue(authState);
   const navigate = useNavigate();
+  const setLoading = useSetRecoilState(loadingState);
 
   useEffect(() => {
     async function getData() {
       try {
+        setLoading(true);
         const data = await getBoardList();
         setBoard(data);
       } catch (error) {
         alert('게시물 목록을 조회하지 못했습니다.');
       } finally {
+        setLoading(false);
       }
     }
     getData();

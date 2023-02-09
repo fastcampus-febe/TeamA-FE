@@ -7,8 +7,9 @@ import { FaHeart } from 'react-icons/fa';
 import { formatDate } from 'utils/formats';
 import Comments from 'components/Comment/Comments';
 import { authState } from 'atoms/auth';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import SignModal from 'components/SignModal/SignModal';
+import { loadingState } from 'atoms/loading';
 
 const BoardDetail = () => {
   const [board, setBoard] = useState({});
@@ -16,15 +17,18 @@ const BoardDetail = () => {
   const [auth, setAuth] = useRecoilState(authState);
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
+  const setLoading = useSetRecoilState(loadingState);
 
   useEffect(() => {
     async function getData() {
       try {
+        setLoading(true);
         const data = await getBoardDetail(boardId);
         setBoard(data);
       } catch (error) {
         alert('게시물 상세를 조회하지 못했습니다.');
       } finally {
+        setLoading(false);
       }
     }
     getData();
@@ -32,23 +36,28 @@ const BoardDetail = () => {
 
   const handleThumb = async () => {
     try {
+      setLoading(true);
       await thumbBoard(boardId);
       const data = await getBoardDetail(boardId);
       setBoard(data);
     } catch (error) {
       alert('좋아요에 실패했습니다.');
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleDelete = async () => {
     if (window.confirm('게시물을 삭제하시겠습니까?')) {
       try {
+        setLoading(true);
         await deleteBoard(boardId);
         alert('삭제가 완료되었습니다.');
         navigate('/board');
       } catch (error) {
         alert('게시물을 삭제하지 못했습니다.');
       } finally {
+        setLoading(false);
       }
     }
   };

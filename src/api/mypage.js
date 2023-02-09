@@ -6,7 +6,7 @@ const token = getItem('token');
 
 export const getMyInfo = async (id) => {
   try {
-    const response = await axiosInstance.get(PATH.MYINFO + id, token);
+    const response = await axiosInstance.get(PATH.MYINFO + id);
     return response;
   } catch (error) {
     console.error(error);
@@ -33,6 +33,7 @@ export const postChangePW = async (id, data) => {
 
 export const getMyLike = async (id) => {
   try {
+    console.log(id);
     const response = await axiosInstance.get(PATH.MYLIKE + id, token);
     return response;
   } catch (error) {

@@ -1,28 +1,31 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import CommentItem from './CommentItem';
 import Avvvatars from 'avvvatars-react';
 import Button from 'components/common/Button';
 import TextArea from 'components/common/TextArea';
 import { authState } from 'atoms/auth';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { createComment, getCommentList } from 'api/comment';
+import { loadingState } from 'atoms/loading';
 
 const Comments = ({ setModalOpen, boardId }) => {
   const [comments, setComments] = useState([]);
-  const [auth, setAuth] = useRecoilState(authState);
+  const auth = useRecoilValue(authState);
   const [comment, setComment] = useState('');
   const [message, setMessage] = useState('');
+  const setLoading = useSetRecoilState(loadingState);
 
   useEffect(() => {
     async function getData() {
       try {
+        setLoading(true);
         const data = await getCommentList(boardId);
         setComments(data);
       } catch (error) {
         alert('게시물 댓글 목록을 조회하지 못했습니다.');
       } finally {
+        setLoading(false);
       }
     }
     getData();
@@ -31,6 +34,7 @@ const Comments = ({ setModalOpen, boardId }) => {
   const handleWrite = async () => {
     if (!comment) return setMessage('댓글 내용을 작성해 주세요.');
     try {
+      setLoading(true);
       const requestBody = { content: comment };
       await createComment(requestBody, boardId);
       setComment('');
@@ -41,6 +45,7 @@ const Comments = ({ setModalOpen, boardId }) => {
     } catch (error) {
       alert('댓글을 작성하지 못했습니다.');
     } finally {
+      setLoading(false);
     }
   };
 

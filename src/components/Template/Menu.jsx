@@ -1,18 +1,19 @@
 import { postSignOut } from 'api/sign';
 import { authState } from 'atoms/auth';
+import { loadingState } from 'atoms/loading';
 import useOnClickOutside from 'hooks/useOnClickOutside';
 import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { getItem, removeItem } from 'utils/storage';
+import { removeItem } from 'utils/storage';
 
 const Menu = ({ setMenuOpen, setModalOpen, setModalType }) => {
   const navigate = useNavigate();
   const ref = useRef(null);
   useOnClickOutside(ref, () => setMenuOpen(false));
-  const token = getItem('token');
   const [auth, setAuth] = useRecoilState(authState);
+  const setLoading = useSetRecoilState(loadingState);
 
   const handleClickModal = (modalType) => {
     setModalOpen(true);
@@ -27,18 +28,26 @@ const Menu = ({ setMenuOpen, setModalOpen, setModalType }) => {
 
   const logout = async () => {
     if (window.confirm('로그아웃 하시겠습니까?')) {
-      await postSignOut();
-      removeItem('user');
-      removeItem('token');
+      try {
+        setLoading(true);
+        await postSignOut();
+        removeItem('user');
+        removeItem('token');
 
-      setAuth({
-        isLoggedIn: false,
-        loggedUser: {},
-        userToken: '',
-      });
+        setAuth({
+          isLoggedIn: false,
+          loggedUser: {},
+          userToken: '',
+        });
 
-      alert('로그아웃이 완료되었습니다.');
-      navigate('/');
+        alert('로그아웃이 완료되었습니다.');
+        navigate('/');
+        setModalOpen(false);
+      } catch (error) {
+        alert('로그아웃에 실패하였습니다.');
+      } finally {
+        setLoading(false);
+      }
     }
   };
 

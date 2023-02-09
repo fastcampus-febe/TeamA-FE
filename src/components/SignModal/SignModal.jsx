@@ -4,11 +4,11 @@ import Button from 'components/common/Button';
 import Input from 'components/common/Input';
 import useOnClickOutside from 'hooks/useOnClickOutside';
 import React, { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { setItem } from 'utils/storage';
 import { theme } from 'style/theme';
+import { loadingState } from 'atoms/loading';
 
 const MESSAGES = {
   ID_VALID_MSG: '8~14자의 영문 소문자 및 숫자 조합만 사용 가능합니다.',
@@ -30,10 +30,10 @@ const REGEXP = {
 };
 
 const SignModal = ({ setModalOpen, modalType }) => {
-  const navigate = useNavigate();
   const ref = useRef(null);
   useOnClickOutside(ref, () => setModalOpen(false));
-  const [auth, setAuth] = useRecoilState(authState);
+  const setAuth = useSetRecoilState(authState);
+  const setLoading = useSetRecoilState(loadingState);
 
   const [userData, setUserData] = useState({
     id: '',
@@ -97,11 +97,17 @@ const SignModal = ({ setModalOpen, modalType }) => {
     if (!agree) return showMessage('agree', MESSAGES.AGREE_VALID_MSG);
 
     if (window.confirm('회원가입을 완료하시겠습니까?')) {
-      const requestBody = { id, password, nickname };
-      await postSignUp(requestBody);
-
-      alert('회원가입이 완료되었습니다.');
-      setModalOpen(false);
+      try {
+        setLoading(true);
+        const requestBody = { id, password, nickname };
+        await postSignUp(requestBody);
+        alert('회원가입이 완료되었습니다.');
+        setModalOpen(false);
+      } catch (error) {
+        alert('회원가입에 실패하였습니다.');
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -112,20 +118,27 @@ const SignModal = ({ setModalOpen, modalType }) => {
     if (!id) return showMessage('id', MESSAGES.ID_EMPTY_MSG);
     if (!password) return showMessage('password', MESSAGES.PASSWORD_EMPTY_MSG);
 
-    const requestBody = { id, password };
-    const data = await postSignIn(requestBody);
-    if (data.loginFail) return showMessage('password', MESSAGES.LOGIN_FAIL_MSG);
+    try {
+      setLoading(true);
+      const requestBody = { id, password };
+      const data = await postSignIn(requestBody);
+      if (data.loginFail) return showMessage('password', MESSAGES.LOGIN_FAIL_MSG);
 
-    setItem('user', { id, password, nickname: data.nickname });
-    setItem('token', data.token);
-    setAuth({
-      isLoggedIn: true,
-      loggedUser: { id, password, nickname: data.nickname },
-      userToken: data.token,
-    });
+      alert('로그인이 완료되었습니다.');
+      setModalOpen(false);
 
-    alert('로그인이 완료되었습니다.');
-    setModalOpen(false);
+      setItem('user', { id, password, nickname: data.nickname });
+      setItem('token', data.token);
+      setAuth({
+        isLoggedIn: true,
+        loggedUser: { id, password, nickname: data.nickname },
+        userToken: data.token,
+      });
+    } catch (error) {
+      alert('회원가입에 실패하였습니다.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleKeyDown = (e) => {

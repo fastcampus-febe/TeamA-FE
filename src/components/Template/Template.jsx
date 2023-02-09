@@ -5,18 +5,21 @@ import styled, { css } from 'styled-components';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import Menu from './Menu';
 import { authState } from 'atoms/auth';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import Avvvatars from 'avvvatars-react';
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';
 import { BiSearch } from 'react-icons/bi';
 import Footer from './Footer';
+import { loadingState } from 'atoms/loading';
+import Loading from 'components/common/Loading';
 
 function Template({ children }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
-  const [auth, setAuth] = useRecoilState(authState);
+  const auth = useRecoilValue(authState);
+  const loading = useRecoilValue(loadingState);
 
   const handleMenuClick = () => {
     setMenuOpen(true);
@@ -65,6 +68,7 @@ function Template({ children }) {
       {menuOpen ? (
         <Menu setMenuOpen={setMenuOpen} setModalOpen={setModalOpen} setModalType={setModalType} />
       ) : null}
+      {loading && <Loading />}
     </TemplateContainer>
   );
 }
