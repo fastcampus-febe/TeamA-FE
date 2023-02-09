@@ -8,7 +8,7 @@ import { TbClipboardX } from 'react-icons/tb';
 import { getMyLike } from 'api/mypage';
 import { getItem } from 'utils/storage';
 import { useSetRecoilState } from 'recoil';
-import { loadingState } from 'api/atoms/loading';
+import { loadingState } from 'atoms/loading';
 
 const MyLike = () => {
   const [like, setLike] = useState([]);
@@ -39,7 +39,7 @@ const MyLike = () => {
     <PageContent>
       <Title>위시리스트</Title>
       <LikeContent>
-        {like && like.length > 0 ? (
+        {Array.isArray(like) > 0 ? (
           like.slice(offset, offset + limit).map((item) => {
             return <LikeList data={item} key={item.placeId} />;
           })
@@ -51,7 +51,7 @@ const MyLike = () => {
         )}
       </LikeContent>
       <PageDisplay pageDisplay={pageDisplay}>
-        {like.length > 0 ? (
+        {Array.isArray(like) ? (
           <Pagination total={like.length} limit={limit} page={page} setPage={setPage} />
         ) : null}
       </PageDisplay>

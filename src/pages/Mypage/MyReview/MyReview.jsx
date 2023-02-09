@@ -7,7 +7,7 @@ import { TbClipboardX } from 'react-icons/tb';
 import { getMyReview } from 'api/mypage';
 import { getItem } from 'utils/storage';
 import { useSetRecoilState } from 'recoil';
-import { loadingState } from 'api/atoms/loading';
+import { loadingState } from 'atoms/loading';
 
 const MyReview = () => {
   const [review, setReview] = useState([]);

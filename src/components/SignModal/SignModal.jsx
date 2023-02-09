@@ -1,5 +1,5 @@
 import { postSignIn, postSignUp } from 'api/sign';
-import { authState } from 'api/atoms/auth';
+import { authState } from 'atoms/auth';
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';
 import useOnClickOutside from 'hooks/useOnClickOutside';
@@ -8,7 +8,7 @@ import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { setItem } from 'utils/storage';
 import { theme } from 'style/theme';
-import { loadingState } from 'api/atoms/loading';
+import { loadingState } from 'atoms/loading';
 
 const MESSAGES = {
   ID_VALID_MSG: '8~14자의 영문 소문자 및 숫자 조합만 사용 가능합니다.',
@@ -122,10 +122,10 @@ const SignModal = ({ setModalOpen, modalType }) => {
       setLoading(true);
       const requestBody = { id, password };
       const data = await postSignIn(requestBody);
+      if (!data.token) return showMessage('password', MESSAGES.LOGIN_FAIL_MSG);
 
       alert('로그인이 완료되었습니다.');
       setModalOpen(false);
-
       setItem('user', { id, password, nickname: data.nickname });
       setItem('token', data.token);
       setAuth({
@@ -134,7 +134,7 @@ const SignModal = ({ setModalOpen, modalType }) => {
         userToken: data.token,
       });
     } catch (error) {
-      showMessage('password', MESSAGES.LOGIN_FAIL_MSG);
+      console.log('로그인에 실패했습니다.');
     } finally {
       setLoading(false);
     }
