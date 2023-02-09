@@ -10,6 +10,7 @@ import Avvvatars from 'avvvatars-react';
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';
 import { BiSearch } from 'react-icons/bi';
+import Footer from './footer';
 
 function Template({ children }) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -59,6 +60,7 @@ function Template({ children }) {
         </Navbar>
       </HeaderContainer>
       <ChildContainer>{children}</ChildContainer>
+      <Footer></Footer>
       {modalOpen ? <SignModal setModalOpen={setModalOpen} modalType={modalType} /> : null}
       {menuOpen ? (
         <Menu setMenuOpen={setMenuOpen} setModalOpen={setModalOpen} setModalType={setModalType} />
