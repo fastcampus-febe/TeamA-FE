@@ -12,7 +12,7 @@ const Footer = () => {
         <FooterTxt>
           <span>법인명 : Travel</span>
           <span>대표이사 : TeamA</span>
-          <span>관광사업자 등록번호 : 제2023-01호</span>
+          <span>관광사업자 등록번호 : 제2023-0*호</span>
         </FooterTxt>
         <FooterTxt>
           <span>주소 : 서울특별시 강남구 테헤란로 231 10층, 11층</span>
