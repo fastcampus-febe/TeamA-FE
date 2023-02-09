@@ -7,8 +7,8 @@ import { deleteComment, updateComment } from 'api/comment';
 import { theme } from 'style/theme';
 import Button from 'components/common/Button';
 import TextArea from 'components/common/TextArea';
-import { useRecoilState } from 'recoil';
-import { authState } from 'atoms/auth';
+import { useSetRecoilState } from 'recoil';
+import { loadingState } from 'atoms/loading';
 
 const CommentItem = ({
   data: { id, content, writer, userId, createdDate, modifiedDate },
@@ -16,20 +16,22 @@ const CommentItem = ({
 }) => {
   const navigate = useNavigate();
   const [isModify, setIsModify] = useState(false);
-  const [auth, setAuth] = useRecoilState(authState);
   const [comment, setComment] = useState(content);
   const [newComment, setNewComment] = useState(content);
   const [message, setMessage] = useState('');
+  const setLoading = useSetRecoilState(loadingState);
 
   const handleDelete = async () => {
     if (window.confirm('댓글을 삭제하시겠습니까?')) {
       try {
+        setLoading(true);
         await deleteComment(boardId, id);
         alert('삭제가 완료되었습니다.');
         navigate(`/board/${boardId}`);
       } catch (error) {
         alert('댓글을 삭제하지 못했습니다.');
       } finally {
+        setLoading(false);
       }
     }
   };
@@ -37,6 +39,7 @@ const CommentItem = ({
   const handleUpdate = async () => {
     if (!newComment) return setMessage('댓글 내용을 작성해 주세요.');
     try {
+      setLoading(true);
       const requestBody = { content: newComment };
       await updateComment(requestBody, boardId, id);
       setIsModify(false);
@@ -44,6 +47,7 @@ const CommentItem = ({
     } catch (error) {
       alert('댓글을 수정하지 못했습니다.');
     } finally {
+      setLoading(false);
     }
   };
 

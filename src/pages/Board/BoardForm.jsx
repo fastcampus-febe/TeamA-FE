@@ -1,15 +1,18 @@
 import { createBoard, updateBoard } from 'api/board';
+import { loadingState } from 'atoms/loading';
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';
 import TextArea from 'components/common/TextArea';
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 const BoardForm = () => {
   const type = useLocation().pathname.split('/')[2];
   const navigate = useNavigate();
   let { state: data } = useLocation();
+  const setLoading = useSetRecoilState(loadingState);
   const [title, setTitle] = useState(type === 'add' ? '' : data.title);
   const [content, setContent] = useState(type === 'add' ? '' : data.content);
   const [message, setMessage] = useState({
@@ -25,6 +28,7 @@ const BoardForm = () => {
     if (type === 'add') {
       if (window.confirm('게시물을 등록하시겠습니까?')) {
         try {
+          setLoading(true);
           const requestBody = { title, content };
           await createBoard(requestBody);
           alert('등록이 완료되었습니다.');
@@ -32,11 +36,13 @@ const BoardForm = () => {
         } catch (error) {
           alert('게시물을 등록하지 못했습니다.');
         } finally {
+          setLoading(false);
         }
       }
     } else {
       if (window.confirm('게시물을 수정하시겠습니까?')) {
         try {
+          setLoading(true);
           const requestBody = { title, content };
           await updateBoard(requestBody, data.id);
           alert('수정이 완료되었습니다.');
@@ -44,6 +50,7 @@ const BoardForm = () => {
         } catch (error) {
           alert('게시물을 수정하지 못했습니다.');
         } finally {
+          setLoading(false);
         }
       }
     }

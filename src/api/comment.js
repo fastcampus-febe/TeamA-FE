@@ -2,40 +2,17 @@ import { axiosInstance } from './core';
 import { PATH } from '../constants/path';
 
 export const getCommentList = async (boardId) => {
-  try {
-    const response = await axiosInstance.get(PATH.BOARD + boardId + PATH.COMMENT_LIST);
-    return response;
-  } catch (error) {
-    console.error(error);
-  }
+  return axiosInstance.get(PATH.BOARD + boardId + PATH.COMMENT_LIST);
 };
 
 export const createComment = async (data, boardId) => {
-  try {
-    const response = await axiosInstance.post(PATH.BOARD + boardId + PATH.COMMENT_INSERT, data);
-    return response;
-  } catch (error) {
-    console.error(error);
-  }
+  return axiosInstance.post(PATH.BOARD + boardId + PATH.COMMENT_INSERT, data);
 };
 
 export const updateComment = async (data, boardId, id) => {
-  try {
-    const response = await axiosInstance.patch(
-      PATH.BOARD + boardId + PATH.COMMENT_UPDATE + id,
-      data
-    );
-    return response;
-  } catch (error) {
-    console.error(error);
-  }
+  return axiosInstance.patch(PATH.BOARD + boardId + PATH.COMMENT_UPDATE + id, data);
 };
 
 export const deleteComment = async (boardId, id) => {
-  try {
-    const response = await axiosInstance.delete(PATH.BOARD + boardId + PATH.COMMENT_DELETE + id);
-    return response;
-  } catch (error) {
-    console.error(error);
-  }
+  return axiosInstance.delete(PATH.BOARD + boardId + PATH.COMMENT_DELETE + id);
 };
