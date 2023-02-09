@@ -94,7 +94,7 @@ const Board = () => {
             <option>최근 순</option>
             <option>좋아요 순</option>
           </SortSelect>
-          {auth.loggedUser.id && (
+          {auth.isLoggedIn && (
             <Button
               text="등록"
               width="90px"

@@ -1,12 +1,12 @@
 import React from 'react';
-import { FaRegCommentDots } from 'react-icons/fa';
+import { BsEye } from 'react-icons/bs';
 import { FiHeart } from 'react-icons/fi';
 import styled from 'styled-components';
 import { formatDate } from 'utils/formats';
 import Avvvatars from 'avvvatars-react';
 import { useNavigate } from 'react-router-dom';
 
-const BoardItem = ({ data: { id, title, userId, writer, createdDate, comment_cnt, thumb } }) => {
+const BoardItem = ({ data: { id, title, userId, writer, createdDate, hit, thumb } }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -24,7 +24,7 @@ const BoardItem = ({ data: { id, title, userId, writer, createdDate, comment_cnt
         <Info>
           <Text>{formatDate(createdDate)}</Text>
           <Text>
-            <FaRegCommentDots /> {comment_cnt}
+            <BsEye /> {hit}
           </Text>
           <Text>
             <FiHeart /> {thumb}
