@@ -6,10 +6,10 @@ import { deleteBoard, getBoardDetail, thumbBoard } from 'api/board';
 import { FaHeart } from 'react-icons/fa';
 import { formatDate } from 'utils/formats';
 import Comments from 'components/Comment/Comments';
-import { authState } from 'atoms/auth';
+import { authState } from 'api/atoms/auth';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import SignModal from 'components/SignModal/SignModal';
-import { loadingState } from 'atoms/loading';
+import { loadingState } from 'api/atoms/loading';
 
 const BoardDetail = () => {
   const [board, setBoard] = useState({});

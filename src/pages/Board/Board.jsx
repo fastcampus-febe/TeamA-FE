@@ -1,6 +1,6 @@
 import { getBoardList, getBoardListSearch, getBoardListSort } from 'api/board';
-import { authState } from 'atoms/auth';
-import { loadingState } from 'atoms/loading';
+import { authState } from 'api/atoms/auth';
+import { loadingState } from 'api/atoms/loading';
 import BoardItem from 'components/Board/BoardItem';
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';

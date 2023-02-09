@@ -4,10 +4,10 @@ import CommentItem from './CommentItem';
 import Avvvatars from 'avvvatars-react';
 import Button from 'components/common/Button';
 import TextArea from 'components/common/TextArea';
-import { authState } from 'atoms/auth';
+import { authState } from 'api/atoms/auth';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { createComment, getCommentList } from 'api/comment';
-import { loadingState } from 'atoms/loading';
+import { loadingState } from 'api/atoms/loading';
 
 const Comments = ({ setModalOpen, boardId }) => {
   const [comments, setComments] = useState([]);

@@ -8,7 +8,7 @@ import { theme } from 'style/theme';
 import Button from 'components/common/Button';
 import TextArea from 'components/common/TextArea';
 import { useSetRecoilState } from 'recoil';
-import { loadingState } from 'atoms/loading';
+import { loadingState } from 'api/atoms/loading';
 
 const CommentItem = ({
   data: { id, content, writer, userId, createdDate, modifiedDate },
