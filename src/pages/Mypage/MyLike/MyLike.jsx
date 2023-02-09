@@ -11,7 +11,6 @@ import { getItem } from 'utils/storage';
 const MyLike = () => {
   const [like, setLike] = useState([]);
   const [pageDisplay, setPageDisplay] = useState(true);
-  const [cancel, setCancel] = useState(false);
   const [page, setPage] = useState(1);
   const limit = 4;
   const offset = (page - 1) * limit;
