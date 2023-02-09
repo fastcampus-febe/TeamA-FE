@@ -13,6 +13,7 @@ import { BiSearch } from 'react-icons/bi';
 import Footer from './Footer';
 import { loadingState } from 'atoms/loading';
 import Loading from 'components/common/Loading';
+import ScrollToTop from 'components/common/ScrollToTop';
 
 function Template({ children }) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -27,6 +28,7 @@ function Template({ children }) {
 
   return (
     <TemplateContainer>
+      <ScrollToTop />
       <HeaderContainer>
         <Logo>
           <Link to="/">
