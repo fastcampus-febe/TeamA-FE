@@ -10,7 +10,7 @@ import Avvvatars from 'avvvatars-react';
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';
 import { BiSearch } from 'react-icons/bi';
-import Footer from './footer';
+import Footer from './Footer';
 
 function Template({ children }) {
   const [modalOpen, setModalOpen] = useState(false);
