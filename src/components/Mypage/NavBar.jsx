@@ -4,6 +4,7 @@ import NavBarItem from './NavBarItem';
 import { FaRegHeart } from 'react-icons/fa';
 import { MdOutlineRateReview } from 'react-icons/md';
 import { FiSettings } from 'react-icons/fi';
+import Avvvatars from 'avvvatars-react';
 import { getItem } from 'utils/storage';
 import { getMyInfo } from 'api/mypage';
 
@@ -27,7 +28,9 @@ const NavBar = () => {
   return (
     <MyPage>
       <MyPageNav>
-        <img src="/images/avatar.png" alt="회원 이미지" />
+        <UserImg>
+          <Avvvatars value={userId} style="shape" />
+        </UserImg>
         <h3>{nickname}</h3>
       </MyPageNav>
       <MyPageNav>
@@ -54,13 +57,6 @@ const MyPageNav = styled.nav`
   flex-direction: column;
   border-bottom: 1px solid #f5f5f5;
   padding: 10px;
-  img {
-    width: 90px;
-    margin: 30px auto 20px;
-    border-radius: 50%;
-    border: 1px solid #fff;
-    box-shadow: 0px 0px 10px #e0e0e0;
-  }
   h3 {
     margin: 0 auto 20px;
     font-size: 20px;
@@ -85,6 +81,23 @@ const MyPageNav = styled.nav`
         font-weight: 600;
       }
     }
+  }
+`;
+
+const UserImg = styled.div`
+  width: 90px;
+  height: 90px;
+  margin: 30px auto 20px;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  box-shadow: 0px 0px 10px #e0e0e0;
+  overflow: hidden;
+  div {
+    width: 100%;
+    height: 100%;
+  }
+  svg {
+    width: 50px;
   }
 `;
 
