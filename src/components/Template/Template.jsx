@@ -57,7 +57,7 @@ function Template({ children }) {
         </SearchWrap>
         <Navbar onClick={handleMenuClick}>
           <GiHamburgerMenu size={16} color={'black'} />
-          {auth.loggedUser.id ? (
+          {auth.isLoggedIn ? (
             <Avvvatars value={auth.loggedUser.id} style="shape" />
           ) : (
             <Avatar src="/images/avatar.png" />
