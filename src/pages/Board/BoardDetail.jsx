@@ -73,6 +73,7 @@ const BoardDetail = () => {
           <InfoWrap>
             <Text>{board.writer}</Text>
             <Text>{board.createdDate && formatDate(board.createdDate)}</Text>
+            <Text>조회수 {board.hit}</Text>
           </InfoWrap>
           {/* {board.userId === auth.loggedUser.id && ( */}
           <>

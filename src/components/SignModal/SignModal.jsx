@@ -122,7 +122,6 @@ const SignModal = ({ setModalOpen, modalType }) => {
       setLoading(true);
       const requestBody = { id, password };
       const data = await postSignIn(requestBody);
-      if (data.loginFail) return showMessage('password', MESSAGES.LOGIN_FAIL_MSG);
 
       alert('로그인이 완료되었습니다.');
       setModalOpen(false);
@@ -135,7 +134,7 @@ const SignModal = ({ setModalOpen, modalType }) => {
         userToken: data.token,
       });
     } catch (error) {
-      alert('회원가입에 실패하였습니다.');
+      showMessage('password', MESSAGES.LOGIN_FAIL_MSG);
     } finally {
       setLoading(false);
     }

@@ -53,7 +53,7 @@ const Menu = ({ setMenuOpen, setModalOpen, setModalType }) => {
 
   return (
     <MenuContainer ref={ref}>
-      {auth.loggedUser.id ? (
+      {auth.isLoggedIn ? (
         <li onClick={() => logout()}>로그아웃</li>
       ) : (
         <>
@@ -62,7 +62,7 @@ const Menu = ({ setMenuOpen, setModalOpen, setModalType }) => {
         </>
       )}
       <li onClick={() => handleClickMenu('/board')}>커뮤니티</li>
-      {auth.loggedUser.id && <li onClick={() => handleClickMenu('/mypage/like')}>마이페이지</li>}
+      {auth.isLoggedIn && <li onClick={() => handleClickMenu('/mypage/like')}>마이페이지</li>}
     </MenuContainer>
   );
 };
