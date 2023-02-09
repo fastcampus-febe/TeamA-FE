@@ -21,7 +21,6 @@ const MyLike = () => {
       try {
         const data = await getMyLike(userId);
         setLike(data);
-        // setLike(likeData.items);
         setPageDisplay(false);
       } catch (error) {
         console.log(error);
