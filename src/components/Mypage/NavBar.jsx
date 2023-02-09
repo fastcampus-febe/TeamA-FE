@@ -16,7 +16,6 @@ const NavBar = () => {
     async function getData() {
       try {
         const data = await getMyInfo(userId);
-        console.log(data);
         setNickname(data.nickname);
       } catch (error) {
         console.log(error);
