@@ -17,9 +17,10 @@ const Mypage = () => {
 };
 
 const MyPage = styled.div`
-  background-color: #f5f5f5;
+  background-color: rgba(255, 56, 92, 0.05);
   padding: 40px 10rem 20px;
   justify-content: center;
+  min-height: 800px;
   display: grid;
   grid-template-columns: 20% 65%;
   grid-template-areas: 'nav main';
