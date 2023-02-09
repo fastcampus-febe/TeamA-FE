@@ -1,4 +1,4 @@
-import { loadingState } from 'api/atoms/loading';
+import { loadingState } from 'atoms/loading';
 import { getMyInfo } from 'api/mypage';
 import { PageContent, Title } from 'pages/Mypage/MyPageStyle';
 import React, { useEffect, useState } from 'react';
