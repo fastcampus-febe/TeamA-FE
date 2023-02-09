@@ -6,6 +6,8 @@ import Pagination from 'components/common/Pagination';
 import { TbClipboardX } from 'react-icons/tb';
 import { getMyReview } from 'api/mypage';
 import { getItem } from 'utils/storage';
+import { useSetRecoilState } from 'recoil';
+import { loadingState } from 'api/atoms/loading';
 
 const MyReview = () => {
   const [review, setReview] = useState([]);
@@ -13,16 +15,20 @@ const MyReview = () => {
   const [page, setPage] = useState(1);
   const limit = 4;
   const offset = (page - 1) * limit;
+  const setLoading = useSetRecoilState(loadingState);
 
   const userId = getItem('user').id;
   useEffect(() => {
     async function getReviewData() {
       try {
+        setLoading(true);
         const data = await getMyReview(userId);
         setReview(data);
         setPageDisplay(false);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     }
     getReviewData();
