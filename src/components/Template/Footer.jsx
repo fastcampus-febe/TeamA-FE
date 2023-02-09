@@ -19,11 +19,11 @@ const Footer = () => {
         </FooterTxt>
         <FooterTxtSecond>
           <span>
-            (주)캐플릭스는 개별 항공권 및 숙박 상품에 대하여 통신판매중개자로서 통신판매의 당사자가
+            (주)Travel은 개별 항공권 및 숙박 상품에 대하여 통신판매중개자로서 통신판매의 당사자가
             아니며 해당상품의 거래정보 및 거래 등에 대해 책임을 지지 않습니다.
           </span>
           <span>
-            (주)캐플릭스는 렌터카 파트너사가 제공하는 일부 렌터카에 대하여 통신판매중개자의 지위를
+            (주)Travel은 렌터카 파트너사가 제공하는 일부 렌터카에 대하여 통신판매중개자의 지위를
             가지며, 해당 상품, 상품정보, 거래에 관한 의무와 책임은 판매자에게 있습니다.
           </span>
         </FooterTxtSecond>
@@ -43,7 +43,7 @@ const FooterContent = styled.div`
 `;
 
 const FooterInner = styled.div`
-  padding: 70px 72px 0 72px;
+  padding: 76px 72px 0 72px;
 `;
 
 const FooterMenu = styled.div`
@@ -91,8 +91,11 @@ const FooterTxt = styled.p`
 `;
 
 const FooterTxtSecond = styled.p`
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
   color: rgba(51, 51, 51, 0.6);
-  font-size: 15px;
+  font-size: 13px;
   margin-top: 20px;
   span {
     position: relative;
@@ -106,6 +109,7 @@ const FooterCopy = styled.p`
   color: rgba(51, 51, 51, 0.6);
   font-size: 15px;
   margin-top: 20px;
+  font-weight: 600;
   span {
     position: relative;
     display: inline-block;
