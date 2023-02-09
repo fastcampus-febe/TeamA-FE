@@ -30,7 +30,7 @@ const MyReview = () => {
 
   return (
     <PageContent>
-      <Title>리뷰 관리(데이터 임시로 적용) - 상세주소 완료되면 링크 연결하기(관광지 이름)</Title>
+      <Title>나의 리뷰</Title>
       <ReviewContent>
         {review.length > 0 ? (
           review.slice(offset, offset + limit).map((item) => {
