@@ -1,37 +1,42 @@
 import PlaceDetail from 'components/Detail/PlaceDetail';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import searchData from 'data/SearchData.json';
 import { useLocation } from 'react-router-dom';
+import { getPlaceDetail } from 'api/detail';
+import Loading from 'components/common/Loading';
 
 const Detail = () => {
   const [detail, setDetail] = useState([]);
-  const location = useLocation();
+  const placeId = useLocation().pathname.split('/')[2];
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getDetailData() {
       try {
-        setDetail(searchData.items);
+        const data = await getPlaceDetail(placeId);
+        setDetail(data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     }
     getDetailData();
-  }, [detail]);
+  }, []);
 
-  return (
+  return !loading ? (
     <DetailContainer>
-      <>
-        {detail
-          .filter((item) => item.id === location.pathname.split('/').slice(-1).join(''))
-          .map((item) => {
-            return <PlaceDetail data={item} key={item.id} />;
-          })}
-      </>
+      <PlaceDetail data={detail}></PlaceDetail>
     </DetailContainer>
+  ) : (
+    <section>
+      <Loading />
+    </section>
   );
 };
 
-const DetailContainer = styled.div``;
+const DetailContainer = styled.section`
+  margin: 100px;
+`;
 
 export default Detail;
