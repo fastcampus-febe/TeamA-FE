@@ -172,6 +172,7 @@ const SecondRight = styled.div`
 const Right1 = styled.div`
   float: right;
   margin-bottom: 150px;
+  width: 100%;
   h3 {
     text-align: right;
     margin-bottom: 10px;
@@ -179,6 +180,7 @@ const Right1 = styled.div`
     font-weight: 500;
   }
   span {
+    text-align: right;
     display: block;
   }
 `;
@@ -186,6 +188,7 @@ const Right1 = styled.div`
 const Right2 = styled.div`
   float: left;
   margin-bottom: 150px;
+  width: 100%;
   h3 {
     margin-bottom: 10px;
     font-size: 30px;
@@ -198,6 +201,7 @@ const Right2 = styled.div`
 
 const Right3 = styled.div`
   float: right;
+  width: 100%;
   h3 {
     text-align: right;
     margin-bottom: 10px;
@@ -206,6 +210,7 @@ const Right3 = styled.div`
   }
   span {
     display: block;
+    text-align: right;
   }
 `;
 
