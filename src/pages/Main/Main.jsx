@@ -13,20 +13,21 @@ import bigben from 'lotties/big-ben-clock-tower.json';
 import bulkwagon from 'lotties/bulk-wagon.json';
 import camera from 'lotties/camera.json';
 import world from 'lotties/travel-the-world.json';
+import { flushSync } from 'react-dom';
 
 const Main = () => {
   return (
     <MainContent>
       <Swiper
         dir="rtl"
-        slidesPerView={1.5}
+        slidesPerView={1.8}
         spaceBetween={40}
         allowTouchMove={false}
         autoplay={{
           delay: 0,
           disableOnInteraction: false,
         }}
-        speed={6000}
+        speed={10000}
         loop={true}
         modules={[Autoplay]}
         className="mySwiper"

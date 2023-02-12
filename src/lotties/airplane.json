@@ -143,7 +143,7 @@
                   "ty": "st",
                   "c": {
                     "a": 0,
-                    "k": [0.275, 0.328999986836, 0.630999995213, 1],
+                    "k": [0, 0.328999986836, 0.630999995213, 1],
                     "ix": 3,
                     "x": "var $bm_rt;\n$bm_rt = comp('Airplane_02_Final_Comp').layer('Airplane_2_Control').effect('Stroke_Color_Airplane_2')('ADBE Color Control-0001');"
                   },
@@ -265,7 +265,7 @@
                   "ty": "st",
                   "c": {
                     "a": 0,
-                    "k": [0.275, 0.328999986836, 0.630999995213, 1],
+                    "k": [0, 0.328999986836, 0.630999995213, 1],
                     "ix": 3,
                     "x": "var $bm_rt;\n$bm_rt = comp('Airplane_02_Final_Comp').layer('Airplane_2_Control').effect('Stroke_Color_Airplane_2')('ADBE Color Control-0001');"
                   },
@@ -401,7 +401,7 @@
                   "ty": "st",
                   "c": {
                     "a": 0,
-                    "k": [0.275, 0.328999986836, 0.630999995213, 1],
+                    "k": [0, 0.328999986836, 0.630999995213, 1],
                     "ix": 3,
                     "x": "var $bm_rt;\n$bm_rt = comp('Airplane_02_Final_Comp').layer('Airplane_2_Control').effect('Stroke_Color_Airplane_2')('ADBE Color Control-0001');"
                   },
@@ -570,7 +570,7 @@
                   "ty": "st",
                   "c": {
                     "a": 0,
-                    "k": [0.275, 0.328999986836, 0.630999995213, 1],
+                    "k": [255, 0.2196078431, 0.3529411764, 1],
                     "ix": 3,
                     "x": "var $bm_rt;\n$bm_rt = comp('Airplane_02_Final_Comp').layer('Airplane_2_Control').effect('Stroke_Color_Airplane_2')('ADBE Color Control-0001');"
                   },
@@ -711,7 +711,7 @@
                   "ty": "st",
                   "c": {
                     "a": 0,
-                    "k": [0.275, 0.328999986836, 0.630999995213, 1],
+                    "k": [255, 0.2196078431, 0.3529411764, 1],
                     "ix": 3,
                     "x": "var $bm_rt;\n$bm_rt = comp('Airplane_02_Final_Comp').layer('Airplane_2_Control').effect('Stroke_Color_Airplane_2')('ADBE Color Control-0001');"
                   },
@@ -852,7 +852,7 @@
                   "ty": "st",
                   "c": {
                     "a": 0,
-                    "k": [0.275, 0.328999986836, 0.630999995213, 1],
+                    "k": [255, 0.2196078431, 0.3529411764, 1],
                     "ix": 3,
                     "x": "var $bm_rt;\n$bm_rt = comp('Airplane_02_Final_Comp').layer('Airplane_2_Control').effect('Stroke_Color_Airplane_2')('ADBE Color Control-0001');"
                   },
@@ -968,7 +968,7 @@
                   "ty": "st",
                   "c": {
                     "a": 0,
-                    "k": [0.275, 0.328999986836, 0.630999995213, 1],
+                    "k": [255, 0.328999986836, 0.630999995213, 1],
                     "ix": 3,
                     "x": "var $bm_rt;\n$bm_rt = comp('Airplane_02_Final_Comp').layer('Airplane_2_Control').effect('Stroke_Color_Airplane_2')('ADBE Color Control-0001');"
                   },
@@ -1110,7 +1110,7 @@
                   "ty": "st",
                   "c": {
                     "a": 0,
-                    "k": [0.275, 0.328999986836, 0.630999995213, 1],
+                    "k": [255, 0.2196078431, 0.3529411764, 1],
                     "ix": 3,
                     "x": "var $bm_rt;\n$bm_rt = comp('Airplane_02_Final_Comp').layer('Airplane_2_Control').effect('Stroke_Color_Airplane_2')('ADBE Color Control-0001');"
                   },
@@ -1346,7 +1346,7 @@
                   "ty": "st",
                   "c": {
                     "a": 0,
-                    "k": [0.275, 0.328999986836, 0.630999995213, 1],
+                    "k": [255, 0.328999986836, 0.630999995213, 1],
                     "ix": 3,
                     "x": "var $bm_rt;\n$bm_rt = comp('Airplane_02_Final_Comp').layer('Airplane_2_Control').effect('Stroke_Color_Airplane_2')('ADBE Color Control-0001');"
                   },
@@ -1557,7 +1557,7 @@
                   "ty": "st",
                   "c": {
                     "a": 0,
-                    "k": [0.275, 0.328999986836, 0.630999995213, 1],
+                    "k": [255, 0.328999986836, 0.630999995213, 1],
                     "ix": 3,
                     "x": "var $bm_rt;\n$bm_rt = comp('Airplane_02_Final_Comp').layer('Airplane_2_Control').effect('Stroke_Color_Airplane_2')('ADBE Color Control-0001');"
                   },
@@ -2037,7 +2037,7 @@
                   "ty": "st",
                   "c": {
                     "a": 0,
-                    "k": [0.275, 0.328999986836, 0.630999995213, 1],
+                    "k": [255, 0.328999986836, 0.630999995213, 1],
                     "ix": 3,
                     "x": "var $bm_rt;\n$bm_rt = comp('Airplane_02_Final_Comp').layer('Airplane_2_Control').effect('Stroke_Color_Airplane_2')('ADBE Color Control-0001');"
                   },
