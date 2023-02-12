@@ -5,7 +5,7 @@ export const PATH = {
   LOGOUT: '/logout',
 
   BOARD: '/board/',
-  BOARD_LIST: '/board/list',
+  BOARD_LIST: '/board/selectAll',
   BOARD_ORDER_DATE: '/boards?order=createdDate',
   BOARD_ORDER_LIKE: '/boards/thumb',
   BOARD_SEARCH_TITLE: '/board/list?searchKeyword=',
