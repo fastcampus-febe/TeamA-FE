@@ -17,7 +17,7 @@ const Mypage = () => {
 };
 
 const MyPage = styled.div`
-  background-color: rgba(255, 56, 92, 0.05);
+  background-color: #f5f5f5;
   padding: 40px 10rem 20px;
   justify-content: center;
   min-height: 800px;
