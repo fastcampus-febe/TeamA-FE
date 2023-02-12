@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { PageContent, Title } from '../MyPageStyle';
-import reviewData from 'data/MyReviewData.json';
 import styled from 'styled-components';
 import ReviewList from 'components/Mypage/ReviewList/ReviewList';
 import Pagination from 'components/common/Pagination';
 import { TbClipboardX } from 'react-icons/tb';
 import { getMyReview } from 'api/mypage';
+import { getItem } from 'utils/storage';
+import { useSetRecoilState } from 'recoil';
+import { loadingState } from 'atoms/loading';
 
 const MyReview = () => {
   const [review, setReview] = useState([]);
@@ -13,16 +15,20 @@ const MyReview = () => {
   const [page, setPage] = useState(1);
   const limit = 4;
   const offset = (page - 1) * limit;
+  const setLoading = useSetRecoilState(loadingState);
 
+  const userId = getItem('user').id;
   useEffect(() => {
     async function getReviewData() {
       try {
-        // const data = await getMyReview();
-        // setReview(data);
-        setReview(reviewData.items);
+        setLoading(true);
+        const data = await getMyReview(userId);
+        setReview(data);
         setPageDisplay(false);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     }
     getReviewData();
@@ -30,7 +36,7 @@ const MyReview = () => {
 
   return (
     <PageContent>
-      <Title>리뷰 관리(데이터 임시로 적용) - 상세주소 완료되면 링크 연결하기(관광지 이름)</Title>
+      <Title>나의 리뷰</Title>
       <ReviewContent>
         {review.length > 0 ? (
           review.slice(offset, offset + limit).map((item) => {

@@ -7,47 +7,53 @@ import { deleteComment, updateComment } from 'api/comment';
 import { theme } from 'style/theme';
 import Button from 'components/common/Button';
 import TextArea from 'components/common/TextArea';
-import { useRecoilState } from 'recoil';
-import { authState } from 'atoms/auth';
+import { useSetRecoilState } from 'recoil';
+import { loadingState } from 'atoms/loading';
 
-const CommentItem = ({ data: { id, content, writer, member_id, createdDate, modifiedDate } }) => {
+const CommentItem = ({
+  data: { id, content, writer, userId, createdDate, modifiedDate },
+  boardId,
+}) => {
   const navigate = useNavigate();
   const [isModify, setIsModify] = useState(false);
-  const [auth, setAuth] = useRecoilState(authState);
   const [comment, setComment] = useState(content);
-  const [updateComment, setUpdateComment] = useState(content);
+  const [newComment, setNewComment] = useState(content);
   const [message, setMessage] = useState('');
+  const setLoading = useSetRecoilState(loadingState);
 
   const handleDelete = async () => {
     if (window.confirm('댓글을 삭제하시겠습니까?')) {
       try {
-        await deleteComment(id);
+        setLoading(true);
+        await deleteComment(boardId, id);
         alert('삭제가 완료되었습니다.');
-        navigate(`/board/${id}`);
+        navigate(`/board/${boardId}`);
       } catch (error) {
         alert('댓글을 삭제하지 못했습니다.');
       } finally {
+        setLoading(false);
       }
     }
   };
 
   const handleUpdate = async () => {
-    if (!updateComment) return setMessage('댓글 내용을 작성해 주세요.');
+    if (!newComment) return setMessage('댓글 내용을 작성해 주세요.');
     try {
-      const requestBody = { updateComment };
-      // await updateComment(requestBody);
-
+      setLoading(true);
+      const requestBody = { content: newComment };
+      await updateComment(requestBody, boardId, id);
       setIsModify(false);
-      setComment(updateComment);
+      setComment(newComment);
     } catch (error) {
       alert('댓글을 수정하지 못했습니다.');
     } finally {
+      setLoading(false);
     }
   };
 
   const handleCancel = () => {
     setIsModify(false);
-    setUpdateComment(comment);
+    setNewComment(comment);
   };
 
   useEffect(() => {
@@ -60,11 +66,11 @@ const CommentItem = ({ data: { id, content, writer, member_id, createdDate, modi
         <div>
           <CommentWrap>
             <TextAreaWrap>
-              <Avvvatars value={member_id} style="shape" size="40" />
+              <Avvvatars value={userId} style="shape" size="40" />
               <TextArea
-                height="50px"
-                value={updateComment}
-                onChange={(e) => setUpdateComment(e.target.value)}
+                height="60px"
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
               />
             </TextAreaWrap>
             <ButtonWrap>
@@ -91,7 +97,7 @@ const CommentItem = ({ data: { id, content, writer, member_id, createdDate, modi
           <SubContainer>
             <UserInfo>
               <FlexWrap>
-                <Avvvatars size={'50'} value={member_id} style="shape" />
+                <Avvvatars size={'50'} value={userId} style="shape" />
                 <InfoWrap>
                   <Text>{writer}</Text>
                   <Text>{createdDate && formatDate(createdDate)}</Text>
@@ -99,7 +105,7 @@ const CommentItem = ({ data: { id, content, writer, member_id, createdDate, modi
                 </InfoWrap>
               </FlexWrap>
               <FlexWrap>
-                {/* {tempData.member_id === auth.loggedUser.id && ( */}
+                {/* {userId === auth.loggedUser.id && ( */}
                 <TextButton onClick={() => setIsModify(true)}>수정</TextButton>
                 <TextButton onClick={handleDelete}>삭제</TextButton>
                 {/* )} */}
@@ -142,7 +148,7 @@ const CommentWrap = styled.div`
 
 const TextAreaWrap = styled.div`
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
 `;
 
 const ButtonWrap = styled.div`

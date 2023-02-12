@@ -21,7 +21,7 @@ const axiosApi = (url, options) => {
     (config) => {
       const token = getItem('token', '');
       if (config.headers && token) {
-        config.headers['Authorization'] = `bearer ${token}`;
+        config.headers['Authorization'] = `Bearer ${token}`;
       }
       return config;
     },

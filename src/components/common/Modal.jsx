@@ -3,7 +3,7 @@ import { RiFileList2Line } from 'react-icons/ri';
 import { confirmAlert } from 'react-confirm-alert';
 import styled, { css } from 'styled-components';
 
-const Modal = ({ modalText }) => {
+const Modal = ({ modalText, path }) => {
   confirmAlert({
     customUI: ({ onClose }) => {
       return (
@@ -12,7 +12,16 @@ const Modal = ({ modalText }) => {
             <RiFileList2Line size="30" title="list" />
             <ModalText>{modalText}</ModalText>
             <BtnWrap>
-              <Button onClick={onClose}>확인</Button>
+              <Button
+                onClick={() => {
+                  onClose();
+                  if (path) {
+                    window.location.replace(path);
+                  }
+                }}
+              >
+                확인
+              </Button>
             </BtnWrap>
           </ModalContent>
         </ModalBack>
@@ -45,7 +54,12 @@ const ModalOkCancel = (message, secondMsg, orderFunction) => {
               >
                 확인
               </Button>
-              <Button cancel={true} onClick={onClose}>
+              <Button
+                cancel={true}
+                onClick={() => {
+                  onClose();
+                }}
+              >
                 취소
               </Button>
             </BtnWrap>

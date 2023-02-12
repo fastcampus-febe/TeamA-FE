@@ -1,0 +1,6 @@
+{
+  "id": "asdf",
+  "password": "{bcrypt}$2a$10$AwRx4EtNeRZFSItNT6bSS.82MIWoCOjkd019gzshVjvTawLMGv8qC",
+  "nickname": "kim",
+  "role": "ROLE_USER"
+}

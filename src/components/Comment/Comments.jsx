@@ -1,60 +1,67 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import CommentItem from './CommentItem';
 import Avvvatars from 'avvvatars-react';
 import Button from 'components/common/Button';
 import TextArea from 'components/common/TextArea';
 import { authState } from 'atoms/auth';
-import { useRecoilState } from 'recoil';
-import { createComment } from 'api/comment';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { createComment, getCommentList } from 'api/comment';
+import { loadingState } from 'atoms/loading';
 
-const Comments = ({ setModalOpen }) => {
+const Comments = ({ setModalOpen, boardId }) => {
   const [comments, setComments] = useState([]);
-  let { state: id } = useLocation();
-  const [auth, setAuth] = useRecoilState(authState);
+  const auth = useRecoilValue(authState);
   const [comment, setComment] = useState('');
   const [message, setMessage] = useState('');
+  const setLoading = useSetRecoilState(loadingState);
 
   useEffect(() => {
     async function getData() {
       try {
-        // const data = await getCommentList(id);
-        // setBoard(data.board_data);
-        setComments(tempData);
+        setLoading(true);
+        const data = await getCommentList(boardId);
+        setComments(data);
       } catch (error) {
         alert('게시물 댓글 목록을 조회하지 못했습니다.');
       } finally {
+        setLoading(false);
       }
     }
     getData();
   }, []);
 
   const handleWrite = async () => {
-    comment ? setMessage('') : setMessage('댓글 내용을 작성해 주세요.');
+    if (!comment) return setMessage('댓글 내용을 작성해 주세요.');
     try {
-      const requestBody = { comment };
-      await createComment(requestBody);
-
-      // const data = await getCommentList(id);
-      // setBoard(data.board_data);
-      setComments(tempData);
+      setLoading(true);
+      const requestBody = { content: comment };
+      await createComment(requestBody, boardId);
       setComment('');
+      setMessage('');
+
+      const data = await getCommentList(boardId);
+      setComments(data);
     } catch (error) {
       alert('댓글을 작성하지 못했습니다.');
     } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div>
-      <CommentCnt>{tempData.length}개의 댓글</CommentCnt>
+      <CommentCnt>{comments.length}개의 댓글</CommentCnt>
       <CommentContainer>
         {auth.loggedUser.id ? (
           <CommentWrap>
             <TextAreaWrap>
               <Avvvatars value={auth.loggedUser.id} style="shape" size="40" />
-              <TextArea height="50px" value={comment} setValue={setComment} />
+              <TextArea
+                height="60px"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+              />
             </TextAreaWrap>
             <ButtonWrap>
               <SpanText>{message}</SpanText>
@@ -85,8 +92,8 @@ const Comments = ({ setModalOpen }) => {
           </CommentWrap>
         )}
       </CommentContainer>
-      {Array.isArray(tempData) ? (
-        tempData.map((item) => <CommentItem key={item.id} data={item} />)
+      {Array.isArray(comments) ? (
+        comments.map((item) => <CommentItem key={item.id} data={item} boardId={boardId} />)
       ) : (
         <div>작성된 댓글이 없습니다.</div>
       )}
@@ -139,34 +146,3 @@ const SpanText = styled.span`
 `;
 
 export default Comments;
-
-const tempData = [
-  {
-    id: 1,
-    content:
-      '댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1댓글1',
-    writer: '냠냠냠',
-    member_id: 'a24123aaa',
-    board_id: 1,
-    createdDate: '2023-02-03T01:55:27.081136',
-    modifiedDate: '2023-02-03T01:57:02.293316',
-  },
-  {
-    id: 2,
-    content: '댓글2',
-    writer: '하하하',
-    member_id: 'asdasd',
-    board_id: 1,
-    createdDate: '2023-02-03T01:55:27.081136',
-    modifiedDate: '2023-02-03T01:57:02.293316',
-  },
-  {
-    id: 3,
-    content: '댓글3글3글3글3글3글3글3글3글3글3글3글3글3글3글3글3',
-    writer: '흑흑흑kim',
-    member_id: 'qewrsd123',
-    board_id: 1,
-    createdDate: '2023-02-03T01:55:27.081136',
-    modifiedDate: '2023-02-03T01:57:02.293316',
-  },
-];

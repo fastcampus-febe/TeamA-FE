@@ -2,46 +2,62 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Avvvatars from 'avvvatars-react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { deleteBoard, getBoardDetail } from 'api/board';
+import { deleteBoard, getBoardDetail, thumbBoard } from 'api/board';
 import { FaHeart } from 'react-icons/fa';
 import { formatDate } from 'utils/formats';
 import Comments from 'components/Comment/Comments';
 import { authState } from 'atoms/auth';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import SignModal from 'components/SignModal/SignModal';
+import { loadingState } from 'atoms/loading';
 
 const BoardDetail = () => {
   const [board, setBoard] = useState({});
-  let { state: id } = useLocation();
+  const boardId = useLocation().pathname.split('/')[2];
   const [auth, setAuth] = useRecoilState(authState);
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
+  const setLoading = useSetRecoilState(loadingState);
 
   useEffect(() => {
     async function getData() {
       try {
-        // const data = await getBoardDetail(id);
-        // setBoard(data.board_data);
-        setBoard(tempData);
-        // setLike(board.like);
+        setLoading(true);
+        const data = await getBoardDetail(boardId);
+        setBoard(data);
       } catch (error) {
         alert('게시물 상세를 조회하지 못했습니다.');
       } finally {
+        setLoading(false);
       }
     }
     getData();
   }, []);
 
-  const handleThumb = () => {};
+  const handleThumb = async () => {
+    try {
+      setLoading(true);
+      await thumbBoard(boardId);
+      const data = await getBoardDetail(boardId);
+      setBoard(data);
+    } catch (error) {
+      alert('좋아요에 실패했습니다.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleDelete = async () => {
     if (window.confirm('게시물을 삭제하시겠습니까?')) {
       try {
-        await deleteBoard(id);
+        setLoading(true);
+        await deleteBoard(boardId);
         alert('삭제가 완료되었습니다.');
         navigate('/board');
       } catch (error) {
         alert('게시물을 삭제하지 못했습니다.');
       } finally {
+        setLoading(false);
       }
     }
   };
@@ -53,14 +69,17 @@ const BoardDetail = () => {
     <DetailContainer>
       <SubContainer>
         <UserInfo>
-          <Avvvatars size={'50'} value={board.member_id} style="shape" />
+          <Avvvatars size={'50'} value={board.userId} style="shape" />
           <InfoWrap>
-            <Text>{board.nickname}</Text>
-            <Text>{board.indate && formatDate(board.indate)}</Text>
+            <Text>{board.writer}</Text>
+            <Text>{board.createdDate && formatDate(board.createdDate)}</Text>
+            <Text>조회수 {board.hit}</Text>
           </InfoWrap>
-          {/* {tempData.member_id === auth.loggedUser.id && ( */}
-          <TextButton onClick={handleUpdate}>수정</TextButton>
-          <TextButton onClick={handleDelete}>삭제</TextButton>
+          {/* {board.userId === auth.loggedUser.id && ( */}
+          <>
+            <TextButton onClick={handleUpdate}>수정</TextButton>
+            <TextButton onClick={handleDelete}>삭제</TextButton>
+          </>
           {/* )} */}
         </UserInfo>
         <ThumbWrap>
@@ -70,7 +89,7 @@ const BoardDetail = () => {
       </SubContainer>
       <Title>{board.title}</Title>
       <Content>{board.content}</Content>
-      <Comments setModalOpen={setModalOpen} />
+      <Comments setModalOpen={setModalOpen} boardId={boardId} />
       {modalOpen ? <SignModal setModalOpen={setModalOpen} modalType={'Login'} /> : null}
     </DetailContainer>
   );
@@ -167,14 +186,3 @@ const TextButton = styled.button`
     content: none;
   }
 `;
-
-const tempData = {
-  id: 1,
-  member_id: 'test1234',
-  nickname: '우주하마',
-  title: '내가 가본 관광지 TOP 5',
-  content: `1. 우리집 따듯하고 좋음 가스비가 걱정임 2. 마트 먹을거 많음 3. 강아지 있는 친구네집 4. 고양이 있는 친구네집 5. 음...또 어디있지 어쩌구 어쩌구 저쩌다 저쩌다 1. 우리집 따듯하고 좋음 가스비가 걱정임 2. 마트 먹을거 많음 3. 강아지 있는 친구네집 4. 고양이 있는 친구네집 5. 음...또 어디있지 어쩌구 어쩌구 저쩌다 저쩌다1. 우리집 따듯하고 좋음 가스비가 걱정임 2. 마트 먹을거 많음 3. 강아지 있는 친구네집 4. 고양이 있는 친구네집 5. 음...또 어디있지 어쩌구 어쩌구 저쩌다 저쩌다1. 우리집 따듯하고 좋음 가스비가 걱정임 2. 마트 먹을거 많음 3. 강아지 있는 친구네집 4. 고양이 있는 친구네집 5. 음...또 어디있지 어쩌구 어쩌구 저쩌다 저쩌다1. 우리집 따듯하고 좋음 가스비가 걱정임 2. 마트 먹을거 많음 3. 강아지 있는 친구네집 4. 고양이 있는 친구네집 5. 음...또 어디있지 어쩌구 어쩌구 저쩌다 저쩌다1. 우리집 따듯하고 좋음 가스비가 걱정임 2. 마트 먹을거 많음 3. 강아지 있는 친구네집 4. 고양이 있는 친구네집 5. 음...또 어디있지 어쩌구 어쩌구 저쩌다 저쩌다1. 우리집 따듯하고 좋음 가스비가 걱정임 2. 마트 먹을거 많음 3. 강아지 있는 친구네집 4. 고양이 있는 친구네집 5. 음...또 어디있지 어쩌구 어쩌구 저쩌다 저쩌다1. 우리집 따듯하고 좋음 가스비가 걱정임 2. 마트 먹을거 많음 3. 강아지 있는 친구네집 4. 고양이 있는 친구네집 5. 음...또 어디있지 어쩌구 어쩌구 저쩌다 저쩌다1. 우리집 따듯하고 좋음 가스비가 걱정임 2. 마트 먹을거 많음 3. 강아지 있는 친구네집 4. 고양이 있는 친구네집 5. 음...또 어디있지 어쩌구 어쩌구 저쩌다 저쩌다1. 우리집 따듯하고 좋음 가스비가 걱정임 2. 마트 먹을거 많음 3. 강아지 있는 친구네집 4. 고양이 있는 친구네집 5. 음...또 어디있지 어쩌구 어쩌구 저쩌다 저쩌다1. 우리집 따듯하고 좋음 가스비가 걱정임 2. 마트 먹을거 많음 3. 강아지 있는 친구네집 4. 고양이 있는 친구네집 5. 음...또 어디있지 어쩌구 어쩌구 저쩌다 저쩌다1. 우리집 따듯하고 좋음 가스비가 걱정임 2. 마트 먹을거 많음 3. 강아지 있는 친구네집 4. 고양이 있는 친구네집 5. 음...또 어디있지 어쩌구 어쩌구 저쩌다 저쩌다1. 우리집 따듯하고 좋음 가스비가 걱정임 2. 마트 먹을거 많음 3. 강아지 있는 친구네집 4. 고양이 있는 친구네집 5. 음...또 어디있지 어쩌구 어쩌구 저쩌다 저쩌다1. 우리집 따듯하고 좋음 가스비가 걱정임 2. 마트 먹을거 많음 3. 강아지 있는 친구네집 4. 고양이 있는 친구네집 5. 음...또 어디있지 어쩌구 어쩌구 저쩌다 저쩌다 ('ㅅ') ('ㅅ')  ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ')  ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') ('ㅅ') 야호야호야호`,
-  indate: '2023-01-20 12:22:33',
-  thumb: 3,
-  comment_cnt: 3,
-};

@@ -1,70 +1,36 @@
 import { axiosInstance } from './core';
 import { PATH } from '../constants/path';
-import { getItem } from 'utils/storage';
-
-const token = getItem('token');
 
 export const getBoardList = async () => {
-  try {
-    const response = await axiosInstance.get(PATH.BOARD_LIST, token);
-    return response;
-  } catch (error) {
-    console.error(error);
-  }
+  return await axiosInstance.get(PATH.BOARD_LIST);
 };
 
 export const getBoardListSearch = async (type, data) => {
-  try {
-    const path = type === 'title' ? PATH.BOARD_SEARCH_TITLE : PATH.BOARD_SEARCH_NICKNAME;
-    const response = await axiosInstance.get(path + '/' + data, token);
-    return response;
-  } catch (error) {
-    console.error(error);
-  }
+  const path = type === 'title' ? PATH.BOARD_SEARCH_TITLE : PATH.BOARD_SEARCH_NICKNAME;
+  return await axiosInstance.get(path + '/' + data);
 };
 
 export const getBoardListSort = async (type) => {
-  try {
-    const path = type === 'recent' ? PATH.BOARD_ORDER_DATE : PATH.BOARD_ORDER_LIKE;
-    const response = await axiosInstance.get(path, token);
-    return response;
-  } catch (error) {
-    console.error(error);
-  }
+  const path = type === 'recent' ? PATH.BOARD_ORDER_DATE : PATH.BOARD_ORDER_LIKE;
+  return await axiosInstance.get(path);
 };
 
 export const getBoardDetail = async (id) => {
-  try {
-    const response = await axiosInstance.get(PATH.BOARD_DETAIL + '/' + id);
-    return response;
-  } catch (error) {
-    console.error(error);
-  }
+  return await axiosInstance.get(PATH.BOARD_DETAIL + '/' + id);
+};
+
+export const thumbBoard = async (id) => {
+  return await axiosInstance.post(PATH.BOARD_THUMB + id);
 };
 
 export const createBoard = async (data) => {
-  try {
-    const response = await axiosInstance.post(PATH.BOARD_INSERT, data);
-    return response;
-  } catch (error) {
-    console.error(error);
-  }
+  return await axiosInstance.post(PATH.BOARD_INSERT, data);
 };
 
-export const updateBoard = async (data) => {
-  try {
-    const response = await axiosInstance.patch(PATH.BOARD_UPDATE, data);
-    return response;
-  } catch (error) {
-    console.error(error);
-  }
+export const updateBoard = async (data, id) => {
+  return await axiosInstance.patch(PATH.BOARD_UPDATE + '/' + id, data);
 };
 
-export const deleteBoard = async (data) => {
-  try {
-    const response = await axiosInstance.delete(PATH.BOARD_DELETE, data);
-    return response;
-  } catch (error) {
-    console.error(error);
-  }
+export const deleteBoard = async (id) => {
+  return await axiosInstance.delete(PATH.BOARD_DELETE + '/' + id);
 };

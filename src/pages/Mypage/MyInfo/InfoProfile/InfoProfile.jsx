@@ -1,23 +1,32 @@
+import { loadingState } from 'atoms/loading';
 import { getMyInfo } from 'api/mypage';
 import { PageContent, Title } from 'pages/Mypage/MyPageStyle';
 import React, { useEffect, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { getItem } from 'utils/storage';
 
 const InfoProfile = () => {
   const [info, setInfo] = useState([]);
+  const setLoading = useSetRecoilState(loadingState);
+
   const userId = getItem('user').id;
+  const userPW = getItem('user').password;
+  const pwLen = userPW.length - 2;
 
   useEffect(() => {
     async function getData() {
       try {
+        setLoading(true);
         const data = await getMyInfo(userId);
         setInfo(data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     }
-    // getData();
+    getData();
   }, []);
 
   return (
@@ -30,19 +39,19 @@ const InfoProfile = () => {
           <li>
             <InfoForm>
               <h2>닉네임</h2>
-              <span>회원 닉네임</span>
+              <span>{info.nickname}</span>
             </InfoForm>
           </li>
           <li>
             <InfoForm>
               <h2>아이디</h2>
-              <span>회원 아이디</span>
+              <span>{info.id}</span>
             </InfoForm>
           </li>
           <li>
             <InfoForm>
               <h2>비밀번호</h2>
-              <span>12***</span>
+              <span>{userPW.slice(0, 2) + '*'.repeat(pwLen)}</span>
             </InfoForm>
           </li>
         </Profile>

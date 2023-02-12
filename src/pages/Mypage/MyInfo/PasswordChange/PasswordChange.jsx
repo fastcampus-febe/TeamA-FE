@@ -5,11 +5,16 @@ import { PageContent, SvgPosition, Title } from 'pages/Mypage/MyPageStyle';
 import React, { useState } from 'react';
 import { RiArrowDownSLine } from 'react-icons/ri';
 import styled, { css } from 'styled-components';
+import { getItem } from 'utils/storage';
 
 const PasswordChange = () => {
   const [display, setDisplay] = useState(false);
   const [modal, setModal] = useState(false);
   const [modalText, setModalText] = useState('');
+  const [disabled, setDisabled] = useState(false);
+  const [regexp, setRegexp] = useState(false);
+
+  const passwordREGEXP = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/;
 
   const [password, setPassword] = useState({
     oldPW: '',
@@ -35,11 +40,22 @@ const PasswordChange = () => {
     });
   }
 
+  function changeError() {
+    if (password.newPW !== password.compPW) {
+      setDisabled(true);
+    }
+  }
+
+  const userId = getItem('user').id;
+  const reqData = {
+    id: userId,
+    currentPwd: password.oldPW,
+    newPwd: password.newPW,
+  };
   async function ChangePassword() {
     try {
       // 비밀번호 변경
-      // const data = await postChangePW();
-      console.log(password);
+      await postChangePW(userId, reqData);
     } catch (error) {
       setModal(true);
       setModalText('오류가 발생하였습니다.');
@@ -53,7 +69,7 @@ const PasswordChange = () => {
 
   return (
     <PageContent>
-      {modal ? <Modal modalText={modalText} /> : null}
+      {modal ? <Modal setModal={setModal} modalText={modalText} /> : null}
       <Title>
         비밀번호 변경
         <SvgPosition
@@ -67,6 +83,7 @@ const PasswordChange = () => {
       </Title>
       <WithdrawalContent $display={display}>
         <p>회원님의 정보 보호를 위해 비밀번호를 정기적으로 변경해주세요.</p>
+        <p>8~20자의 영문 소문자 및 숫자 조합만 사용 가능합니다.</p>
         <ChangePW>
           <li>
             <InputForm>
@@ -89,8 +106,18 @@ const PasswordChange = () => {
                 value={newPW}
                 onChange={changePW}
                 placeholder="새 비밀번호를 입력해주세요"
+                onBlur={() => {
+                  if (!password.newPW.match(passwordREGEXP)) {
+                    setRegexp(true);
+                  }
+                }}
               ></input>
             </InputForm>
+            {regexp ? (
+              <>
+                <ErrorPW>8~20자의 영문 소문자 및 숫자 조합만 사용 가능합니다.</ErrorPW>
+              </>
+            ) : null}
           </li>
           <li>
             <InputForm>
@@ -101,16 +128,25 @@ const PasswordChange = () => {
                 value={compPW}
                 onChange={changePW}
                 placeholder="새 비밀번호를 다시 입력해주세요"
+                onBlur={() => {
+                  changeError();
+                }}
               ></input>
             </InputForm>
+            {disabled ? (
+              <>
+                <ErrorPW>비밀번호를 다시 확인해주세요</ErrorPW>
+              </>
+            ) : null}
           </li>
         </ChangePW>
         <Button
           text="변경"
           width="100px"
           height="40px"
+          disabled={disabled}
           onClick={() => {
-            ModalOkCancel('비밀번호를 변경하시겠습니까?', null, ChangePassword);
+            ModalOkCancel('비밀번호를 변경하시겠습니까?', null, ChangePassword, setModal);
           }}
         />
       </WithdrawalContent>
@@ -131,7 +167,7 @@ const WithdrawalContent = styled.div`
   p {
     font-size: 17px;
     font-weight: 600;
-    margin-bottom: 25px;
+    line-height: 25px;
   }
   button {
     float: right;
@@ -140,6 +176,7 @@ const WithdrawalContent = styled.div`
 `;
 
 const ChangePW = styled.ul`
+  margin-top: 25px;
   li {
     margin-bottom: 25px;
   }
@@ -177,6 +214,15 @@ const InputForm = styled.div`
       display: none;
     }
   }
+`;
+
+const ErrorPW = styled.span`
+  color: #ff385c;
+  font-weight: 400;
+  font-size: 15px;
+  margin-left: 130px;
+  margin-top: 5px;
+  display: block;
 `;
 
 export default PasswordChange;

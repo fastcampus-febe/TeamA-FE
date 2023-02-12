@@ -6,6 +6,9 @@ import styled from 'styled-components';
 import Pagination from 'components/common/Pagination';
 import { TbClipboardX } from 'react-icons/tb';
 import { getMyLike } from 'api/mypage';
+import { getItem } from 'utils/storage';
+import { useSetRecoilState } from 'recoil';
+import { loadingState } from 'atoms/loading';
 
 const MyLike = () => {
   const [like, setLike] = useState([]);
@@ -13,16 +16,20 @@ const MyLike = () => {
   const [page, setPage] = useState(1);
   const limit = 4;
   const offset = (page - 1) * limit;
+  const setLoading = useSetRecoilState(loadingState);
 
+  const userId = getItem('user').id;
   useEffect(() => {
     async function getLikeData() {
       try {
-        // const data = await getMyLike();
-        // setLike(data);
-        setLike(likeData.items);
+        setLoading(true);
+        const data = await getMyLike(userId);
+        setLike(data);
         setPageDisplay(false);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     }
     getLikeData();
@@ -30,11 +37,11 @@ const MyLike = () => {
 
   return (
     <PageContent>
-      <Title>위시리스트(데이터는 임시로 적용) - 관광지 이름 링크 지정하기</Title>
+      <Title>위시리스트</Title>
       <LikeContent>
-        {like.length > 0 ? (
+        {Array.isArray(like) > 0 ? (
           like.slice(offset, offset + limit).map((item) => {
-            return <LikeList data={item} key={item.id} />;
+            return <LikeList data={item} key={item.placeId} />;
           })
         ) : (
           <LikeNoneContent>
@@ -44,7 +51,7 @@ const MyLike = () => {
         )}
       </LikeContent>
       <PageDisplay pageDisplay={pageDisplay}>
-        {like.length > 0 ? (
+        {Array.isArray(like) ? (
           <Pagination total={like.length} limit={limit} page={page} setPage={setPage} />
         ) : null}
       </PageDisplay>

@@ -1,5 +1,6 @@
 import { getBoardList, getBoardListSearch, getBoardListSort } from 'api/board';
 import { authState } from 'atoms/auth';
+import { loadingState } from 'atoms/loading';
 import BoardItem from 'components/Board/BoardItem';
 import Button from 'components/common/Button';
 import Input from 'components/common/Input';
@@ -8,7 +9,7 @@ import React, { useEffect, useState } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import { TbClipboardX } from 'react-icons/tb';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { theme } from 'style/theme';
 import styled from 'styled-components';
 
@@ -20,19 +21,20 @@ const Board = () => {
   const offset = (page - 1) * limit;
   const [search, setSearch] = useState('');
   const [searchOption, setSearchOption] = useState('');
-  const [sort, setSort] = useState('');
-  const [auth, setAuth] = useRecoilState(authState);
+  const auth = useRecoilValue(authState);
   const navigate = useNavigate();
+  const setLoading = useSetRecoilState(loadingState);
 
   useEffect(() => {
     async function getData() {
       try {
-        // const data = await getBoardList();
-        // setBoard(data.board_data);
-        setBoard(tempData);
+        setLoading(true);
+        const data = await getBoardList();
+        setBoard(data);
       } catch (error) {
         alert('게시물 목록을 조회하지 못했습니다.');
       } finally {
+        setLoading(false);
       }
     }
     getData();
@@ -41,13 +43,13 @@ const Board = () => {
   const handleSort = async (e) => {
     const type = e.target.value === '최근 순' ? 'recent' : 'like';
     const data = await getBoardListSort(type);
-    setBoard(data.board_data);
+    setBoard(data);
   };
 
   const handleSearch = async () => {
     const type = searchOption === '제목' ? 'title' : 'nickname';
     const data = await getBoardListSearch(type, search);
-    setBoard(data.board_data);
+    setBoard(data);
   };
 
   const handleKeyDown = (e) => {
@@ -92,7 +94,7 @@ const Board = () => {
             <option>최근 순</option>
             <option>좋아요 순</option>
           </SortSelect>
-          {auth.loggedUser.id && (
+          {auth.isLoggedIn && (
             <Button
               text="등록"
               width="90px"
