@@ -95,7 +95,7 @@ const Main = () => {
 
 const MainContent = styled.div`
   width: 100vw;
-  padding-top: 30px;
+  padding-top: 25px;
 `;
 
 const FirstContent = styled.div`
@@ -106,7 +106,7 @@ const FirstContent = styled.div`
   gap: 50px;
   margin: 0 auto;
   padding: 0 24px;
-  margin-top: 50px;
+  margin-top: 20px;
   box-sizing: border-box;
   h1 {
     font-size: 70px;
