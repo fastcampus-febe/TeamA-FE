@@ -73,7 +73,7 @@ const MenuContainer = styled.ul`
   position: fixed;
   top: 4rem;
   right: 5rem;
-  z-index: 15;
+  z-index: 35;
   padding: 0.8rem 0;
   background-color: ${({ theme }) => theme.colors.white};
   width: 180px;

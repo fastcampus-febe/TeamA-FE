@@ -13,20 +13,21 @@ import bigben from 'lotties/big-ben-clock-tower.json';
 import bulkwagon from 'lotties/bulk-wagon.json';
 import camera from 'lotties/camera.json';
 import world from 'lotties/travel-the-world.json';
+import { flushSync } from 'react-dom';
 
 const Main = () => {
   return (
     <MainContent>
       <Swiper
         dir="rtl"
-        slidesPerView={1.5}
+        slidesPerView={1.8}
         spaceBetween={40}
         allowTouchMove={false}
         autoplay={{
           delay: 0,
           disableOnInteraction: false,
         }}
-        speed={6000}
+        speed={10000}
         loop={true}
         modules={[Autoplay]}
         className="mySwiper"
@@ -171,6 +172,7 @@ const SecondRight = styled.div`
 const Right1 = styled.div`
   float: right;
   margin-bottom: 150px;
+  width: 100%;
   h3 {
     text-align: right;
     margin-bottom: 10px;
@@ -178,6 +180,7 @@ const Right1 = styled.div`
     font-weight: 500;
   }
   span {
+    text-align: right;
     display: block;
   }
 `;
@@ -185,6 +188,7 @@ const Right1 = styled.div`
 const Right2 = styled.div`
   float: left;
   margin-bottom: 150px;
+  width: 100%;
   h3 {
     margin-bottom: 10px;
     font-size: 30px;
@@ -197,6 +201,7 @@ const Right2 = styled.div`
 
 const Right3 = styled.div`
   float: right;
+  width: 100%;
   h3 {
     text-align: right;
     margin-bottom: 10px;
@@ -205,6 +210,7 @@ const Right3 = styled.div`
   }
   span {
     display: block;
+    text-align: right;
   }
 `;
 
