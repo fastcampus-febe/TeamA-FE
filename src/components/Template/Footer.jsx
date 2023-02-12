@@ -37,7 +37,6 @@ const Footer = () => {
 
 const FooterContent = styled.div`
   height: 330px;
-  background-color: rgba(255, 56, 92, 0.2);
   background-image: url('/images/footer.png');
   background-repeat: repeat-x;
 `;

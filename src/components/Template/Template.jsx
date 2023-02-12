@@ -88,7 +88,7 @@ const HeaderContainer = styled.div`
   align-items: center;
   padding: 0 5rem;
   box-sizing: border-box;
-  z-index: 10;
+  z-index: 30;
   width: 100%;
   height: 5rem;
   background-color: ${({ theme }) => theme.colors.white};
