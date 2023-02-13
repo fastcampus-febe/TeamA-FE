@@ -125,8 +125,8 @@ const FirstContent = styled.div`
   gap: 50px;
   margin: 0 auto;
   padding: 0 24px;
-  margin-top: 20px;
-  margin-bottom: 100px;
+  margin-top: 50px;
+  margin-bottom: 120px;
   box-sizing: border-box;
   h1 {
     font-size: 70px;
