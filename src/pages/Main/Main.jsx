@@ -115,7 +115,6 @@ const Main = () => {
 const MainContent = styled.div`
   width: 100vw;
   padding-top: 25px;
-  margin: 100px;
 `;
 
 const FirstContent = styled.div`
@@ -142,7 +141,7 @@ const FirstContent = styled.div`
   }
 `;
 const RankContainer = styled.section`
-  margin: 4rem 0;
+  margin: 4rem 100px;
 `;
 const RankContents = styled.section`
   display: flex;

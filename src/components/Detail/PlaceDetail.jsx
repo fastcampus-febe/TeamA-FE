@@ -114,6 +114,9 @@ const LikeDiv = styled.div`
 
 const WeatherSection = styled.section`
   margin-top: 30px;
+  p {
+    margin: auto;
+  }
 `;
 
 const WeatherTitle = styled.section`
