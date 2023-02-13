@@ -78,6 +78,7 @@ const ItemContentSection = styled.section`
   display: flex;
   flex-direction: column;
   gap: 4px;
+  color: #333;
 `;
 
 const RankItemTitle = styled.p`
