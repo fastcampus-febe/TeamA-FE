@@ -253,7 +253,7 @@ const ModalContainer = styled.form`
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 10;
+  z-index: 40;
 `;
 
 const ModalBox = styled.div`

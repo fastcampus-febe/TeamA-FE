@@ -27,7 +27,9 @@ export const PATH = {
   MYINFO: '/mypage/info/',
   CHANGEPW: 'mypage/changePassword/',
 
-  // hone && search
+  // home && search
   LIKE: '/favor/',
+  LIKE_RANK: '/favor/rank',
+  REVIEW_RANK: '/review/rank',
   PLACEDETAIL: '/place/',
 };
