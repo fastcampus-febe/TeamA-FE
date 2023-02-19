@@ -12,7 +12,7 @@ const InfoProfile = () => {
 
   const userId = getItem('user').id;
   const userPW = getItem('user').password;
-  // const pwLen = userPW.length - 2;
+  const pwLen = userPW.length - 2;
 
   useEffect(() => {
     async function getData() {
@@ -51,7 +51,7 @@ const InfoProfile = () => {
           <li>
             <InfoForm>
               <h2>비밀번호</h2>
-              {/* <span>{userPW.slice(0, 2) + '*'.repeat(pwLen)}</span> */}
+              <span>{userPW.slice(0, 2) + '*'.repeat(pwLen)}</span>
             </InfoForm>
           </li>
         </Profile>
