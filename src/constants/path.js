@@ -22,10 +22,10 @@ export const PATH = {
   COMMENT_DELETE: '/comment/',
 
   // mypage
-  MYLIKE: '/mypage/favor/',
-  MYREVIEW: '/mypage/review/',
-  MYINFO: '/mypage/info/',
-  CHANGEPW: 'mypage/changePassword/',
+  MYLIKE: '/myPage/favor/',
+  MYREVIEW: '/myPage/review/',
+  MYINFO: '/myPage/info/',
+  CHANGEPW: 'myPage/changePassword/',
 
   // home && search
   LIKE: '/favor/',
